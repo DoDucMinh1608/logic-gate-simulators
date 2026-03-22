@@ -1,4 +1,4 @@
-import { MIN_HEIGHT, TRANSISTOR_SIZE } from "../utils/constants"
+import { MIN_Y_POSITION, TRANSISTOR_SIZE } from "../../utils/constants"
 
 
 const [WIDTH, HEIGHT, DEPTH] = TRANSISTOR_SIZE
@@ -6,7 +6,7 @@ const [WIDTH, HEIGHT, DEPTH] = TRANSISTOR_SIZE
 function Transistor() {
   return (
     <group position={[0, 0, 0]}>
-      <mesh position={[WIDTH / 2, MIN_HEIGHT + HEIGHT / 2, DEPTH / 2]}>
+      <mesh position={[WIDTH / 2, MIN_Y_POSITION + HEIGHT / 2, DEPTH / 2]}>
         <boxGeometry args={[WIDTH, HEIGHT, DEPTH]} />
         <meshNormalMaterial />
       </mesh>

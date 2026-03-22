@@ -1,12 +1,11 @@
+import { Edges } from "@react-three/drei";
 import { useFrame } from "@react-three/fiber";
 import { useRef } from "react";
 import { Mesh, Plane, Vector3 } from "three";
 
-import { useStore } from "../store/useStore";
-import { TRANSISTOR_SIZE } from "../utils/constants";
-import type { Vec3 } from "../utils/types";
-import DistanceCuller from "./utils/DistanceCuller";
-import { Edges } from "@react-three/drei";
+import { useStore } from "../../store/useStore";
+import { TRANSISTOR_SIZE } from "../../utils/constants";
+import type { Vec3Arr } from "../../utils/types";
 
 function MountFollower() {
   const meshRef = useRef<Mesh>(null!)
@@ -29,13 +28,11 @@ function MountFollower() {
     gl.render(state.scene, state.camera)
   }, 1)
   return (
-    <DistanceCuller distance={10}>
-      <mesh ref={meshRef}>
-        <boxGeometry args={TRANSISTOR_SIZE as Vec3} />
-        <meshNormalMaterial transparent opacity={0.2} />
-        <Edges threshold={15} color="black" lineWidth={1} />
-      </mesh>
-    </DistanceCuller>
+    <mesh ref={meshRef}>
+      <boxGeometry args={TRANSISTOR_SIZE as Vec3Arr} />
+      <meshNormalMaterial transparent opacity={0.2} />
+      <Edges threshold={15} color="black" lineWidth={1} />
+    </mesh>
   )
 }
 

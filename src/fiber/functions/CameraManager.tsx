@@ -1,8 +1,8 @@
 import { useFrame } from "@react-three/fiber";
 import { type ReactNode } from "react";
+import { Vector3 } from "three";
 
 import { useStore } from "../../store/useStore";
-import { Vector3 } from "three";
 
 
 function CameraManager(): ReactNode {
@@ -17,10 +17,10 @@ function CameraManager(): ReactNode {
     state.camera.getWorldDirection(direction)
     state.camera.getWorldPosition(position)
 
-    setCamera(position, direction)
+    setCamera({ ...position }, { ...direction })
     gl.render(state.scene, state.camera)
   }, -2)
-  return null
+  return
 }
 
 export default CameraManager
