@@ -1,18 +1,18 @@
-import type { ReactNode } from "react"
-
 import { PointerLockControls, useKeyboardControls } from "@react-three/drei"
 import { useFrame, useThree } from "@react-three/fiber"
-import * as THREE from 'three'
+import type { ReactNode } from "react"
+import { Vector3 } from 'three'
 
-const speed = 0.05
+import { SPEED_MOVEMENT } from "../utils/constants"
+
 function User(): ReactNode {
   const { camera } = useThree()
   const [, getKeys] = useKeyboardControls()
 
-  const direction = new THREE.Vector3()
-  const frontVector = new THREE.Vector3()
-  const sideVector = new THREE.Vector3()
-  useFrame((state, delta) => {
+  const direction = new Vector3()
+  const frontVector = new Vector3()
+  const sideVector = new Vector3()
+  useFrame(({ gl, ...state }) => {
     const { forward, backward, left, right, up, down } = getKeys()
 
     camera.getWorldDirection(frontVector)
@@ -26,14 +26,15 @@ function User(): ReactNode {
       .addScaledVector(sideVector, +left - +right)
       .addScaledVector(frontVector, +forward - +backward)
       .normalize()
-      .multiplyScalar(speed)
+      .multiplyScalar(SPEED_MOVEMENT)
 
     camera.position.x += direction.x
-    camera.position.y += (+up - +down) * speed
+    camera.position.y += (+up - +down) * SPEED_MOVEMENT
     camera.position.z += direction.z
 
     if (camera.position.y < 1 && down) camera.position.y = 1
-  })
+    gl.render(state.scene, state.camera)
+  }, -1)
   return (
     <PointerLockControls />
   )

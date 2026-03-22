@@ -1,10 +1,8 @@
-export const TRANSISTOR_SIZE = {
-  WIDTH: 0.5,
-  HEIGHT: 0.1,
-  DEPTH: 0.5,
-}
+export const TRANSISTOR_SIZE = [0.5, 0.5, 0.5]
 
 export const MIN_HEIGHT = 0
+
+export const SPEED_MOVEMENT = 0.1
 
 export const KEYBOARD_MAPPING = [
   { name: 'forward', keys: ['KeyW'] },
