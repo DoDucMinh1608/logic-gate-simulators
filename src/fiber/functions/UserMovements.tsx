@@ -3,7 +3,7 @@ import { useFrame, useThree } from "@react-three/fiber"
 import type { ReactNode } from "react"
 import { Vector3 } from 'three'
 
-import { KEY_EVENTS, OY, SPEED_MOVEMENT } from "../../utils/constants"
+import { KEY_EVENTS, UP, SPEED_MOVEMENT } from "../../utils/constants"
 import { useStore } from "../../store/useStore"
 
 export const KEYBOARD_MAPPING = [
@@ -24,7 +24,7 @@ function UserMovements(): ReactNode {
   frontVector.y = 0
   frontVector.normalize()
   const sideVector = new Vector3()
-  sideVector.crossVectors(OY, frontVector)
+  sideVector.crossVectors(UP, frontVector)
 
   const direction = new Vector3()
 
@@ -35,7 +35,7 @@ function UserMovements(): ReactNode {
       .addScaledVector(sideVector, +keys[KEY_EVENTS.KeyA] - +keys[KEY_EVENTS.KeyD])
       .addScaledVector(frontVector, +keys[KEY_EVENTS.KeyW] - +keys[KEY_EVENTS.KeyS])
       .normalize()
-      .addScaledVector(OY, +keys[KEY_EVENTS.Space] - +keys[KEY_EVENTS.ShiftLeft])
+      .addScaledVector(UP, +keys[KEY_EVENTS.Space] - +keys[KEY_EVENTS.ShiftLeft])
 
     const camera = state.camera
     camera.position.addScaledVector(direction, SPEED_MOVEMENT)
