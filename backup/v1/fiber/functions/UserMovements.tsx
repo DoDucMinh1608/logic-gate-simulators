@@ -1,20 +1,10 @@
 import { PointerLockControls, useKeyboardControls } from "@react-three/drei"
-import { useFrame, useThree } from "@react-three/fiber"
+import { useFrame } from "@react-three/fiber"
 import type { ReactNode } from "react"
 import { Vector3 } from 'three'
 
-import { KEY_EVENTS, UP, SPEED_MOVEMENT } from "../../utils/constants"
 import { useStore } from "../../store/useStore"
-
-export const KEYBOARD_MAPPING = [
-  { name: 'forward', keys: ['KeyW'] },
-  { name: 'backward', keys: ['KeyS'] },
-  { name: 'left', keys: ['KeyA'] },
-  { name: 'right', keys: ['KeyD'] },
-  { name: "up", keys: ['Space'] },
-  { name: "down", keys: ['ShiftLeft'] },
-]
-
+import { KEY_EVENTS, SPEED_MOVEMENT, UP } from "../../utils/constants"
 
 function UserMovements(): ReactNode {
   const [, getKeys] = useKeyboardControls()

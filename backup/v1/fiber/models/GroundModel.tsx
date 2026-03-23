@@ -19,13 +19,14 @@ function GroundModel(): ReactNode {
   })
   return (
     <Grid
+      args={[50, 50]}
       ref={ref}
-      infiniteGrid
       cellSize={0.05}
       sectionSize={sectionSize}
       sectionColor={0x000000}
       cellColor={0x101010}
-      fadeStrength={15} />
+      fadeStrength={15}
+    />
   )
 }
 

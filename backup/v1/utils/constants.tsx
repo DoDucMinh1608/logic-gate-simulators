@@ -4,6 +4,7 @@ export const MIN_Y_POSITION = 0
 
 export const SPEED_MOVEMENT = 0.1
 export const TRANSISTOR_SIZE = [0.5, 0.5, 0.5]
+export const TRANSISTOR_REAL_SIZE = [0.4, 0.1, 0.3]
 
 export const RIGHT = new Vector3(1, 0, 0)
 export const UP = new Vector3(0, 1, 0)
