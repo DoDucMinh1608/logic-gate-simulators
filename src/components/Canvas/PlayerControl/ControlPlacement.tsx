@@ -3,6 +3,7 @@ import { useFrame } from "@react-three/fiber";
 import { useRef, type ReactNode } from "react";
 import { Mesh, Plane, Vector3 } from "three";
 
+import { useObjectsSlice } from "../../../store/objectsSlice";
 import { getLookingPositionOnPlane, setSnapGridPosition } from "../../../utils/math-utils";
 
 const activePlane = new Plane(new Vector3(0, 1, 0), 0)
@@ -16,12 +17,15 @@ function MeshDisplay() {
     </mesh>
   )
 }
+
+const direction = new Vector3()
+const contactPoint = new Vector3()
+const gridPosition = new Vector3()
 function ControlPlacement(): ReactNode {
   const ref = useRef<Mesh>(null!)
 
-  const direction = new Vector3()
-  const contactPoint = new Vector3()
-  const gridPosition = new Vector3()
+  const addGate = useObjectsSlice(state => state.addGate)
+  const removeGate = useObjectsSlice(state => state.removeGate)
 
   useFrame(state => {
     const camera = state.camera

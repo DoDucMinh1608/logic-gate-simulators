@@ -13,14 +13,14 @@ const movementKeys = {
   up: KEY_EVENTS.Space,
   down: KEY_EVENTS.ShiftLeft
 }
-const up = new Vector3(0, 1, 0)
 
+const up = new Vector3(0, 1, 0)
+const cameraDirection = new Vector3()
+const sideVector = new Vector3()
+const direction = new Vector3()
 function UserMovements(): ReactNode {
   const [, getKeys] = useKeyboardControls()
 
-  const cameraDirection = new Vector3()
-  const sideVector = new Vector3()
-  const direction = new Vector3()
 
   useFrame(state => {
     const keys = getKeys()
@@ -40,9 +40,7 @@ function UserMovements(): ReactNode {
 
     if (state.camera.position.y < 1) state.camera.position.y = 1
   })
-  return (
-    <PointerLockControls />
-  )
+  return
 }
 
 export default UserMovements

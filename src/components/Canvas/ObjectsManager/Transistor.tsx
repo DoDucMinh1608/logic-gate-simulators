@@ -1,12 +1,23 @@
-import type { ReactNode } from "react";
+import { Vector3 } from "three"
 
-function Transistor(): ReactNode {
+const size = new Vector3(0.1, 0.1, 0.1)
+function Mesh() {
+  return (
+    <>
+      <boxGeometry args={size.toArray()} />
+      <meshStandardMaterial />
+    </>
+  )
+}
+
+function Transistor() {
   return (
     <mesh>
-      <boxGeometry />
-      <meshStandardMaterial />
+      <Mesh />
     </mesh>
   )
 }
+
+Transistor.Mesh = Mesh
 
 export default Transistor

@@ -4,11 +4,11 @@ import { useThrottledFrame } from "../../../hooks/useThrottledFrame";
 import { usePlayerSlice } from "../../../store/playerSlice";
 
 const updateTick = 15
+const inputVector = new Vector3()
 function SetCameraState() {
   const setCameraPosition = usePlayerSlice(state => state.setCameraPosition)
   const setCameraDirection = usePlayerSlice(state => state.setCameraDirection)
 
-  const inputVector = new Vector3()
   useThrottledFrame(state => {
     const camera = state.camera
 
@@ -17,7 +17,6 @@ function SetCameraState() {
 
     camera.getWorldDirection(inputVector)
     setCameraDirection(inputVector)
-
     state.gl.render(state.scene, state.camera)
   }, -1, updateTick)
 
