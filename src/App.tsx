@@ -11,7 +11,7 @@ function App() {
     <>
       <MainUI />
       <KeyboardControls map={keyMap}>
-        <Canvas camera={{ fov: 75 }}>
+        <Canvas camera={{ fov: 75, position: [1, 1, 1] }}>
           <Experience />
         </Canvas>
       </KeyboardControls>

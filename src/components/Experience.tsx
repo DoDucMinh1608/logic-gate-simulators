@@ -1,15 +1,17 @@
 import type { ReactNode } from "react";
 
-import Objects from "./Objects";
-import Player from "./Player";
-import World from "./World";
+import ObjectsManager from "./Canvas/ObjectsManager";
+import PlayerControl from "./Canvas/PlayerControl";
+import PublicCanvasState from "./Canvas/PublicCanvasState";
+import WorldObjects from "./Canvas/WorldObjects";
 
 function Experience(): ReactNode {
   return (
     <>
-      <Player />
-      <Objects />
-      <World />
+      <PublicCanvasState />
+      <PlayerControl />
+      <ObjectsManager />
+      <WorldObjects />
     </>
   )
 }

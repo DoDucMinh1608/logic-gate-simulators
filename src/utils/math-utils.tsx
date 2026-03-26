@@ -14,7 +14,7 @@ export function getDegrees(direction: Vector3) {
   return { yaw, pitch };
 };
 
-export function lookingPosition(state: RootState, plane: Plane, result: Vector3): Vector3 {
+export function getLookingPositionOnPlane(state: RootState, plane: Plane, result: Vector3): Vector3 {
   state.raycaster.setFromCamera(state.pointer, state.camera)
   state.raycaster.ray.intersectPlane(plane, result)
   return result
