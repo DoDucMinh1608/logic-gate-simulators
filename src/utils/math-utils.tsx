@@ -20,7 +20,7 @@ export function getLookingPositionOnPlane(state: RootState, plane: Plane, result
   return result
 }
 
-export function snapGridPosition(position: Vector3, size: Vector3, result: Vector3): Vector3 {
+export function setSnapGridPosition(position: Vector3, size: Vector3, result: Vector3): Vector3 {
   result.set(
     Math.floor(position.x / size.x) * size.x + size.x / 2,
     Math.floor(position.y / size.y) * size.y + size.y / 2,

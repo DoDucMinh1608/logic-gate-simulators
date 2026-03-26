@@ -5,7 +5,7 @@ import Transistor from "./Transistor";
 function ObjectsManager(): ReactNode {
   return (
     <>
-      <Transistor />
+      {/* <Transistor /> */}
     </>
   )
 }
