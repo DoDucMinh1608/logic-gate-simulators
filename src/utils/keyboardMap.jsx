@@ -1,0 +1,63 @@
+export const KEY_EVENTS = {
+  // Alphabet
+  KeyA: 'KeyA',
+  KeyB: 'KeyB',
+  KeyC: 'KeyC',
+  KeyD: 'KeyD',
+  KeyE: 'KeyE',
+  KeyF: 'KeyF',
+  KeyG: 'KeyG',
+  KeyH: 'KeyH',
+  KeyI: 'KeyI',
+  KeyJ: 'KeyJ',
+  KeyK: 'KeyK',
+  KeyL: 'KeyL',
+  KeyM: 'KeyM',
+  KeyN: 'KeyN',
+  KeyO: 'KeyO',
+  KeyP: 'KeyP',
+  KeyQ: 'KeyQ',
+  KeyR: 'KeyR',
+  KeyS: 'KeyS',
+  KeyT: 'KeyT',
+  KeyU: 'KeyU',
+  KeyV: 'KeyV',
+  KeyW: 'KeyW',
+  KeyX: 'KeyX',
+  KeyY: 'KeyY',
+  KeyZ: 'KeyZ',
+
+  // Numbers
+  Digit0: 'Digit0',
+  Digit1: 'Digit1',
+  Digit2: 'Digit2',
+  Digit3: 'Digit3',
+  Digit4: 'Digit4',
+  Digit5: 'Digit5',
+  Digit6: 'Digit6',
+  Digit7: 'Digit7',
+  Digit8: 'Digit8',
+  Digit9: 'Digit9',
+
+  // Arrows
+  ArrowUp: 'ArrowUp',
+  ArrowDown: 'ArrowDown',
+  ArrowLeft: 'ArrowLeft',
+  ArrowRight: 'ArrowRight',
+
+  // Modifiers
+  ShiftLeft: 'ShiftLeft',
+  ShiftRight: 'ShiftRight',
+  ControlLeft: 'ControlLeft',
+  ControlRight: 'ControlRight',
+  AltLeft: 'AltLeft',
+  AltRight: 'AltRight',
+  Space: 'Space',
+  Enter: 'Enter',
+  Escape: 'Escape',
+  Tab: 'Tab',
+  Backspace: 'Backspace',
+  MetaLeft: 'MetaLeft',
+}
+
+export const keyMap = Object.values(KEY_EVENTS).map((key) => ({ name: key, keys: [key], }));
