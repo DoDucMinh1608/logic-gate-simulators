@@ -1,4 +1,4 @@
-import { PointerLockControls } from '@react-three/drei'
+import { OrbitControls, PointerLockControls } from '@react-three/drei'
 import { useEffect } from 'react'
 
 import { usePlayerSlice } from '../../../store/playerSlice'
@@ -15,10 +15,9 @@ export default function PointerLockGlobal() {
 
     document.addEventListener('pointerlockchange', handleLockChange)
     return () => document.removeEventListener('pointerlockchange', handleLockChange)
-
   }, [setMouseLock])
 
   return (
     <PointerLockControls />
-  ) // This component renders nothing, it's just logic
+  )
 }

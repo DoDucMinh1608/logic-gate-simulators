@@ -1,6 +1,6 @@
 import { Vector3 } from "three"
 
-const size = new Vector3(0.1, 0.1, 0.1)
+const size = new Vector3(0.2, 0.2, 0.2)
 function Mesh() {
   return (
     <>
@@ -19,5 +19,6 @@ function Transistor() {
 }
 
 Transistor.Mesh = Mesh
+Transistor.size = size
 
 export default Transistor

@@ -6,13 +6,11 @@ import DebugTerminal from "./UI/DebugTerminal";
 
 function MainUI(): ReactNode {
   return (
-    <div
-      className="pointer-events-none absolute top-0 left-0 w-full h-full z-10"
-      onContextMenu={e => e.preventDefault()}>
+    <>
       <CenterCursor />
       <DebugTerminal />
       <CurrentCameraState />
-    </div>
+    </>
   )
 }
 

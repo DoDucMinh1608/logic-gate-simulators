@@ -5,10 +5,12 @@ export interface PlayerState {
   camera: { position: Vector3, direction: Vector3 } | null,
   mouseLock: boolean,
   custom: Record<string, any>,
+  interactPosition?: Vector3,
   setCustom: (key: string, value: any) => void,
   setCameraPosition: (position: Vector3) => void,
   setCameraDirection: (direction: Vector3) => void,
   setMouseLock: (input: boolean) => void
+  setInteractPosition: (position: Vector3) => void
 }
 
 export const usePlayerSlice = create<PlayerState>(set => ({
@@ -22,7 +24,9 @@ export const usePlayerSlice = create<PlayerState>(set => ({
         [key]: value
       }
     }))
-
+  },
+  setInteractPosition(position) {
+    set({ interactPosition: position.clone() })
   },
   setCameraPosition(position: Vector3) {
     set(state => ({

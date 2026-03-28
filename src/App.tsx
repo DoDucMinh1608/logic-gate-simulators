@@ -4,6 +4,7 @@ import { Canvas } from '@react-three/fiber'
 import Experience from './components/Experience'
 import MainUI from './components/MainUI'
 import { keyMap } from './utils/keyboardMap'
+import onMouseDown from './components/Canvas/CanvasEvents/onMouseDown'
 
 
 function App() {
@@ -11,7 +12,9 @@ function App() {
     <>
       <MainUI />
       <KeyboardControls map={keyMap}>
-        <Canvas camera={{ fov: 90, position: [1, 1, 1] }}>
+        <Canvas
+          camera={{ fov: 75, position: [2, 2, 2], far: 1000 }}
+          onMouseDown={e => onMouseDown(e)}>
           <Experience />
         </Canvas>
       </KeyboardControls>

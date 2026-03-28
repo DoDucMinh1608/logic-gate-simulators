@@ -3,15 +3,13 @@ import { type ReactNode } from "react";
 
 import { useObjectsSlice } from "../../../store/objectsSlice";
 import Transistor from "./Transistor";
-import { Vector3 } from "three";
-
 
 function ObjectsManager(): ReactNode {
   const objects = useObjectsSlice(state => state.objects)
 
   const removeGate = useObjectsSlice(state => state.removeGate)
   return (
-    <Instances range={objects.length}>
+    <Instances range={objects.length} frustumCulled={false}>
       <Transistor.Mesh />
 
       {objects.map(d => (
@@ -28,5 +26,11 @@ function ObjectsManager(): ReactNode {
     </Instances>
   )
 }
-
+// {
+//   objects.map(d => (
+//     <mesh key={d.id} position={d.position} onClick={() => removeGate(d.id)}>
+//       <Transistor.Mesh />
+//     </mesh>
+//   ))
+// }
 export default ObjectsManager

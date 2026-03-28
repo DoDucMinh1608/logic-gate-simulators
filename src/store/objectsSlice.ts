@@ -11,10 +11,10 @@ export interface LogicGate {
 
 export interface ObjectsState {
   objects: LogicGate[],
-  addGate: (input: any) => void,
+  addGate: (input: LogicGate) => void,
   udpateGate: (id: string, input: any) => void,
   removeGate: (id: string) => void,
-  checkGatePosition: (position: Vector3) => LogicGate | null
+  getGateByPosition: (position: Vector3) => LogicGate | null
 }
 
 export const useObjectsSlice = create<ObjectsState>(set => ({
@@ -23,12 +23,10 @@ export const useObjectsSlice = create<ObjectsState>(set => ({
     // { id: '2', type: 'AND', position: [1.5, 0.5, 1.5], color: 'blue', active: false },
   ],
   addGate(input: LogicGate) {
-    if (useObjectsSlice.getState().checkGatePosition(input.position)) {
-      return
-    }
     set(state => ({
       objects: [...state.objects, input]
     }))
+    console.log(useObjectsSlice.getState().objects)
   },
   removeGate(id: string) {
     set(state => ({
@@ -40,7 +38,7 @@ export const useObjectsSlice = create<ObjectsState>(set => ({
       objects: state.objects.map(gate => gate.id === id ? { ...gate, ...input } : gate)
     }))
   },
-  checkGatePosition(position): LogicGate | null {
+  getGateByPosition(position): LogicGate | null {
     const foundGate = useObjectsSlice
       .getState().objects
       .find((gate: LogicGate) => gate.position.equals(position))
