@@ -1,7 +1,7 @@
 import { Vector3 } from "three";
 
-import { useThrottledFrame } from "../../../hooks/useThrottledFrame";
-import { usePlayerSlice } from "../../../store/playerSlice";
+import { useThrottledFrame } from "@/hooks/useThrottledFrame";
+import { usePlayerSlice } from "@/store/playerSlice";
 
 const updateTick = 15
 const inputVector = new Vector3()

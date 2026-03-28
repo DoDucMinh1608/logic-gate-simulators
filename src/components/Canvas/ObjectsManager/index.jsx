@@ -1,6 +1,9 @@
 import { Instance, Instances } from "@react-three/drei";
 
 import { useObjectsSlice } from "@/store/objectsSlice";
+import onEnterTransistor from "../CanvasEvents/TransistorEvents/onEnterTransistor";
+import onLeaveTransistor from "../CanvasEvents/TransistorEvents/onLeaveTransistor";
+import onMouseDownTransistor from "../CanvasEvents/TransistorEvents/onMouseDownTransistor";
 import Transistor from "./Transistor";
 
 
@@ -9,20 +12,21 @@ function ObjectsManager() {
   const removeGate = useObjectsSlice(state => state.removeGate)
 
   return (
-    <Instances range={objects.length} frustumCulled={false}>
-      <Transistor.Mesh />
-      {objects.map(d => (
-        <Instance
-          key={d.id}
-          position={d.position}
-          onPointerDown={e => {
-            if (e.button === 0) {
-              removeGate(d.id)
-            }
-          }}
-        />
-      ))}
-    </Instances>
+    <>
+      <Instances range={objects.length} frustumCulled={false}>
+        <Transistor.Mesh />
+        {objects.map(d => (
+          <Instance
+            key={d.id}
+            name={`key_${d.id}`}
+            position={d.position}
+            onPointerEnter={e => onEnterTransistor(e, d)}
+            onPointerLeave={e => onLeaveTransistor(e)}
+            onPointerDown={e => onMouseDownTransistor(e, d, removeGate)}
+          />
+        ))}
+      </Instances>
+    </>
   )
 }
 // {

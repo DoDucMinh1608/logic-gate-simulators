@@ -12,7 +12,7 @@ function App() {
       <MainUI />
       <KeyboardControls map={keyMap}>
         <Canvas
-          camera={{ fov: 75, position: [2, 2, 2], far: 1000 }}
+          camera={{ fov: 90 }}
           onMouseDown={e => onMouseDown(e)}>
           <Experience />
         </Canvas>

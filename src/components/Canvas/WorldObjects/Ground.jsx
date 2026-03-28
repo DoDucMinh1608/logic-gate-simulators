@@ -6,9 +6,6 @@ function Ground() {
   const ref = useRef()
   return (
     <>
-      {/* <Plane args={[100, 100]} rotation={[-Math.PI / 2, 0, 0]} position={[0, -0.01, 0]}>
-        <meshStandardMaterial color="#555555" />
-      </Plane> */}
       <Grid
         name="world_ground"
         args={[50, 50]}

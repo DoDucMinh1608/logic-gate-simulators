@@ -1,11 +1,11 @@
-import { type ReactNode } from "react";
-import { usePlayerSlice } from "../../store/playerSlice";
-import { getDegrees } from "../../utils/math-utils";
+import { usePlayerSlice } from "@/store/playerSlice"
+import { getDegrees } from "@/utils/math-utils"
 
 
-function CurrentCameraState(): ReactNode {
+
+function CurrentCameraState() {
   const camera = usePlayerSlice(state => state.camera)
-  const angles = getDegrees(camera?.direction!)
+  const angles = getDegrees(camera?.direction)
 
   return (
     <div className="font-mono absolute  left-0 top-0 translate-x-2 flex bg-[rgba(255,255,255,0.5)] p-1 gap-5">

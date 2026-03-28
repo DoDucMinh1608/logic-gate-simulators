@@ -38,7 +38,7 @@ function UserMovements() {
       .addScaledVector(up, +keys[movementKeys.up] - +keys[movementKeys.down])
     state.camera.position.addScaledVector(direction, 0.1)
 
-    if (state.camera.position.y < 1) state.camera.position.y = 1
+    if (state.camera.position.y < 0.5) state.camera.position.y = 0.5
   })
   return
 }

@@ -20,20 +20,18 @@ function onMouseDown(event) {
   }
 
   setSnapGridPosition(interactPosition, Transistor.size, position)
-
   const existingGate = getGateByPosition(position)
-  if (existingGate) {
-    console.log("Gate already exists at this position:", existingGate)
-    return;
-  }
+  if (event.button === 2) {
+    if (existingGate) {
+      console.log("Gate already exists at this position:", existingGate.position)
+      return;
+    }
 
-  addGate({
-    id: crypto.randomUUID(),
-    type: "AND",
-    position: position.clone(),
-    color: "red",
-    active: true
-  })
+    addGate({
+      id: crypto.randomUUID(),
+      position: position.clone(),
+    })
+  }
 }
 
 export default onMouseDown;

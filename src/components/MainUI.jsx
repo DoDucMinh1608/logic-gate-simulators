@@ -6,7 +6,7 @@ function MainUI() {
   return (
     <>
       <CenterCursor />
-      <DebugTerminal />
+      {/* <DebugTerminal /> */}
       <CurrentCameraState />
     </>
   )

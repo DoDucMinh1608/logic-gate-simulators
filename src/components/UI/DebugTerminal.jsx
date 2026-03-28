@@ -1,4 +1,5 @@
-import { usePlayerSlice } from "../../store/playerSlice";
+import { usePlayerSlice } from "@/store/playerSlice";
+
 
 function DebugTerminal() {
   const customs = usePlayerSlice(state => state.custom)

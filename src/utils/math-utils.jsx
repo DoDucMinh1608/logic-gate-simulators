@@ -17,11 +17,11 @@ export function getLookingPositionOnPlane(state, plane, result) {
   return result
 }
 
-export function setSnapGridPosition(position, size, result) {
+export function setSnapGridPosition(position, display_size, result) {
   result.set(
-    Math.floor(position.x / size.x) * size.x + size.x / 2,
-    Math.floor(position.y / size.y) * size.y + size.y / 2,
-    Math.floor(position.z / size.z) * size.z + size.z / 2,
+    Math.floor(position.x / display_size.x) * display_size.x + display_size.x / 2,
+    Math.floor(position.y / display_size.y) * display_size.y + display_size.y / 2,
+    Math.floor(position.z / display_size.z) * display_size.z + display_size.z / 2,
   )
   return result
 }
