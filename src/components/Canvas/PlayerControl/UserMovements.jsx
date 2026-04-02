@@ -1,9 +1,8 @@
 import { Vector3 } from "three"
-
-import { KEY_EVENTS } from "@/utils/keyboardMap"
 import { useKeyboardControls } from "@react-three/drei"
 import { useFrame } from "@react-three/fiber"
 
+import { KEY_EVENTS } from "@/utils/keyboardMap"
 
 const movementKeys = {
   forward: KEY_EVENTS.KeyW,
@@ -38,7 +37,7 @@ function UserMovements() {
       .addScaledVector(up, +keys[movementKeys.up] - +keys[movementKeys.down])
     state.camera.position.addScaledVector(direction, 0.1)
 
-    if (state.camera.position.y < 0.5) state.camera.position.y = 0.5
+    // if (state.camera.position.y < 0.5) state.camera.position.y = 0.5
   })
   return
 }

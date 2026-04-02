@@ -1,7 +1,7 @@
 import { Edges } from "@react-three/drei"
 import { Vector3 } from "three"
 
-const size = new Vector3(0.2, 0.2, 0.2)
+const size = new Vector3(2, 2, 2)
 function Mesh() {
   return (
     <>

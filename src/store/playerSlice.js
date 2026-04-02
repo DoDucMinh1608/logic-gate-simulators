@@ -4,7 +4,6 @@ import { create } from "zustand"
 export const usePlayerSlice = create(set => ({
   custom: {},
   camera: { position: new Vector3(), direction: new Vector3() },
-  interactPosition: new Vector3(),
   mouseLock: true,
   setCustom(key, value) {
     set(state => ({
@@ -13,9 +12,6 @@ export const usePlayerSlice = create(set => ({
         [key]: value
       }
     }))
-  },
-  setInteractPosition(position) {
-    set({ interactPosition: position.clone() })
   },
   setCameraPosition(position) {
     set(state => ({

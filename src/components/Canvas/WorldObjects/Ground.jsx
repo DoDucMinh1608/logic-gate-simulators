@@ -16,6 +16,10 @@ function Ground() {
         cellColor={0x101010}
         fadeStrength={15}
       />
+      <mesh>
+        <boxGeometry args={[0.1, 0.1, 0.1]} />
+        <meshNormalMaterial />
+      </mesh>
     </>
   )
 }

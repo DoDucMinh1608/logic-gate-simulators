@@ -4,13 +4,14 @@ import { useObjectsSlice } from "@/store/objectsSlice";
 import { usePlayerSlice } from "@/store/playerSlice";
 import { setSnapGridPosition } from "@/utils/math-utils";
 import Transistor from "../ObjectsManager/Transistor";
+import { useUtilitySlice } from "@/store/utilitiesSlice";
 
 
 // TODO: update mouse down to place gates on the grid base on mouse key
 const position = new Vector3()
 function onMouseDown(event) {
   const camera = usePlayerSlice.getState().camera; // Access the camera from the player slice
-  const interactPosition = usePlayerSlice.getState().interactPosition; // Access the interact position from the player slice
+  const interactPosition = useUtilitySlice.getState().interactPosition; // Access the interact position from the player slice
   const addGate = useObjectsSlice.getState().addGate; // Access the addGate function from the player slice
   const getGateByPosition = useObjectsSlice.getState().getGateByPosition; // Access the getGateByPosition function from the player slice
 
