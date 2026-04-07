@@ -5,13 +5,12 @@ import { useUtilitySlice } from "@/store/utilitiesSlice";
 import { getLookingPositionOnPlane, setSnapGridPosition, testSnapPos } from "@/utils/math-utils";
 import Transistor from "../ObjectsManager/Transistor";
 
-
 // TODO: update placing position when looking at an object, not just the ground plane, should be refactored to avoid code duplication with ControlPlacement
 const contactPoint = new Vector3()
 const activePlane = new Plane(new Vector3(0, 1, 0), 1)
 const direction = new Vector3()
 const gridPosition = new Vector3()
-const actualSize = Transistor.size
+const actualSize = Transistor.gridSize
 const position = new Vector3()
 
 function SetInteractPosition() {
@@ -34,7 +33,6 @@ function SetInteractPosition() {
     //scene.children.includes(c => c.uuid == i.object.parent.uuid) &&
     // console.log(intersects[0].object.position)
     if (intersects.length > 0) {
-      console.log(intersects[0])
       testSnapPos(intersects[0].object.position, intersects[0].point, actualSize, gridPosition)
 
       // console.log(

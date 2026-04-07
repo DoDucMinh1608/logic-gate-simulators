@@ -4,9 +4,9 @@ import { useRef, useState } from "react";
 import { Vector3 } from "three";
 
 import { useObjectsSlice } from "@/store/objectsSlice";
-import Transistor from "./Transistor";
-import { setSnapGridPosition } from "@/utils/math-utils";
 import { usePlayerSlice } from "@/store/playerSlice";
+import Transistor from "./Transistor";
+import { Model } from "./AND";
 
 const position = new Vector3()
 position
@@ -24,6 +24,7 @@ function ObjectsManager() {
 
   return (
     <>
+      <Model />
       <Instances range={objects.length} frustumCulled={false}>
         <Transistor.Mesh />
         {objects.map(d => (
@@ -31,27 +32,17 @@ function ObjectsManager() {
             key={d.id}
             name={`transistor_${d.id}`}
             position={d.position}
+            rotation={[0, d.rotation ?? 0, 0]}
             onPointerDown={e => {
-              e.stopPropagation()
-              if (e.button === 0) {
-                removeGate(d.id)
-              }
+              // e.stopPropagation()
+              // if (e.button === 0) {
+              //   removeGate(d.id)
+              // }
             }}
           />
         ))}
       </Instances>
-      <mesh ref={ref}>
-        <boxGeometry args={[0.02, 0.02, 0.02]} />
-        <meshBasicMaterial color="red" />
-      </mesh>
     </>
   )
 }
-// {
-//   objects.map(d => (
-//     <mesh key={d.id} position={d.position} onClick={() => removeGate(d.id)}>
-//       <Transistor.Mesh />
-//     </mesh>
-//   ))
-// }
 export default ObjectsManager

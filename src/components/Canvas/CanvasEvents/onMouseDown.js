@@ -20,7 +20,7 @@ function onMouseDown(event) {
     return;
   }
 
-  setSnapGridPosition(interactPosition, Transistor.size, position)
+  setSnapGridPosition(interactPosition, Transistor.gridSize, position)
   const existingGate = getGateByPosition(position)
   if (event.button === 2) {
     if (existingGate) {

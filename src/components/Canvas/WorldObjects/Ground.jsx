@@ -1,7 +1,6 @@
 import { Grid } from "@react-three/drei";
 import { useRef } from "react";
 
-const sectionSize = 0.2
 function Ground() {
   const ref = useRef()
   return (
@@ -11,15 +10,11 @@ function Ground() {
         args={[50, 50]}
         ref={ref}
         cellSize={0.10}
-        sectionSize={sectionSize}
+        sectionSize={0.2}
         sectionColor={0x000000}
         cellColor={0x101010}
         fadeStrength={15}
       />
-      <mesh>
-        <boxGeometry args={[0.1, 0.1, 0.1]} />
-        <meshNormalMaterial />
-      </mesh>
     </>
   )
 }

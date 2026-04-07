@@ -20,7 +20,6 @@ const direction = new Vector3()
 function UserMovements() {
   const [, getKeys] = useKeyboardControls()
 
-
   useFrame(state => {
     const keys = getKeys()
 
@@ -35,7 +34,7 @@ function UserMovements() {
       .addScaledVector(cameraDirection, +keys[movementKeys.forward] - +keys[movementKeys.backward])
       .normalize()
       .addScaledVector(up, +keys[movementKeys.up] - +keys[movementKeys.down])
-    state.camera.position.addScaledVector(direction, 0.1)
+    state.camera.position.addScaledVector(direction, 0.05)
 
     // if (state.camera.position.y < 0.5) state.camera.position.y = 0.5
   })
