@@ -1,4 +1,6 @@
+import { Vector3 } from "three";
 import { NORMAL_VALUE } from "./constants";
+import Transistor from "@/components/Canvas/ObjectsManager/Transistor";
 
 export function getDegrees(direction) {
   if (!direction) return { yaw: 0, pitch: 0 };
@@ -65,4 +67,24 @@ export function calculateIntPosition(position, scale, result) {
     Math.floor(position.z / scale.z)
   )
   return result
+}
+// const gridSize = new Vector3(0.2, 0.04, 0.2)
+const tempVec = new Vector3()
+const prefixVec = new Vector3(0.5, 0, 0.5)
+const prefixVec2 = new Vector3(0.1, 0.01, 0.1)
+const prefixVec3 = new Vector3(2, 0, 2)
+export function calculateGatePosition(x, y = 0, z) {
+  return new Vector3(x, y, z)
+    .add(prefixVec)
+    .multiply(Transistor.gridSize)
+}
+export function calculateWirePosition(x, y = 0, z) {
+  return new Vector3(x, y, z)
+    .multiply(prefixVec2)
+  // .multiply(Transistor.gridSize)
+}
+
+export function convertGatePosToWirePos(x, y, z) {
+  return new Vector3(x, y, z)
+    .multiply(prefixVec3)
 }
