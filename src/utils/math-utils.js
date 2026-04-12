@@ -86,5 +86,6 @@ export function calculateWirePosition(x, y = 0, z) {
 
 export function convertGatePosToWirePos(x, y, z) {
   return new Vector3(x, y, z)
+    .addScalar(0.5)
     .multiply(prefixVec3)
 }

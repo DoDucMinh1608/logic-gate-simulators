@@ -8,7 +8,7 @@ import React from 'react'
 import { useGLTF } from '@react-three/drei'
 
 export function OrGate(props) {
-  const { nodes, materials } = useGLTF('models/OR_GATE-transformed.glb')
+  const { nodes, materials } = useGLTF('models/GATE-transformed.glb')
   return (
     <group {...props} dispose={null}>
       <mesh geometry={nodes['5'].geometry} material={nodes['5'].material}

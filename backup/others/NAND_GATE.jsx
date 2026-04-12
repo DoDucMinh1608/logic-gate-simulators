@@ -9,7 +9,7 @@ import { useGLTF } from '@react-three/drei'
 import { MeshNormalMaterial, MeshStandardMaterial } from 'three'
 
 export function NandGate(props) {
-  const { nodes, materials } = useGLTF('models/NAND_GATE-transformed.glb')
+  const { nodes, materials } = useGLTF('models/NAND-transformed.glb')
   return (
     <group {...props} dispose={null}>
       <mesh geometry={nodes['3'].geometry} material={nodes['3'].material}

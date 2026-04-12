@@ -7,7 +7,7 @@ Files: .\public\models\AND_GATE.glb [2.78KB] > C:\Users\ducmi\projects\logic-gat
 import { useGLTF } from '@react-three/drei'
 
 export function AndGate(props) {
-  const { nodes, materials } = useGLTF('models/AND_GATE-transformed.glb')
+  const { nodes, materials } = useGLTF('models/AND-transformed.glb')
   return (
     <group {...props} dispose={null}>
       <mesh geometry={nodes['4'].geometry} material={nodes['4'].material}

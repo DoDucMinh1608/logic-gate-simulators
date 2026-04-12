@@ -9,7 +9,7 @@ function Ground() {
         name="world_ground"
         args={[50, 50]}
         ref={ref}
-        cellSize={0.02}
+        cellSize={0.04}
         sectionSize={0.2}
         sectionColor={0x000000}
         cellColor={0x101010}

@@ -4,49 +4,68 @@ import { Vector3 } from "three";
 
 import { useObjectsSlice } from "@/store/objectsSlice";
 import { calculateGatePosition, calculateWirePosition } from "@/utils/math-utils";
-import { AndGate } from "./AND_GATE";
-import Clock from "./CLOCK";
-import { NotGate } from "./NOT_GATE";
-import { OrGate } from "./OR_GATE";
-import { NandGate } from "./NAND_GATE";
 
-const position = new Vector3()
+import AndGate from "../Gates/AndGate";
+import Clock from "../Gates/Clock";
+import NandGate from "../Gates/NandGate";
+import NorGate from "../Gates/NorGate";
+import NotGate from "../Gates/NotGate";
+import OrGate from "../Gates/OrGate";
+import XorGate from "../Gates/XorGate";
 
 function ObjectsManager() {
-
-  const andGate = useObjectsSlice(state => state.AND_GATE)
+  const gates = useObjectsSlice(state => state.GATES)
   const line = useObjectsSlice(state => state.LINES)
-  useFrame(() => {
-    // ref.current.position.copy(position)
-  })
 
   return (
     <>
       {/* <Connection /> */}
-      {andGate.map(obj => (
-        obj.type === "AND" ? <AndGate
-          key={obj.id}
-          position={calculateGatePosition(...obj.position)}
-          rotation={[0, obj.rotation * Math.PI / 2, 0]} />
-          : obj.type === "OR" ? <OrGate
-            key={obj.id}
+      {gates.map((obj, j) => (
+        <>
+          {obj.type === "AND" && <AndGate
+            key={`${j}_AND`}
             position={calculateGatePosition(...obj.position)}
-            rotation={[0, obj.rotation * Math.PI / 2, 0]} />
-            : obj.type === "NOT" ? <NotGate
-              key={obj.id}
-              position={calculateGatePosition(...obj.position)}
-              rotation={[0, obj.rotation * Math.PI / 2, 0]} />
-              : obj.type === "NAND" ? <NandGate
-                key={obj.id}
-                position={calculateGatePosition(...obj.position)}
-                rotation={[0, obj.rotation * Math.PI / 2, 0]}
-                tick={obj.tick} />
-                : obj.type === "CLOCK" ? <Clock
-                  key={obj.id}
-                  position={calculateGatePosition(...obj.position)}
-                  rotation={[0, obj.rotation * Math.PI / 2, 0]}
-                  tick={obj.tick} />
-                  : null
+            rotation={[0, obj.rotation * Math.PI / 2, 0]}
+            scale={0.2} />}
+          {obj.type === "OR" && <OrGate
+            key={`${j}_OR`}
+            position={calculateGatePosition(...obj.position)}
+            rotation={[0, obj.rotation * Math.PI / 2, 0]}
+            scale={0.2} />}
+          {obj.type === "NOT" && <NotGate
+            key={`${j}_NOT`}
+            position={calculateGatePosition(...obj.position)}
+            rotation={[0, obj.rotation * Math.PI / 2, 0]}
+            scale={0.2} />}
+
+          {obj.type === "NAND" && <NandGate
+            key={`${j}_AND`}
+            position={calculateGatePosition(...obj.position)}
+            rotation={[0, obj.rotation * Math.PI / 2, 0]}
+            scale={0.2} />}
+          {obj.type === "NOR" && <NorGate
+            key={`${j}_OR`}
+            position={calculateGatePosition(...obj.position)}
+            rotation={[0, obj.rotation * Math.PI / 2, 0]}
+            scale={0.2} />}
+          {obj.type === "XOR" && <XorGate
+            key={`${j}_XOR`}
+            position={calculateGatePosition(...obj.position)}
+            rotation={[0, obj.rotation * Math.PI / 2, 0]}
+            scale={0.2} />}
+
+          {obj.type === "CLOCK" && <Clock
+            id={obj.id}
+            key={`${j}_CLOCK`}
+            position={calculateGatePosition(...obj.position)}
+            rotation={[0, obj.rotation * Math.PI / 2, 0]}
+            tick={obj.tick} />}
+          {obj.type === "Switch" && <Switch
+            key={`${j}_CLOCK`}
+            position={calculateGatePosition(...obj.position)}
+            rotation={[0, obj.rotation * Math.PI / 2, 0]}
+            tick={obj.tick} />}
+        </>
       ))}
       {line
         .filter(obj => obj.positions.length > 0)

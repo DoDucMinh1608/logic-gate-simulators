@@ -7,7 +7,7 @@ Files: .\public\models\NOT_GATE.glb [3.78KB] > C:\Users\ducmi\projects\logic-gat
 import { useGLTF } from '@react-three/drei'
 
 export function NotGate(props) {
-  const { nodes, materials } = useGLTF('models/NOT_GATE-transformed.glb')
+  const { nodes, materials } = useGLTF('models/NOT-transformed.glb')
   return (
     <group {...props} dispose={null}>
       <mesh geometry={nodes['1'].geometry} material={nodes['1'].material}
