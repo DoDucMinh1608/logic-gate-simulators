@@ -11,8 +11,12 @@ export default function NandGate(props) {
   const { nodes, materials } = useGLTF('/NAND-transformed.glb')
   return (
     <group {...props} dispose={null}>
-      <mesh geometry={nodes['1'].geometry} material={materials.Khoi} />
-      <mesh geometry={nodes.Cot1.geometry} material={materials.Den} />
+      <mesh geometry={nodes['2'].geometry} material={materials.Khoi}>
+        <meshNormalMaterial />
+      </mesh>
+      <mesh geometry={nodes.Cot2.geometry} material={nodes.Cot2.material}>
+        <meshNormalMaterial />
+      </mesh>
     </group>
   )
 }

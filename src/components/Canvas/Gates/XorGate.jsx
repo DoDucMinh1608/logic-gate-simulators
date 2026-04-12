@@ -11,7 +11,9 @@ export default function XorGate(props) {
   const { nodes, materials } = useGLTF('/XOR-transformed.glb')
   return (
     <group {...props} dispose={null}>
-      <mesh geometry={nodes['6'].geometry} material={materials.Khoi} />
+      <mesh geometry={nodes['6'].geometry} material={materials.Khoi}>
+        <meshNormalMaterial />
+      </mesh>
     </group>
   )
 }

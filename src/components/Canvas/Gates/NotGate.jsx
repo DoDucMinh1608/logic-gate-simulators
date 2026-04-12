@@ -11,8 +11,12 @@ export default function NotGate(props) {
   const { nodes, materials } = useGLTF('/NOT-transformed.glb')
   return (
     <group {...props} dispose={null}>
-      <mesh geometry={nodes['1'].geometry} material={materials.Khoi} />
-      <mesh geometry={nodes.Cot1.geometry} material={materials.Den} />
+      <mesh geometry={nodes['1'].geometry} material={materials.Khoi}>
+        <meshNormalMaterial />
+      </mesh>
+      <mesh geometry={nodes.Cot1.geometry} material={nodes.Cot1.material}>
+        <meshNormalMaterial />
+      </mesh>
     </group>
   )
 }

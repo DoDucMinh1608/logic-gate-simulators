@@ -2,9 +2,9 @@ import { Vector3 } from "three/webgpu";
 
 import { useObjectsSlice } from "@/store/objectsSlice";
 import { usePlayerSlice } from "@/store/playerSlice";
+import { useUtilitySlice } from "@/store/utilitiesSlice";
 import { setSnapGridPosition } from "@/utils/math-utils";
 import Transistor from "../ObjectsManager/Transistor";
-import { useUtilitySlice } from "@/store/utilitiesSlice";
 
 
 // TODO: update mouse down to place gates on the grid base on mouse key

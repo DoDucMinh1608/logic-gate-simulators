@@ -1,19 +1,4 @@
-import { useRef } from "react"
-
-import { useThrottledFrame } from "@/hooks/useThrottledFrame"
-
 function Clock({ id, tick, custom, ...props }) {
-  // const ref = useRef()
-  // const _state = useRef(true)
-  // useThrottledFrame((state, delta) => {
-
-  //   _state.current = !_state.current
-
-  //   // --- CHANGE COLOR MANUALLY ---
-  //   ref.current.material.color.set(_state.current ? 'black' : 'white')
-
-  // }, 0, props?.tick ?? 10)
-
   return (
     <group {...props} dispose={null} >
       <mesh position={[0, 0.025, 0]}>
@@ -28,5 +13,12 @@ function Clock({ id, tick, custom, ...props }) {
   )
 }
 
+const gateState = { out_Q: 0 }
+function NextState(wireState, gateState) {
+  return { state: { out_Q: !gateState.out_Q }, needUpdate: true }
+}
+Clock.inputs = []
+Clock.outputs = ['out_Q']
+Clock.NextState = NextState
 
 export default Clock

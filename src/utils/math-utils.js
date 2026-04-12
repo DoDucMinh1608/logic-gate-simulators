@@ -68,11 +68,11 @@ export function calculateIntPosition(position, scale, result) {
   )
   return result
 }
-// const gridSize = new Vector3(0.2, 0.04, 0.2)
-const tempVec = new Vector3()
+
 const prefixVec = new Vector3(0.5, 0, 0.5)
 const prefixVec2 = new Vector3(0.1, 0.01, 0.1)
 const prefixVec3 = new Vector3(2, 0, 2)
+const prefixVec4 = new Vector3(0, 0.005, 0)
 export function calculateGatePosition(x, y = 0, z) {
   return new Vector3(x, y, z)
     .add(prefixVec)
@@ -81,7 +81,7 @@ export function calculateGatePosition(x, y = 0, z) {
 export function calculateWirePosition(x, y = 0, z) {
   return new Vector3(x, y, z)
     .multiply(prefixVec2)
-  // .multiply(Transistor.gridSize)
+    .add(prefixVec4)
 }
 
 export function convertGatePosToWirePos(x, y, z) {

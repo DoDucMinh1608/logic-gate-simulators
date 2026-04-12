@@ -11,8 +11,12 @@ export default function NorGate(props) {
   const { nodes, materials } = useGLTF('/NOR-transformed.glb')
   return (
     <group {...props} dispose={null}>
-      <mesh geometry={nodes['3'].geometry} material={materials.Khoi} />
-      <mesh geometry={nodes.Cot3.geometry} material={materials.Den} />
+      <mesh geometry={nodes['3'].geometry} material={materials.Khoi}>
+        <meshNormalMaterial />
+      </mesh>
+      <mesh geometry={nodes.Cot3.geometry} material={nodes.Cot3.material}>
+        <meshNormalMaterial />
+      </mesh>
     </group>
   )
 }

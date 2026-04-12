@@ -11,8 +11,9 @@ export default function AndGate(props) {
   const { nodes, materials } = useGLTF('/AND-transformed.glb')
   return (
     <group {...props} dispose={null}>
-      <mesh geometry={nodes['2'].geometry} material={materials.Khoi} />
-      <mesh geometry={nodes.Cot2.geometry} material={materials.Den} />
+      <mesh geometry={nodes['4'].geometry} material={materials.Khoi}>
+        <meshNormalMaterial />
+      </mesh>
     </group>
   )
 }

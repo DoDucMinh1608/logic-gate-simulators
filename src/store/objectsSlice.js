@@ -7,74 +7,98 @@ import { create } from "zustand";
 export const useObjectsSlice = create(set => ({
   GATES: [
     {
-      id: generateUUID(), position: [0, 0, 1], rotation: 0, type: "AND",
-      inputs: ['in_A', 'in_B'],
-      outputs: ['out_Q'],
+      id: 'and_1',
+      type: "AND",
+      position: [0, 0, 1],
+      rotation: 0,
       state: { in_A: 0, in_B: 0, out_Q: 0 },
     },
     {
-      id: generateUUID(), position: [0, 0, 2], rotation: 0, type: "NOT",
-      inputs: ['in_A', 'in_B'],
-      outputs: ['out_Q'],
+      id: 'not_1',
+      type: "NOT",
+      position: [0, 0, 2],
+      rotation: 0,
       state: { in_A: 0, in_B: 0, out_Q: 0 },
     },
     {
-      id: generateUUID(), position: [0, 0, 3], rotation: 0, type: "OR",
-      inputs: ['in_A', 'in_B'],
-      outputs: ['out_Q'],
+      id: 'or_1',
+      type: "OR",
+      position: [0, 0, 3],
+      rotation: 0,
+      state: { in_A: 0, in_B: 0, out_Q: 0 },
+      custom: {}
+    },
+    {
+      id: 'nand_1',
+      type: "NAND",
+      position: [0, 0, 4],
+      rotation: 0,
       state: { in_A: 0, in_B: 0, out_Q: 0 },
     },
     {
-      id: generateUUID(), position: [0, 0, 4], rotation: 0, type: "NAND",
-      inputs: ['in_A', 'in_B'],
-      outputs: ['out_Q'],
+      id: 'nor_1',
+      type: "NOR",
+      position: [0, 0, 5],
+      rotation: 0,
       state: { in_A: 0, in_B: 0, out_Q: 0 },
     },
     {
-      id: generateUUID(), position: [0, 0, 5], rotation: 0, type: "NOR",
-      inputs: ['in_A', 'in_B'],
-      outputs: ['out_Q'],
+      id: 'xor_1',
+      type: "XOR",
+      position: [0, 0, 6],
+      rotation: 0,
       state: { in_A: 0, in_B: 0, out_Q: 0 },
+      custom: {}
     },
     {
-      id: generateUUID(), position: [0, 0, 6], rotation: 0, type: "XOR",
-      inputs: ['in_A', 'in_B'],
-      outputs: ['out_Q'],
-      state: { in_A: 0, in_B: 0, out_Q: 0 },
+      id: "clock",
+      type: "CLOCK",
+      position: [-1, 0, 3],
+      rotation: 0,
+      state: { out_Q: 0 },
+      custom: { tick: 1, lastUpdate: 0 }
     },
     {
-      id: "clock", position: [0, 0, 7], rotation: 0, type: "CLOCK",
-      inputs: [],
-      outputs: ['out_Q'],
-      state: { in_A: 0, in_B: 0, out_Q: 0 },
+      id: "clock_1",
+      type: "CLOCK",
+      position: [-1, 0, 4],
+      rotation: 0,
+      state: { out_Q: 0 },
+      custom: { tick: 2, lastUpdate: 0 }
     },
   ],
   LINES: [
     {
       id: generateUUID(),
-      from: { gateId: 'clock', outputPin: 'out_Q', status: 0 },
-      to: { gateId: 'gate_2', inputPin: 'in_A' },
+      status: false,
+      from: { gateId: 'clock', pin: 'out_Q' },
+      to: { gateId: 'or_1', pin: 'in_A' },
       positions: [
-        convertGatePosToWirePos(1, 0, 7),
-        convertGatePosToWirePos(0, 0, 7),
-        // [2, 0, 2.80],
-        // [3, 0, 2.80],
+        convertGatePosToWirePos(-1, 0, 3),
+        convertGatePosToWirePos(-.5, 0, 3),
+        convertGatePosToWirePos(-.5, 0, 2.9),
+        convertGatePosToWirePos(0, 0, 2.9),
       ],
     },
     {
       id: generateUUID(),
-      from: { gateId: 'clock_1', outputPin: 'out_Q', status: 0 },
-      to: { gateId: 'gate_2', inputPin: 'in_A', status: 0 },
+      status: false,
+      from: { gateId: 'clock_1', pin: 'out_Q' },
+      to: { gateId: 'or_1', pin: 'in_B' },
       positions: [
-        // [1, 0, 1],
-        // [9.6, 0, 5],
-        // [10, 0, 5],
-        // getOutputPos(...[4, 0, 2]),
-        // getOutputPos(...[4 + 0.1, 0, 2]),
-        // getOutputPos(...[5, 0, 2]),
-        // [2, 0, 1],
-        // [2, 0, 2.80],
-        // [3, 0, 2.80],
+        convertGatePosToWirePos(-1, 0, 4),
+        convertGatePosToWirePos(-.5, 0, 4),
+        convertGatePosToWirePos(-.5, 0, 3.1),
+        convertGatePosToWirePos(0, 0, 3.1),
+      ],
+    },
+    {
+      id: generateUUID(),
+      from: { gateId: 'or_1', pin: 'out_Q' },
+      to: { gateId: 'or_2', pin: 'in_B' },
+      positions: [
+        convertGatePosToWirePos(0, 0, 3),
+        convertGatePosToWirePos(0.5, 0, 3),
       ],
     }
   ],
@@ -83,19 +107,25 @@ export const useObjectsSlice = create(set => ({
   },
   addGate(input) {
     set(state => ({
-      objects: [...state.objects, input]
+      // objects: [...state.objects, input]
     }))
-    console.log(useObjectsSlice.getState().objects)
+    // console.log(useObjectsSlice.getState().objects)
   },
   removeGate(id) {
     set(state => ({
-      objects: state.objects.filter(gate => gate.id !== id)
+      // objects: state.objects.filter(gate => gate.id !== id)
     }))
   },
-  udpateGate(id, input) {
+  updateGate(id, input) {
     set(state => ({
-      objects: state.objects.map(gate => gate.id === id ? { ...gate, ...input } : gate)
+      GATES: state.GATES.map(i => i.id === id ? { ...i, ...input } : i)
     }))
+  },
+  updateWire(id, input) {
+    set(state => ({
+      LINES: state.LINES.map(i => i.id === id ? { ...i, ...input } : i)
+    }))
+
   },
   getGateByPosition(position) {
     // const foundGate = useObjectsSlice

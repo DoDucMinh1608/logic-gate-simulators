@@ -26,4 +26,4 @@ foreach ($name in $gates) {
         Write-Warning "Skip: File $inputPath not found."
     }
 }
-Remove-Item -Path "./public/*.jsx"
+# Remove-Item -Path "./public/*.jsx"
