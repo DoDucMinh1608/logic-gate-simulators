@@ -22,11 +22,10 @@ const gateState = { in_A: 0, in_B: 0, out_Q: 0 }
 const wireState = { in_A: 0, in_B: 0, out_Q: 0 }
 function NextState(wireState, gateState) {
   let result = wireState.in_A || wireState.in_B
-  if (result === gateState.result) return { needUpdate: false }
-
   return {
-    state: { in_A: wireState.in_A, in_B: wireState.in_B, out_Q: result },
-    needUpdate: true
+    in_A: wireState.in_A,
+    in_B: wireState.in_B,
+    out_Q: result
   }
 }
 

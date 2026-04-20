@@ -15,8 +15,9 @@ function Clock({ id, tick, custom, ...props }) {
 
 const gateState = { out_Q: 0 }
 function NextState(wireState, gateState) {
-  return { state: { out_Q: !gateState.out_Q }, needUpdate: true }
+  return { out_Q: !gateState.out_Q }
 }
+
 Clock.inputs = []
 Clock.outputs = ['out_Q']
 Clock.NextState = NextState

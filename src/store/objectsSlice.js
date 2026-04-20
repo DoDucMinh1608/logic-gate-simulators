@@ -18,7 +18,7 @@ export const useObjectsSlice = create(set => ({
       type: "NOT",
       position: [0, 0, 2],
       rotation: 0,
-      state: { in_A: 0, in_B: 0, out_Q: 0 },
+      state: { in_A: 0, out_Q: 0 },
     },
     {
       id: 'or_1',
@@ -56,7 +56,7 @@ export const useObjectsSlice = create(set => ({
       position: [-1, 0, 3],
       rotation: 0,
       state: { out_Q: 0 },
-      custom: { tick: 1, lastUpdate: 0 }
+      custom: { tick: 0.5, lastUpdate: 0 }
     },
     {
       id: "clock_1",
@@ -64,7 +64,15 @@ export const useObjectsSlice = create(set => ({
       position: [-1, 0, 4],
       rotation: 0,
       state: { out_Q: 0 },
-      custom: { tick: 2, lastUpdate: 0 }
+      custom: { tick: 1, lastUpdate: 0 }
+    },
+    {
+      id: "clock_2",
+      type: "CLOCK",
+      position: [-1, 0, 2],
+      rotation: 0,
+      state: { out_Q: 0 },
+      custom: { tick: 1, lastUpdate: 0 }
     },
   ],
   LINES: [
@@ -75,8 +83,8 @@ export const useObjectsSlice = create(set => ({
       to: { gateId: 'or_1', pin: 'in_A' },
       positions: [
         convertGatePosToWirePos(-1, 0, 3),
-        convertGatePosToWirePos(-.5, 0, 3),
-        convertGatePosToWirePos(-.5, 0, 2.9),
+        convertGatePosToWirePos(-.6, 0, 3),
+        convertGatePosToWirePos(-.6, 0, 2.9),
         convertGatePosToWirePos(0, 0, 2.9),
       ],
     },
@@ -87,13 +95,34 @@ export const useObjectsSlice = create(set => ({
       to: { gateId: 'or_1', pin: 'in_B' },
       positions: [
         convertGatePosToWirePos(-1, 0, 4),
-        convertGatePosToWirePos(-.5, 0, 4),
-        convertGatePosToWirePos(-.5, 0, 3.1),
+        convertGatePosToWirePos(-.6, 0, 4),
+        convertGatePosToWirePos(-.6, 0, 3.1),
         convertGatePosToWirePos(0, 0, 3.1),
       ],
     },
     {
       id: generateUUID(),
+      status: false,
+      from: { gateId: 'clock_2', pin: 'out_Q' },
+      to: { gateId: 'not_1', pin: 'in_A' },
+      positions: [
+        convertGatePosToWirePos(-1, 0, 2),
+        convertGatePosToWirePos(0, 0, 2),
+      ],
+    },
+    {
+      id: generateUUID(),
+      status: false,
+      from: { gateId: 'not_1', pin: 'out_Q' },
+      to: { gateId: '', pin: 'in_A' },
+      positions: [
+        convertGatePosToWirePos(0, 0, 2),
+        convertGatePosToWirePos(.6, 0, 2),
+      ],
+    },
+    {
+      id: generateUUID(),
+      status: false,
       from: { gateId: 'or_1', pin: 'out_Q' },
       to: { gateId: 'or_2', pin: 'in_B' },
       positions: [
@@ -125,7 +154,27 @@ export const useObjectsSlice = create(set => ({
     set(state => ({
       LINES: state.LINES.map(i => i.id === id ? { ...i, ...input } : i)
     }))
-
+  },
+  updateGates(objects) {
+    set(state => ({
+      GATES: state.GATES.map(gate => {
+        let nextState = objects.find(j => j.id === gate.id)
+        if (nextState == null) return gate
+        return { ...gate, ...nextState }
+      })
+    }))
+  },
+  updateWires(objects) {
+    set(state => ({
+      LINES: state.LINES.map(line => {
+        let nextState = objects.find(j => j.id === line.id)
+        if (nextState == null) return line
+        return {
+          ...line,
+          ...nextState
+        }
+      })
+    }))
   },
   getGateByPosition(position) {
     // const foundGate = useObjectsSlice

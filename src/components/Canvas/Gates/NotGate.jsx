@@ -21,4 +21,16 @@ export default function NotGate(props) {
   )
 }
 
+NotGate.inputs = ['in_A']
+NotGate.outputs = ['out_Q']
+
+const gateState = { in_A: 0, out_Q: 0 }
+const wireState = { in_A: 0, out_Q: 0 }
+NotGate.NextState = function (wireState, gateState) {
+  return {
+    in_A: wireState.in_A,
+    out_Q: !wireState.in_A
+  }
+}
+
 useGLTF.preload('/NOT-transformed.glb')
