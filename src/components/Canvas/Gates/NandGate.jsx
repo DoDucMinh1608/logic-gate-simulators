@@ -12,10 +12,22 @@ export default function NandGate(props) {
   return (
     <group {...props} dispose={null}>
       <mesh geometry={nodes['2'].geometry} material={materials.Khoi}>
-        <meshNormalMaterial />
+        <meshStandardMaterial
+          color="#f0f0f0"
+          metalness={1}
+          roughness={0.4}
+          envMapIntensity={1.5}
+          flatShading={true}
+        />
       </mesh>
       <mesh geometry={nodes.Cot2.geometry} material={nodes.Cot2.material}>
-        <meshNormalMaterial />
+        <meshStandardMaterial
+          color="#f0f0f0"
+          metalness={1}
+          roughness={0.4}
+          envMapIntensity={1.5}
+          flatShading={true}
+        />
       </mesh>
     </group>
   )

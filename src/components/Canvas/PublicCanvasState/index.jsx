@@ -6,7 +6,7 @@ function PublicCanvasState() {
   return (
     <>
       <SetCameraState />
-      {/* <SetInteractPosition /> */}
+      <SetInteractPosition />
     </>
   );
 }

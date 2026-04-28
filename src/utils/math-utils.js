@@ -23,10 +23,10 @@ export function getLookingPositionOnPlane(state, plane, result) {
 
 export function testSnapPos(objectPosition, lookingPos, size, result) {
   try {
-    const
-      x0 = lookingPos.x > objectPosition.x ? 1 : -1,
-      y0 = lookingPos.y > objectPosition.y ? 1 : -1,
-      z0 = lookingPos.z > objectPosition.z ? 1 : -1
+    // const
+    //   x0 = lookingPos.x > objectPosition.x ? 1 : -1,
+    //   y0 = lookingPos.y > objectPosition.y ? 1 : -1,
+    //   z0 = lookingPos.z > objectPosition.z ? 1 : -1
     result.set(
       Math.floor(lookingPos.x / size.x) * size.x + size.x / 2 * x0,
       Math.floor(lookingPos.y / size.y) * size.y + size.y / 2 * y0,
@@ -52,7 +52,7 @@ export function setSnapGridPosition(position, display_size, result) {
       Math.floor(position.x / display_size.x) * display_size.x + display_size.x / 2,
       Math.floor(position.y / display_size.y) * display_size.y + display_size.y / 2,
       Math.floor(position.z / display_size.z) * display_size.z + display_size.z / 2,
-    ).addScalar(NORMAL_VALUE)
+    )
   } catch (error) {
     console.log(position, display_size, result)
     console.log(error)

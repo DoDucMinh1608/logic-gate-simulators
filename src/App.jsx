@@ -5,6 +5,7 @@ import onMouseDown from './components/Canvas/CanvasEvents/onMouseDown'
 import Experience from './components/Experience'
 import MainUI from './components/MainUI'
 import { keyMap } from './utils/keyboardMap'
+import { Suspense } from 'react'
 
 function App() {
   return (
@@ -14,7 +15,9 @@ function App() {
         <Canvas
           camera={{ fov: 90, position: [0, 1.5, 0] }}
           onMouseDown={e => onMouseDown(e)}>
-          <Experience />
+          <Suspense fallback={<mesh><boxGeometry /><meshBasicMaterial color="orange" /></mesh>}>
+            <Experience />
+          </Suspense>
         </Canvas>
       </KeyboardControls>
     </>

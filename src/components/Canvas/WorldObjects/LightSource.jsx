@@ -1,8 +1,10 @@
+import { ContactShadows, Sky } from "@react-three/drei";
+
 function LightSource() {
   return (
     <>
-      <ambientLight intensity={0.5} />
-      <pointLight position={[0, 10, 0]} />
+      <ambientLight intensity={0.2} />
+      {/* <pointLight position={[0, 10, 10]} /> */}
     </>
   );
 }

@@ -12,7 +12,13 @@ export default function OrGate(props) {
   return (
     <group {...props} dispose={null}>
       <mesh geometry={nodes['5'].geometry} material={materials.Khoi}>
-        <meshNormalMaterial />
+        <meshStandardMaterial
+          color="#f0f0f0"
+          metalness={1}
+          roughness={0.4}
+          envMapIntensity={1.5}
+          flatShading={true}
+        />
       </mesh>
     </group>
   )

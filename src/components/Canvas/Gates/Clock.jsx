@@ -3,11 +3,23 @@ function Clock({ id, tick, custom, ...props }) {
     <group {...props} dispose={null} >
       <mesh position={[0, 0.025, 0]}>
         <boxGeometry args={[0.12, 0.05, 0.1]} />
-        <meshNormalMaterial />
+        <meshStandardMaterial
+          color="#f0f0f0"
+          metalness={1}
+          roughness={0.4}
+          envMapIntensity={1.5}
+          flatShading={true}
+        />
       </mesh>
       <mesh position={[0, 0.035, 0]}>
         <boxGeometry args={[0.05, 0.05, 0.04]} />
-        <meshStandardMaterial color={custom?.color} />
+        <meshStandardMaterial
+          color={custom?.color}
+          metalness={1}
+          roughness={0.2}
+          envMapIntensity={1.5}
+          flatShading={true}
+        />
       </mesh>
     </group>
   )

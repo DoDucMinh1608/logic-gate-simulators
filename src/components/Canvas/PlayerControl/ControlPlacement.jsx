@@ -7,20 +7,20 @@ import Transistor from "../ObjectsManager/Transistor";
 
 const objectSize = Transistor.gridSize.clone()
 function ControlPlacement() {
-  // const ref = useRef()
-  // const interactPosition = useUtilitySlice(state => state.interactPosition)
+  const ref = useRef()
+  const interactPosition = useUtilitySlice(state => state.interactPosition)
 
-  // useThrottledFrame(state => {
-  //   ref.current.position.copy(interactPosition)
-  // }, 0, 30)
+  useThrottledFrame(state => {
+    ref.current.position.copy(interactPosition)
+  }, 0, 30)
 
   return (
     <>
-      {/* <mesh ref={ref} name="placement_reference">
-        <boxGeometry args={[objectSize.x, objectSize.y, objectSize.z]} />
+      <mesh ref={ref} name="placement_reference">
+        <boxGeometry args={[0.2, 0.1, 0.2]} />
         <meshNormalMaterial transparent opacity={0.2} />
         <Edges threshold={15} color="black" lineWidth={1} />
-      </mesh> */}
+      </mesh>
     </>
   )
 }
