@@ -11,7 +11,7 @@ export default function AndGate(props) {
   const { nodes, materials } = useGLTF('/AND-transformed.glb')
   return (
     <group {...props} dispose={null}>
-      <mesh geometry={nodes['4'].geometry} material={materials.Khoi}>
+      <mesh geometry={nodes['4'].geometry}>
         <meshStandardMaterial
           color="#f0f0f0"
           metalness={1}
@@ -35,6 +35,7 @@ function NextState(wireState, gateState) {
 }
 AndGate.inputs = ['in_A', 'in_B']
 AndGate.outputs = ['out_Q']
+AndGate.defaultState = { in_A: 0, in_B: 0, out_Q: 0 }
 AndGate.NextState = NextState
 
 useGLTF.preload('/AND-transformed.glb')

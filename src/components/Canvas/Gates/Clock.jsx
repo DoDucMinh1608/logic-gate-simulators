@@ -11,8 +11,8 @@ function Clock({ id, tick, custom, ...props }) {
           flatShading={true}
         />
       </mesh>
-      <mesh position={[0, 0.035, 0]}>
-        <boxGeometry args={[0.05, 0.05, 0.04]} />
+      <mesh position={[0, 0.03, 0]} rotation={[0, Math.PI / 2, 0]}>
+        <cylinderGeometry args={[0.03, .04, 0.05, 3]} />
         <meshStandardMaterial
           color={custom?.color}
           metalness={1}
@@ -32,6 +32,7 @@ function NextState(wireState, gateState) {
 
 Clock.inputs = []
 Clock.outputs = ['out_Q']
+Clock.defaultState = { out_Q: 0 }
 Clock.NextState = NextState
 
 export default Clock

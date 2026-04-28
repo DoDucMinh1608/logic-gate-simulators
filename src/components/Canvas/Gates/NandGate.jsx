@@ -46,6 +46,7 @@ function NextState(wireState, gateState) {
 
 NandGate.inputs = ['in_A', 'in_B']
 NandGate.outputs = ['out_Q']
+NandGate.defaultState = { in_A: 0, in_B: 0, out_Q: 0 }
 NandGate.NextState = NextState
 
 useGLTF.preload('/NAND-transformed.glb')

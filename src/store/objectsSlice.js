@@ -1,28 +1,36 @@
-
-import { convertGatePosToWirePos } from "@/utils/math-utils";
 import { generateUUID } from "three/src/math/MathUtils.js";
 import { create } from "zustand";
 
+import AndGate from "@/components/Canvas/Gates/AndGate";
+import Clock from "@/components/Canvas/Gates/Clock";
+import NandGate from "@/components/Canvas/Gates/NandGate";
+import NorGate from "@/components/Canvas/Gates/NorGate";
+import NotGate from "@/components/Canvas/Gates/NotGate";
+import OrGate from "@/components/Canvas/Gates/OrGate";
+import Switch from "@/components/Canvas/Gates/Switch";
+import XorGate from "@/components/Canvas/Gates/XorGate";
+import { AND_GATE, CLOCK, NAND_GATE, NOR_GATE, NOT_GATE, OR_GATE, SWITCH, XOR_GATE } from "@/utils/constants";
+import { convertGatePosToWirePos } from "@/utils/math-utils";
 
 export const useObjectsSlice = create(set => ({
   GATES: [
     {
       id: 'and_1',
-      type: "AND",
+      type: AND_GATE,
       position: [0, 0, 1],
       rotation: 0,
       state: { in_A: 0, in_B: 0, out_Q: 0 },
     },
     {
       id: 'not_1',
-      type: "NOT",
+      type: NOT_GATE,
       position: [0, 0, 2],
       rotation: 0,
       state: { in_A: 0, out_Q: 0 },
     },
     {
       id: 'or_1',
-      type: "OR",
+      type: OR_GATE,
       position: [0, 0, 3],
       rotation: 0,
       state: { in_A: 0, in_B: 0, out_Q: 0 },
@@ -30,21 +38,21 @@ export const useObjectsSlice = create(set => ({
     },
     {
       id: 'nand_1',
-      type: "NAND",
+      type: NAND_GATE,
       position: [0, 0, 4],
       rotation: 0,
       state: { in_A: 0, in_B: 0, out_Q: 0 },
     },
     {
       id: 'nor_1',
-      type: "NOR",
+      type: NOR_GATE,
       position: [0, 0, 5],
       rotation: 0,
       state: { in_A: 0, in_B: 0, out_Q: 0 },
     },
     {
       id: 'xor_1',
-      type: "XOR",
+      type: XOR_GATE,
       position: [0, 0, 6],
       rotation: 0,
       state: { in_A: 0, in_B: 0, out_Q: 0 },
@@ -74,6 +82,14 @@ export const useObjectsSlice = create(set => ({
       state: { out_Q: 0 },
       custom: { tick: 1, lastUpdate: 0 }
     },
+    {
+      id: "aaa",
+      "type": "XOR",
+      "position": [-4, 0, 10],
+      "rotation": 0,
+      state: {},
+      "custom": {}
+    }
   ],
   LINES: [
     {
@@ -231,10 +247,44 @@ export const useObjectsSlice = create(set => ({
 
   },
   addGate(input) {
+    const gate = {
+      id: generateUUID(),
+      state: {},
+      ...input
+    }
+    switch (input.type) {
+      case AND_GATE:
+        gate.state = { ...AndGate.defaultState }
+        break
+      case OR_GATE:
+        gate.state = { ...OrGate.defaultState }
+        break
+      case NOT_GATE:
+        gate.state = { ...NotGate.defaultState }
+        break
+      case NAND_GATE:
+        gate.state = { ...NandGate.defaultState }
+        break
+      case NOR_GATE:
+        gate.state = { ...NorGate.defaultState }
+        break
+      case XOR_GATE:
+        gate.state = { ...XorGate.defaultState }
+        break
+      case CLOCK:
+        gate.state = { ...Clock.defaultState }
+        break
+      case SWITCH:
+        gate.state = { ...Switch.defaultState }
+        break
+    }
     set(state => ({
-      // objects: [...state.objects, input]
+      GATES: [
+        ...state.GATES,
+        { ...gate }
+      ]
     }))
-    // console.log(useObjectsSlice.getState().objects)
+    console.log(input)
   },
   removeGate(id) {
     set(state => ({
@@ -273,10 +323,15 @@ export const useObjectsSlice = create(set => ({
     }))
   },
   getGateByPosition(position) {
-    // const foundGate = useObjectsSlice
-    //   .getState().objects
-    //   .find((gate) => gate.position.equals(position))
-    // return foundGate ? foundGate : null
+    console.log(position)
+    const foundGate = useObjectsSlice
+      .getState()
+      .GATES
+      .find((gate) => {
+        return [0, 2]
+          .every(i => Math.round(gate.position[i]) == Math.round(position[i]))
+      })
+    return foundGate
   }
 }))
 

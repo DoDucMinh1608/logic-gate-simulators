@@ -8,6 +8,7 @@ import AndGate from "../Gates/AndGate"
 import NandGate from "../Gates/NandGate"
 import NorGate from "../Gates/NorGate"
 import XorGate from "../Gates/XorGate"
+import { AND_GATE, CLOCK, NAND_GATE, NOR_GATE, NOT_GATE, OR_GATE, XOR_GATE } from "@/utils/constants"
 
 function UpdateGateStatus() {
   const gates = useObjectsSlice(state => state.GATES)
@@ -25,21 +26,21 @@ function UpdateGateStatus() {
         .map(i => [i[i.from.gateId === gate.id ? 'from' : 'to'].pin, !!i.status]))
       let nextState
       switch (gate.type) {
-        case 'AND':
+        case AND_GATE:
           nextState = AndGate.NextState(wires, gate.state)
           nextStates.push({
             id: gate.id,
             state: nextState,
           })
           break;
-        case 'OR':
+        case OR_GATE:
           nextState = OrGate.NextState(wires, gate.state)
           nextStates.push({
             id: gate.id,
             state: nextState,
           })
           break;
-        case 'NOT':
+        case NOT_GATE:
           nextState = NotGate.NextState(wires, gate.state)
           if (nextState.out_Q !== gate.state.out_Q) {
             nextStates.push({
@@ -48,7 +49,7 @@ function UpdateGateStatus() {
             })
           }
           break;
-        case 'NAND':
+        case NAND_GATE:
           nextState = NandGate.NextState(wires, gate.state)
           if (nextState.out_Q !== gate.state.out_Q) {
             nextStates.push({
@@ -57,7 +58,7 @@ function UpdateGateStatus() {
             })
           }
           break;
-        case 'NOR':
+        case NOR_GATE:
           nextState = NorGate.NextState(wires, gate.state)
           if (nextState.out_Q !== gate.state.out_Q) {
             nextStates.push({
@@ -66,7 +67,7 @@ function UpdateGateStatus() {
             })
           }
           break;
-        case 'XOR':
+        case XOR_GATE:
           nextState = XorGate.NextState(wires, gate.state)
           if (nextState.out_Q !== gate.state.out_Q) {
             nextStates.push({
@@ -75,7 +76,7 @@ function UpdateGateStatus() {
             })
           }
           break;
-        case 'CLOCK':
+        case CLOCK:
           if ((state.clock.elapsedTime - gate.custom.lastUpdate) <= gate.custom.tick) break
           nextState = Clock.NextState(wires, gate.state)
           if (gate.state.out_Q !== nextState.out_Q) {

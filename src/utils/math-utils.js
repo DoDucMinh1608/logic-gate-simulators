@@ -1,5 +1,5 @@
 import { Vector3 } from "three";
-import { NORMAL_VALUE } from "./constants";
+import { TRANSISTOR_SIZE } from "./constants";
 
 export function getDegrees(direction) {
   if (!direction) return { yaw: 0, pitch: 0 };
@@ -46,12 +46,6 @@ export function testSnapPos(objectPosition, lookingPos, size, result) {
 }
 export function setSnapGridPosition(position, size, result) {
   try {
-
-    // result.set(
-    //   position.x,
-    //   position.y,
-    //   position.z,
-    // )
     result.set(
       Math.floor(position.x / size.x) * size.x + size.x / 2,
       Math.floor(position.y / size.y) * size.y + size.y / 2,
@@ -77,13 +71,23 @@ const prefixVec = new Vector3(0.5, 0, 0.5)
 const prefixVec2 = new Vector3(0.1, 0.01, 0.1)
 const prefixVec3 = new Vector3(2, 0, 2)
 const prefixVec4 = new Vector3(0, 0.005, 0)
-const transistorSize = new Vector3(0.2, 0.04, 0.2)
-export function calculateGatePosition(x, y = 0, z) {
-  return new Vector3(x, y, z)
+
+export function convertGatePosToWorldCoor(x, y = 0, z, result = new Vector3()) {
+  return result.set(x, y, z)
     .add(prefixVec)
-    .multiply(transistorSize)
+    .multiply(TRANSISTOR_SIZE)
 }
-export function calculateWirePosition(x, y = 0, z) {
+
+const prefixVec5 = prefixVec.clone().multiplyScalar(-1)
+export function convertWorldCoorToGatePos(x, y, z, result = new Vector3()) {
+  result.set(x, y, z)
+    .divide(TRANSISTOR_SIZE)
+    .add(prefixVec5)
+  result.set(Math.round(result.x), Math.round(result.y), Math.round(result.z))
+  return result
+}
+
+export function convertWirePosToWorldCoor(x, y = 0, z) {
   return new Vector3(x, y, z)
     .multiply(prefixVec2)
     .add(prefixVec4)

@@ -37,6 +37,7 @@ function NextState(wireState, gateState) {
 
 OrGate.inputs = ['in_A', 'in_B']
 OrGate.outputs = ['out_Q']
+OrGate.defaultState = { in_A: 0, in_B: 0, out_Q: 0 }
 OrGate.NextState = NextState
 
 useGLTF.preload('/OR-transformed.glb')

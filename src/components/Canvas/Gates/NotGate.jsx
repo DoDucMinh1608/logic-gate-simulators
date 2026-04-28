@@ -35,7 +35,7 @@ export default function NotGate(props) {
 
 NotGate.inputs = ['in_A']
 NotGate.outputs = ['out_Q']
-
+NotGate.defaultState = { in_A: 0, out_Q: 0 }
 const gateState = { in_A: 0, out_Q: 0 }
 const wireState = { in_A: 0, out_Q: 0 }
 NotGate.NextState = function (wireState, gateState) {

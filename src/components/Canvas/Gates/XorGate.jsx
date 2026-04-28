@@ -36,6 +36,7 @@ function NextState(wireState, gateState) {
 
 XorGate.inputs = ['in_A', 'in_B']
 XorGate.outputs = ['out_Q']
+XorGate.defaultState = { in_A: 0, in_B: 0, out_Q: 0 }
 XorGate.NextState = NextState
 
 useGLTF.preload('/XOR-transformed.glb')

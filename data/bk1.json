@@ -1,0 +1,144 @@
+[
+  {
+    "id": "and_1",
+    "type": "AND",
+    "position": [
+      0,
+      0,
+      1
+    ],
+    "rotation": 0,
+    "state": {
+      "in_A": 0,
+      "in_B": 0,
+      "out_Q": 0
+    }
+  },
+  {
+    "id": "not_1",
+    "type": "NOT",
+    "position": [
+      0,
+      0,
+      2
+    ],
+    "rotation": 0,
+    "state": {
+      "in_A": 0,
+      "out_Q": 0
+    }
+  },
+  {
+    "id": "or_1",
+    "type": "OR",
+    "position": [
+      0,
+      0,
+      3
+    ],
+    "rotation": 0,
+    "state": {
+      "in_A": 0,
+      "in_B": 0,
+      "out_Q": 0
+    },
+    "custom": {}
+  },
+  {
+    "id": "nand_1",
+    "type": "NAND",
+    "position": [
+      0,
+      0,
+      4
+    ],
+    "rotation": 0,
+    "state": {
+      "in_A": 0,
+      "in_B": 0,
+      "out_Q": 0
+    }
+  },
+  {
+    "id": "nor_1",
+    "type": "NOR",
+    "position": [
+      0,
+      0,
+      5
+    ],
+    "rotation": 0,
+    "state": {
+      "in_A": 0,
+      "in_B": 0,
+      "out_Q": 0
+    }
+  },
+  {
+    "id": "xor_1",
+    "type": "XOR",
+    "position": [
+      0,
+      0,
+      6
+    ],
+    "rotation": 0,
+    "state": {
+      "in_A": 0,
+      "in_B": 0,
+      "out_Q": 0
+    },
+    "custom": {}
+  },
+  {
+    "id": "clock",
+    "type": "CLOCK",
+    "position": [
+      -1,
+      0,
+      3
+    ],
+    "rotation": 0,
+    "state": {
+      "out_Q": 0
+    },
+    "custom": {
+      "tick": 0.5,
+      "lastUpdate": 0
+    }
+  },
+  {
+    "id": "clock_1",
+    "type": "CLOCK",
+    "position": [
+      -1,
+      0,
+      4
+    ],
+    "rotation": 0,
+    "state": {
+      "out_Q": 0
+    },
+    "custom": {
+      "tick": 1,
+      "lastUpdate": 0
+    }
+  },
+  {
+    "id": "clock_2",
+    "type": "CLOCK",
+    "position": [
+      -1,
+      0,
+      2
+    ],
+    "rotation": 0,
+    "state": {
+      "out_Q": 0
+    },
+    "custom": {
+      "tick": 1,
+      "lastUpdate": 0
+    }
+  }
+]
