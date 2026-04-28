@@ -243,9 +243,7 @@ export const useObjectsSlice = create(set => ({
       ],
     }
   ],
-  getInput(gateId) {
-
-  },
+  getInput(gateId) { },
   addGate(input) {
     const gate = {
       id: generateUUID(),
@@ -288,7 +286,8 @@ export const useObjectsSlice = create(set => ({
   },
   removeGate(id) {
     set(state => ({
-      // objects: state.objects.filter(gate => gate.id !== id)
+      GATES: state.GATES.filter(gate => gate.id !== id),
+      LINES: state.LINES.filter(line => line.to.gateId != id && line.from.gateId != id),
     }))
   },
   updateGate(id, input) {
@@ -323,7 +322,6 @@ export const useObjectsSlice = create(set => ({
     }))
   },
   getGateByPosition(position) {
-    console.log(position)
     const foundGate = useObjectsSlice
       .getState()
       .GATES

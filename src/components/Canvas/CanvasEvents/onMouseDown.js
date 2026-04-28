@@ -15,6 +15,7 @@ function onMouseDown(event) {
   const addGate = useObjectsSlice.getState().addGate; // Access the addGate function from the player slice
   const getGateByPosition = useObjectsSlice.getState().getGateByPosition; // Access the getGateByPosition function from the player slice
   const selectGate = usePlayerSlice.getState().selectGate
+  const removeGate = useObjectsSlice.getState().removeGate
 
   if (!camera) {
     console.warn("Camera not found in player slice.");
@@ -23,11 +24,10 @@ function onMouseDown(event) {
 
   setSnapGridPosition(interactPosition, TRANSISTOR_SIZE, position)
   const { x, y, z } = convertWorldCoorToGatePos(position.x, position.y, position.z)
-  const existingGate = getGateByPosition([x, y, z])
 
+  const existingGate = getGateByPosition([x, y, z])
   if (event.button === 2) {
     if (existingGate) {
-
       console.log("Gate already exists at this position:", existingGate.position)
       return;
     }
@@ -38,8 +38,8 @@ function onMouseDown(event) {
       rotation: 0,
       custom: {}
     })
-  } else if (event.button === 1) {
-
+  } else if (event.button === 0 && existingGate) {
+    removeGate(existingGate?.id)
   }
 }
 
