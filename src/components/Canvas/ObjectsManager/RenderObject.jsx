@@ -73,7 +73,7 @@ function RenderObject() {
             <Line
               key={obj.id}
               points={value}
-              lineWidth={5}
+              lineWidth={2}
               color={obj.status == 0 ? "blue" : "red"} />
           )
         })}

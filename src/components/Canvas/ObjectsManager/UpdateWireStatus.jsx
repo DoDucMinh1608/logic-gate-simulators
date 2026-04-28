@@ -21,7 +21,7 @@ function UpdateWireStatus() {
       })
     }
     updateWires(needUpdates)
-  }, -1, 30)
+  }, -1, 60)
 }
 
 export default UpdateWireStatus

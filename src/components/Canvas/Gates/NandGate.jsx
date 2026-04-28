@@ -21,4 +21,19 @@ export default function NandGate(props) {
   )
 }
 
+const gateState = { in_A: 0, in_B: 0, out_Q: 0 }
+const wireState = { in_A: 0, in_B: 0, out_Q: 0 }
+function NextState(wireState, gateState) {
+  let result = wireState.in_A && wireState.in_B
+  return {
+    in_A: wireState.in_A,
+    in_B: wireState.in_B,
+    out_Q: !result
+  }
+}
+
+NandGate.inputs = ['in_A', 'in_B']
+NandGate.outputs = ['out_Q']
+NandGate.NextState = NextState
+
 useGLTF.preload('/NAND-transformed.glb')

@@ -18,4 +18,18 @@ export default function XorGate(props) {
   )
 }
 
+const gateState = { in_A: 0, in_B: 0, out_Q: 0 }
+const wireState = { in_A: 0, in_B: 0, out_Q: 0 }
+function NextState(wireState, gateState) {
+  return {
+    in_A: wireState.in_A,
+    in_B: wireState.in_B,
+    out_Q: wireState.in_A == wireState.in_B
+  }
+}
+
+XorGate.inputs = ['in_A', 'in_B']
+XorGate.outputs = ['out_Q']
+XorGate.NextState = NextState
+
 useGLTF.preload('/XOR-transformed.glb')

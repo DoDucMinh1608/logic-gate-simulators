@@ -18,4 +18,17 @@ export default function AndGate(props) {
   )
 }
 
+const gateState = { in_A: 0, in_B: 0, out_Q: 0 }
+const wireState = { in_A: 0, in_B: 0, out_Q: 0 }
+function NextState(wireState, gateState) {
+  return {
+    in_A: wireState.in_A,
+    in_B: wireState.in_B,
+    out_Q: wireState.in_A && wireState.in_B
+  }
+}
+AndGate.inputs = ['in_A', 'in_B']
+AndGate.outputs = ['out_Q']
+AndGate.NextState = NextState
+
 useGLTF.preload('/AND-transformed.glb')
