@@ -3,9 +3,7 @@ import { useRef } from "react";
 
 import { useThrottledFrame } from "@/hooks/useThrottledFrame";
 import { useUtilitySlice } from "@/store/utilitiesSlice";
-import Transistor from "../ObjectsManager/Transistor";
 
-const objectSize = Transistor.gridSize.clone()
 function ControlPlacement() {
   const ref = useRef()
   const interactPosition = useUtilitySlice(state => state.interactPosition)

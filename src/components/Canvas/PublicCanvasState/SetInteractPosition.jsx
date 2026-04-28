@@ -5,11 +5,11 @@ import { useUtilitySlice } from "@/store/utilitiesSlice";
 import { getLookingPositionOnPlane, setSnapGridPosition } from "@/utils/math-utils";
 
 // TODO: update placing position when looking at an object, not just the ground plane, should be refactored to avoid code duplication with ControlPlacement
-const activePlane = new Plane(new Vector3(0, 1, 0), 1)
+const activePlane = new Plane(new Vector3(0, 1, 0), 0)
 const contactPoint = new Vector3()
 const direction = new Vector3()
 const gridPosition = new Vector3()
-const actualSize = new Vector3(0.1, 0.1, 0.1)
+const actualSize = new Vector3(0.2, 0.1, 0.2)
 
 function SetInteractPosition() {
   const setInteractPosition = useUtilitySlice(state => state.setInteractPosition)

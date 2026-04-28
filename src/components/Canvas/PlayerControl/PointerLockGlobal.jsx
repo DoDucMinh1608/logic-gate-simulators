@@ -1,8 +1,7 @@
-import { OrbitControls, PointerLockControls } from '@react-three/drei'
+import { PointerLockControls } from '@react-three/drei'
 import { useEffect } from 'react'
 
-import { usePlayerSlice } from '../../../store/playerSlice'
-
+import { usePlayerSlice } from '@/store/playerSlice'
 
 export default function PointerLockGlobal() {
   const setMouseLock = usePlayerSlice(state => state.setMouseLock)

@@ -1,14 +1,12 @@
 import { usePlayerSlice } from "@/store/playerSlice"
 import { getDegrees } from "@/utils/math-utils"
 
-
-
 function CurrentCameraState() {
   const camera = usePlayerSlice(state => state.camera)
   const angles = getDegrees(camera?.direction)
 
   return (
-    <div className="font-mono absolute  left-0 top-0 translate-x-2 flex bg-[rgba(255,255,255,0.5)] p-1 gap-5">
+    <div className="font-mono absolute  left-0 top-0 translate-x-2 flex bg-[rgba(255,255,255,0.5)] p-1 gap-5 z-10">
       <div>
         Position:<br />
         <p className="pl-5 grid grid-cols-2 gapx-5">

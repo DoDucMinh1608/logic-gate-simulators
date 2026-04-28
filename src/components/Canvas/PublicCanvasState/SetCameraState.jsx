@@ -17,7 +17,7 @@ function SetCameraState() {
 
     camera.getWorldDirection(inputVector)
     setCameraDirection(inputVector)
-    state.gl.render(state.scene, state.camera)
+    // state.gl.render(state.scene, state.camera)
   }, -1, updateTick)
 
   return null;

@@ -1,6 +1,5 @@
 import { Vector3 } from "three";
 import { NORMAL_VALUE } from "./constants";
-import Transistor from "@/components/Canvas/ObjectsManager/Transistor";
 
 export function getDegrees(direction) {
   if (!direction) return { yaw: 0, pitch: 0 };
@@ -23,10 +22,10 @@ export function getLookingPositionOnPlane(state, plane, result) {
 
 export function testSnapPos(objectPosition, lookingPos, size, result) {
   try {
-    // const
-    //   x0 = lookingPos.x > objectPosition.x ? 1 : -1,
-    //   y0 = lookingPos.y > objectPosition.y ? 1 : -1,
-    //   z0 = lookingPos.z > objectPosition.z ? 1 : -1
+    const
+      x0 = lookingPos.x > objectPosition.x ? 1 : -1,
+      y0 = lookingPos.y > objectPosition.y ? 1 : -1,
+      z0 = lookingPos.z > objectPosition.z ? 1 : -1
     result.set(
       Math.floor(lookingPos.x / size.x) * size.x + size.x / 2 * x0,
       Math.floor(lookingPos.y / size.y) * size.y + size.y / 2 * y0,
@@ -45,16 +44,21 @@ export function testSnapPos(objectPosition, lookingPos, size, result) {
 
   }
 }
-export function setSnapGridPosition(position, display_size, result) {
+export function setSnapGridPosition(position, size, result) {
   try {
 
+    // result.set(
+    //   position.x,
+    //   position.y,
+    //   position.z,
+    // )
     result.set(
-      Math.floor(position.x / display_size.x) * display_size.x + display_size.x / 2,
-      Math.floor(position.y / display_size.y) * display_size.y + display_size.y / 2,
-      Math.floor(position.z / display_size.z) * display_size.z + display_size.z / 2,
+      Math.floor(position.x / size.x) * size.x + size.x / 2,
+      Math.floor(position.y / size.y) * size.y + size.y / 2,
+      Math.floor(position.z / size.z) * size.z + size.z / 2,
     )
   } catch (error) {
-    console.log(position, display_size, result)
+    console.log(position, size, result)
     console.log(error)
   }
   return result
@@ -73,10 +77,11 @@ const prefixVec = new Vector3(0.5, 0, 0.5)
 const prefixVec2 = new Vector3(0.1, 0.01, 0.1)
 const prefixVec3 = new Vector3(2, 0, 2)
 const prefixVec4 = new Vector3(0, 0.005, 0)
+const transistorSize = new Vector3(0.2, 0.04, 0.2)
 export function calculateGatePosition(x, y = 0, z) {
   return new Vector3(x, y, z)
     .add(prefixVec)
-    .multiply(Transistor.gridSize)
+    .multiply(transistorSize)
 }
 export function calculateWirePosition(x, y = 0, z) {
   return new Vector3(x, y, z)

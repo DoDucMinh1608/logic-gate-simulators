@@ -15,9 +15,9 @@ function App() {
         <Canvas
           camera={{ fov: 90, position: [0, 1.5, 0] }}
           onMouseDown={e => onMouseDown(e)}>
-          <Suspense fallback={<mesh><boxGeometry /><meshBasicMaterial color="orange" /></mesh>}>
-            <Experience />
-          </Suspense>
+          <Experience />
+          {/* <Suspense fallback={<mesh><boxGeometry /><meshBasicMaterial color="orange" /></mesh>}>
+          </Suspense> */}
         </Canvas>
       </KeyboardControls>
     </>

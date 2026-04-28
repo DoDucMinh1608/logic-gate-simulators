@@ -5,9 +5,8 @@ import GateMenu from "./UI/GateMenu"
 function MainUI() {
   return (
     <>
-      <CenterCursor />
-      {/* <DebugTerminal /> */}
       <CurrentCameraState />
+      <CenterCursor />
       <GateMenu />
     </>
   )
