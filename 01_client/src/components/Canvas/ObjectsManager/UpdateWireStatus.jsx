@@ -3,7 +3,7 @@ import { useObjectsSlice } from "@/store/objectsSlice"
 
 function UpdateWireStatus() {
   const gates = useObjectsSlice(state => state.GATES)
-  const wires = useObjectsSlice(state => state.LINES)
+  const wires = useObjectsSlice(state => state.WIRES)
   const updateWires = useObjectsSlice(state => state.updateWires)
 
   useThrottledFrame((state, delta) => {

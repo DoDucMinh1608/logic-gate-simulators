@@ -12,7 +12,7 @@ import XorGate from "../Gates/XorGate"
 
 function UpdateGateStatus() {
   const gates = useObjectsSlice(state => state.GATES)
-  const line = useObjectsSlice(state => state.LINES)
+  const wires = useObjectsSlice(state => state.WIRES)
 
   const updateGate = useObjectsSlice(state => state.updateGate)
   const updateGates = useObjectsSlice(state => state.updateGates)
@@ -20,7 +20,7 @@ function UpdateGateStatus() {
   useThrottledFrame((state, delta) => {
     const nextStates = []
     for (let gate of gates) {
-      const wires = Object.fromEntries(line
+      const gate_wires = Object.fromEntries(wires
         .filter(wire => wire.from.gateId === gate.id || wire.to.gateId === gate.id)
         .map(i => [
           i[i.from.gateId === gate.id ? 'from' : 'to'].pin,
@@ -30,14 +30,14 @@ function UpdateGateStatus() {
       let nextState
       switch (gate.type) {
         case AND_GATE:
-          nextState = AndGate.NextState({ ...AndGate.defaultState, ...wires }, gate.state)
+          nextState = AndGate.NextState({ ...AndGate.defaultState, ...gate_wires }, gate.state)
           nextStates.push({
             id: gate.id,
             state: nextState,
           })
           break;
         case OR_GATE:
-          nextState = OrGate.NextState({ ...OrGate.defaultState, ...wires }, gate.state)
+          nextState = OrGate.NextState({ ...OrGate.defaultState, ...gate_wires }, gate.state)
           if (nextState.out_Q !== gate.state.out_Q) {
             nextStates.push({
               id: gate.id,
@@ -46,7 +46,7 @@ function UpdateGateStatus() {
           }
           break;
         case NOT_GATE:
-          nextState = NotGate.NextState({ ...NotGate.defaultState, ...wires }, gate.state)
+          nextState = NotGate.NextState({ ...NotGate.defaultState, ...gate_wires }, gate.state)
           if (nextState.out_Q !== gate.state.out_Q) {
             nextStates.push({
               id: gate.id,
@@ -55,7 +55,7 @@ function UpdateGateStatus() {
           }
           break;
         case NAND_GATE:
-          nextState = NandGate.NextState({ ...NandGate.defaultState, ...wires }, gate.state)
+          nextState = NandGate.NextState({ ...NandGate.defaultState, ...gate_wires }, gate.state)
           if (nextState.out_Q !== gate.state.out_Q) {
             nextStates.push({
               id: gate.id,
@@ -64,7 +64,7 @@ function UpdateGateStatus() {
           }
           break;
         case NOR_GATE:
-          nextState = NorGate.NextState({ ...NorGate.defaultState, ...wires }, gate.state)
+          nextState = NorGate.NextState({ ...NorGate.defaultState, ...gate_wires }, gate.state)
           if (nextState.out_Q !== gate.state.out_Q) {
             nextStates.push({
               id: gate.id,
@@ -73,7 +73,7 @@ function UpdateGateStatus() {
           }
           break;
         case XOR_GATE:
-          nextState = XorGate.NextState({ ...XorGate.defaultState, ...wires }, gate.state)
+          nextState = XorGate.NextState({ ...XorGate.defaultState, ...gate_wires }, gate.state)
           if (nextState.out_Q !== gate.state.out_Q) {
             nextStates.push({
               id: gate.id,
@@ -83,7 +83,7 @@ function UpdateGateStatus() {
           break;
         case CLOCK:
           if ((state.clock.elapsedTime - gate.custom.lastUpdate) <= gate.custom.tick) break
-          nextState = Clock.NextState({ ...Clock.defaultState, ...wires }, gate.state)
+          nextState = Clock.NextState({ ...Clock.defaultState, ...gate_wires }, gate.state)
           if (gate.state.out_Q !== nextState.out_Q) {
             nextStates.push({
               id: gate.id,
