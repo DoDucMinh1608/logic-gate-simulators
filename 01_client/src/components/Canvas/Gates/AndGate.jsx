@@ -19,8 +19,7 @@ export default function AndGate(props) {
           metalness={1}
           roughness={0.4}
           envMapIntensity={1.5}
-          flatShading={true}
-        />
+          flatShading={true} />
       </mesh>
       <mesh position={[1.5, 0.125, 0]}>
         <boxGeometry args={[.4, .3, .3]} />
@@ -29,8 +28,7 @@ export default function AndGate(props) {
           metalness={1}
           roughness={0.4}
           envMapIntensity={1.5}
-          flatShading={true}
-        />
+          flatShading={true} />
       </mesh>
       <mesh position={[-1.5, 0.125, .5]}>
         <boxGeometry args={[.4, .3, .3]} />
@@ -39,8 +37,7 @@ export default function AndGate(props) {
           metalness={1}
           roughness={0.4}
           envMapIntensity={1.5}
-          flatShading={true}
-        />
+          flatShading={true} />
       </mesh>
       <mesh position={[-1.5, 0.125, -.5]}>
         <boxGeometry args={[.4, .3, .3]} />
@@ -49,8 +46,7 @@ export default function AndGate(props) {
           metalness={1}
           roughness={0.4}
           envMapIntensity={1.5}
-          flatShading={true}
-        />
+          flatShading={true} />
       </mesh>
     </group>
   )
