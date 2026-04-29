@@ -1,3 +1,4 @@
+import { Vector3 } from "three";
 import { generateUUID } from "three/src/math/MathUtils.js";
 import { create } from "zustand";
 
@@ -9,9 +10,10 @@ import NotGate from "@/components/Canvas/Gates/NotGate";
 import OrGate from "@/components/Canvas/Gates/OrGate";
 import Switch from "@/components/Canvas/Gates/Switch";
 import XorGate from "@/components/Canvas/Gates/XorGate";
+
+import { GetWirePosFromGatePos1, GetWirePosFromGatePos2 } from "@/utils";
 import { AND_GATE, CLOCK, NAND_GATE, NOR_GATE, NOT_GATE, OR_GATE, SWITCH, XOR_GATE } from "@/utils/constants";
-import { ConnectToPosition, convertGatePosToWirePos, GetWirePosFromGatePos1, GetWirePosFromGatePos2 } from "@/utils";
-import { Vector3 } from "three";
+
 
 export const useObjectsSlice = create(set => ({
   GATES: [
@@ -83,14 +85,6 @@ export const useObjectsSlice = create(set => ({
       state: { out_Q: 0 },
       custom: { tick: 1, lastUpdate: 0 }
     },
-    {
-      id: "aaa",
-      "type": "XOR",
-      "position": [-4, 0, 10],
-      "rotation": 0,
-      state: {},
-      "custom": {}
-    }
   ],
   LINES: [
     {
@@ -98,162 +92,120 @@ export const useObjectsSlice = create(set => ({
       status: false,
       from: { gateId: 'xor_1', pin: 'out_Q' },
       to: { gateId: '', pin: 'in_A' },
-      positions: [
-        new Vector3(0, 0, 6),
-        new Vector3(.5, 0, 6),
-      ],
+      positions: GetWirePosFromGatePos1(0, 0, 6).out_Q,
     },
     {
       id: generateUUID(),
       status: false,
       from: { gateId: '', pin: 'out_Q' },
       to: { gateId: 'xor_1', pin: 'in_B' },
-      positions: [],
+      positions: GetWirePosFromGatePos1(0, 0, 6).in_B,
     },
     {
       id: generateUUID(),
-      status: false,
+      status: true,
       from: { gateId: '', pin: 'out_Q' },
       to: { gateId: 'xor_1', pin: 'in_A' },
-      positions: [],
+      positions: GetWirePosFromGatePos1(0, 0, 6).in_A,
     },
     {
       id: generateUUID(),
       status: false,
       from: { gateId: 'nor_1', pin: 'out_Q' },
       to: { gateId: '', pin: 'in_A' },
-      positions: [
-        convertGatePosToWirePos(0, 0, 5),
-        convertGatePosToWirePos(.5, 0, 5),
-      ],
+      positions: GetWirePosFromGatePos1(0, 0, 5).out_Q,
     },
     {
       id: generateUUID(),
       status: true,
       from: { gateId: '', pin: 'out_Q' },
       to: { gateId: 'nor_1', pin: 'in_B' },
-      positions: [],
+      positions: GetWirePosFromGatePos1(0, 0, 5).in_B,
     },
     {
       id: generateUUID(),
       status: false,
       from: { gateId: '', pin: 'out_Q' },
       to: { gateId: 'nor_1', pin: 'in_A' },
-      positions: [],
+      positions: GetWirePosFromGatePos1(0, 0, 5).in_A,
     },
     {
       id: generateUUID(),
       status: false,
       from: { gateId: 'nand_1', pin: 'out_Q' },
       to: { gateId: '', pin: 'in_A' },
-      positions: [
-        convertGatePosToWirePos(0, 0, 4),
-        convertGatePosToWirePos(.5, 0, 4),
-      ],
+      positions: GetWirePosFromGatePos1(0, 0, 4).out_Q,
     },
     {
       id: generateUUID(),
       status: true,
       from: { gateId: 'clock_1', pin: 'out_Q' },
       to: { gateId: 'nand_1', pin: 'in_B' },
-      positions: [],
+      positions: GetWirePosFromGatePos1(0, 0, 4).in_B,
     },
     {
       id: generateUUID(),
       status: true,
       from: { gateId: 'clock_2', pin: 'out_Q' },
       to: { gateId: 'nand_1', pin: 'in_A' },
-      positions: [],
+      positions: GetWirePosFromGatePos1(0, 0, 4).in_A,
     },
     {
       id: generateUUID(),
       status: false,
       from: { gateId: 'and_1', pin: 'out_Q' },
       to: { gateId: '', pin: 'in_A' },
-      positions: [
-        convertGatePosToWirePos(0, 0, 1),
-        convertGatePosToWirePos(.5, 0, 1),
-      ],
+      positions: GetWirePosFromGatePos1(0, 0, 1).out_Q
     },
     {
       id: generateUUID(),
       status: true,
       from: { gateId: 'clock_1', pin: 'out_Q' },
       to: { gateId: 'and_1', pin: 'in_B' },
-      positions: [],
+      positions: GetWirePosFromGatePos1(0, 0, 1).in_B,
     },
     {
       id: generateUUID(),
       status: true,
       from: { gateId: 'clock_2', pin: 'out_Q' },
       to: { gateId: 'and_1', pin: 'in_A' },
-      positions: [],
+      positions: GetWirePosFromGatePos1(0, 0, 1).in_A,
     },
     {
       id: generateUUID(),
       status: false,
       from: { gateId: 'clock_2', pin: 'out_Q' },
       to: { gateId: 'not_1', pin: 'in_A' },
-      positions: [
-        // GetWirePosFromGatePos1(-1, 0, 2).out_Q,
-        // convertGatePosToWirePos(-1, 0, 2),
-        // convertGatePosToWirePos(0, 0, 2),
-        GetWirePosFromGatePos2(-.2, 0, 2).in_A,
-        GetWirePosFromGatePos2(0, 0, 2).in_A,
-      ],
+      positions: GetWirePosFromGatePos2(0, 0, 2).out_Q
     },
     {
       id: generateUUID(),
       status: false,
       from: { gateId: 'not_1', pin: 'out_Q' },
       to: { gateId: '', pin: 'in_A' },
-      positions: [
-        // convertGatePosToWirePos(0, 0, 2),
-        // convertGatePosToWirePos(.5, 0, 2),
-        GetWirePosFromGatePos2(0, 0, 2).out_Q,
-        GetWirePosFromGatePos2(.2, 0, 2).out_Q,
-      ],
+      positions: GetWirePosFromGatePos2(0, 0, 2).in_A,
     },
     {
       id: generateUUID(),
       status: false,
       from: { gateId: 'or_1', pin: 'out_Q' },
       to: { gateId: 'or_2', pin: 'in_B' },
-      positions: [
-        // convertGatePosToWirePos(0, 10, 3),
-        // convertGatePosToWirePos(0.5, 10, 3),
-        GetWirePosFromGatePos1(0, 0, 3).out_Q,
-        GetWirePosFromGatePos1(.2, 0, 3).out_Q,
-      ],
+      positions: GetWirePosFromGatePos1(0, 0, 3).in_B,
     },
+
     {
       id: generateUUID(),
       status: false,
       from: { gateId: 'clock', pin: 'out_Q' },
       to: { gateId: 'or_1', pin: 'in_A' },
-      positions: [
-        GetWirePosFromGatePos2(-1, 0, 3).out_Q,
-        ...ConnectToPosition(
-          GetWirePosFromGatePos2(-1, 0, 3).out_Q,
-          // GetWirePosFromGatePos2(-1, 0, 3).out_Q,
-          GetWirePosFromGatePos1(-.2, 0, 3).in_A
-        ),
-        GetWirePosFromGatePos1(0, 0, 3).in_A
-      ],
+      positions: GetWirePosFromGatePos1(0, 0, 3).in_A,
     },
     {
       id: generateUUID(),
       status: false,
       from: { gateId: 'clock_1', pin: 'out_Q' },
       to: { gateId: 'or_1', pin: 'in_B' },
-      positions: [
-        // GetWirePosFromGatePos2(-1, 0, 4).out_Q,
-        // ...ConnectToPosition(
-        //   GetWirePosFromGatePos2(-1, 0, 4).out_Q,
-        //   // GetWirePosFromGatePos1(-.2, 0, 3).in_B
-        //   GetWirePosFromGatePos1(0, 0, 3).in_B
-        // ),
-      ],
+      positions: GetWirePosFromGatePos2(0, 0, 3).out_Q,
     },
   ],
   getInput(gateId) { },

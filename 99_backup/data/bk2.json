@@ -1,0 +1,587 @@
+{
+  "gates": [
+    {
+      "id": "and_1",
+      "type": "AND",
+      "position": [
+        0,
+        0,
+        1
+      ],
+      "rotation": 0,
+      "state": {
+        "in_A": true,
+        "in_B": true,
+        "out_Q": true
+      }
+    },
+    {
+      "id": "not_1",
+      "type": "NOT",
+      "position": [
+        0,
+        0,
+        2
+      ],
+      "rotation": 0,
+      "state": {
+        "in_A": true,
+        "out_Q": false
+      }
+    },
+    {
+      "id": "or_1",
+      "type": "OR",
+      "position": [
+        0,
+        0,
+        3
+      ],
+      "rotation": 0,
+      "state": {
+        "in_A": true,
+        "in_B": false,
+        "out_Q": true
+      },
+      "custom": {}
+    },
+    {
+      "id": "nand_1",
+      "type": "NAND",
+      "position": [
+        0,
+        0,
+        4
+      ],
+      "rotation": 0,
+      "state": {
+        "in_A": true,
+        "in_B": true,
+        "out_Q": false
+      }
+    },
+    {
+      "id": "nor_1",
+      "type": "NOR",
+      "position": [
+        0,
+        0,
+        5
+      ],
+      "rotation": 0,
+      "state": {
+        "in_A": false,
+        "in_B": true,
+        "out_Q": false
+      }
+    },
+    {
+      "id": "xor_1",
+      "type": "XOR",
+      "position": [
+        0,
+        0,
+        6
+      ],
+      "rotation": 0,
+      "state": {
+        "in_A": true,
+        "in_B": false,
+        "out_Q": false
+      },
+      "custom": {}
+    },
+    {
+      "id": "clock",
+      "type": "CLOCK",
+      "position": [
+        -1,
+        0,
+        3
+      ],
+      "rotation": 0,
+      "state": {
+        "out_Q": true
+      },
+      "custom": {
+        "tick": 0.5,
+        "lastUpdate": 73.01439999997784
+      }
+    },
+    {
+      "id": "clock_1",
+      "type": "CLOCK",
+      "position": [
+        -1,
+        0,
+        4
+      ],
+      "rotation": 0,
+      "state": {
+        "out_Q": true
+      },
+      "custom": {
+        "tick": 1,
+        "lastUpdate": 73.3125000000017
+      }
+    },
+    {
+      "id": "clock_2",
+      "type": "CLOCK",
+      "position": [
+        -1,
+        0,
+        2
+      ],
+      "rotation": 0,
+      "state": {
+        "out_Q": true
+      },
+      "custom": {
+        "tick": 1,
+        "lastUpdate": 73.3125000000017
+      }
+    },
+    {
+      "id": "1720e126-0fba-407c-ba22-49f872b26d42",
+      "state": {
+        "in_A": 0,
+        "in_B": 0,
+        "out_Q": 0
+      },
+      "type": "AND",
+      "position": [
+        1,
+        0,
+        4
+      ],
+      "rotation": 0,
+      "custom": {}
+    },
+    {
+      "id": "aed4b4c9-5975-4b44-a7fd-a66e3b7b1dd1",
+      "state": {
+        "in_A": 0,
+        "out_Q": true
+      },
+      "type": "NOT",
+      "position": [
+        2,
+        0,
+        3
+      ],
+      "rotation": 0,
+      "custom": {}
+    }
+  ],
+  "line": [
+    {
+      "id": "a414fa8d-b7e4-4a45-bd6c-58f5f5cdceb2",
+      "status": false,
+      "from": {
+        "gateId": "xor_1",
+        "pin": "out_Q"
+      },
+      "to": {
+        "gateId": "",
+        "pin": "in_A"
+      },
+      "positions": [
+        [
+          4,
+          0,
+          32.5
+        ],
+        [
+          5,
+          0,
+          32.5
+        ]
+      ]
+    },
+    {
+      "id": "c8df3790-c7e6-407a-8798-34b66ee8aea0",
+      "status": false,
+      "from": {
+        "gateId": "",
+        "pin": "out_Q"
+      },
+      "to": {
+        "gateId": "xor_1",
+        "pin": "in_B"
+      },
+      "positions": [
+        [
+          0,
+          0,
+          33
+        ],
+        [
+          1,
+          0,
+          33
+        ]
+      ]
+    },
+    {
+      "id": "73a9f3f4-c279-4974-a7f8-c253597007ea",
+      "status": true,
+      "from": {
+        "gateId": "",
+        "pin": "out_Q"
+      },
+      "to": {
+        "gateId": "xor_1",
+        "pin": "in_A"
+      },
+      "positions": [
+        [
+          0,
+          0,
+          32
+        ],
+        [
+          1,
+          0,
+          32
+        ]
+      ]
+    },
+    {
+      "id": "31453c1d-6b40-4f39-a86c-52ef6cac6fa0",
+      "status": false,
+      "from": {
+        "gateId": "nor_1",
+        "pin": "out_Q"
+      },
+      "to": {
+        "gateId": "",
+        "pin": "in_A"
+      },
+      "positions": [
+        [
+          4,
+          0,
+          27.5
+        ],
+        [
+          5,
+          0,
+          27.5
+        ]
+      ]
+    },
+    {
+      "id": "a862c4d9-f138-4a94-842e-3df821061c33",
+      "status": true,
+      "from": {
+        "gateId": "",
+        "pin": "out_Q"
+      },
+      "to": {
+        "gateId": "nor_1",
+        "pin": "in_B"
+      },
+      "positions": [
+        [
+          0,
+          0,
+          28
+        ],
+        [
+          1,
+          0,
+          28
+        ]
+      ]
+    },
+    {
+      "id": "bddd3ddb-fd58-4f27-a364-2d9a879dce2e",
+      "status": false,
+      "from": {
+        "gateId": "",
+        "pin": "out_Q"
+      },
+      "to": {
+        "gateId": "nor_1",
+        "pin": "in_A"
+      },
+      "positions": [
+        [
+          0,
+          0,
+          27
+        ],
+        [
+          1,
+          0,
+          27
+        ]
+      ]
+    },
+    {
+      "id": "2f19811c-5d22-4180-816f-78e5033b4ee3",
+      "status": false,
+      "from": {
+        "gateId": "nand_1",
+        "pin": "out_Q"
+      },
+      "to": {
+        "gateId": "",
+        "pin": "in_A"
+      },
+      "positions": [
+        [
+          4,
+          0,
+          22.5
+        ],
+        [
+          5,
+          0,
+          22.5
+        ]
+      ]
+    },
+    {
+      "id": "47fafaa1-76ec-460b-8809-acacc8d59f81",
+      "status": true,
+      "from": {
+        "gateId": "clock_1",
+        "pin": "out_Q"
+      },
+      "to": {
+        "gateId": "nand_1",
+        "pin": "in_B"
+      },
+      "positions": [
+        [
+          0,
+          0,
+          23
+        ],
+        [
+          1,
+          0,
+          23
+        ]
+      ]
+    },
+    {
+      "id": "6f2ca89f-61a4-456d-b36a-4193eb89381c",
+      "status": true,
+      "from": {
+        "gateId": "clock_2",
+        "pin": "out_Q"
+      },
+      "to": {
+        "gateId": "nand_1",
+        "pin": "in_A"
+      },
+      "positions": [
+        [
+          0,
+          0,
+          22
+        ],
+        [
+          1,
+          0,
+          22
+        ]
+      ]
+    },
+    {
+      "id": "4096ef28-6741-46f8-80ed-320fbcdf1937",
+      "status": true,
+      "from": {
+        "gateId": "and_1",
+        "pin": "out_Q"
+      },
+      "to": {
+        "gateId": "",
+        "pin": "in_A"
+      },
+      "positions": [
+        [
+          4,
+          0,
+          7.5
+        ],
+        [
+          5,
+          0,
+          7.5
+        ]
+      ]
+    },
+    {
+      "id": "25ecf034-b483-4cd6-9e2c-48d0bdb41618",
+      "status": true,
+      "from": {
+        "gateId": "clock_1",
+        "pin": "out_Q"
+      },
+      "to": {
+        "gateId": "and_1",
+        "pin": "in_B"
+      },
+      "positions": [
+        [
+          0,
+          0,
+          8
+        ],
+        [
+          1,
+          0,
+          8
+        ]
+      ]
+    },
+    {
+      "id": "d3ea5fad-80eb-4951-ab86-a1da25f2e776",
+      "status": true,
+      "from": {
+        "gateId": "clock_2",
+        "pin": "out_Q"
+      },
+      "to": {
+        "gateId": "and_1",
+        "pin": "in_A"
+      },
+      "positions": [
+        [
+          0,
+          0,
+          7
+        ],
+        [
+          1,
+          0,
+          7
+        ]
+      ]
+    },
+    {
+      "id": "ac3bbfc5-32b9-4ae8-b0ab-e01ac26d9f12",
+      "status": true,
+      "from": {
+        "gateId": "clock_2",
+        "pin": "out_Q"
+      },
+      "to": {
+        "gateId": "not_1",
+        "pin": "in_A"
+      },
+      "positions": [
+        [
+          4,
+          0,
+          12.5
+        ],
+        [
+          5,
+          0,
+          12.5
+        ]
+      ]
+    },
+    {
+      "id": "2f81b33f-1820-4220-8c53-34670347f6c3",
+      "status": false,
+      "from": {
+        "gateId": "not_1",
+        "pin": "out_Q"
+      },
+      "to": {
+        "gateId": "",
+        "pin": "in_A"
+      },
+      "positions": [
+        [
+          0,
+          0,
+          12.5
+        ],
+        [
+          1,
+          0,
+          12.5
+        ]
+      ]
+    },
+    {
+      "id": "e7ab88e0-63d5-41bc-bc22-83e212c80a33",
+      "status": true,
+      "from": {
+        "gateId": "or_1",
+        "pin": "out_Q"
+      },
+      "to": {
+        "gateId": "or_2",
+        "pin": "in_B"
+      },
+      "positions": [
+        [
+          0,
+          0,
+          18
+        ],
+        [
+          1,
+          0,
+          18
+        ]
+      ]
+    },
+    {
+      "id": "b9a85cf1-7cb5-427c-8705-450fa8e4ea3e",
+      "status": true,
+      "from": {
+        "gateId": "clock",
+        "pin": "out_Q"
+      },
+      "to": {
+        "gateId": "or_1",
+        "pin": "in_A"
+      },
+      "positions": [
+        [
+          0,
+          0,
+          17
+        ],
+        [
+          1,
+          0,
+          17
+        ]
+      ]
+    },
+    {
+      "id": "f9e8a2b4-85be-41aa-9ba5-85e3fadac5bb",
+      "status": true,
+      "from": {
+        "gateId": "clock_1",
+        "pin": "out_Q"
+      },
+      "to": {
+        "gateId": "or_1",
+        "pin": "in_B"
+      },
+      "positions": [
+        [
+          4,
+          0,
+          17.5
+        ],
+        [
+          5,
+          0,
+          17.5
+        ]
+      ]
+    }
+  ]
+}

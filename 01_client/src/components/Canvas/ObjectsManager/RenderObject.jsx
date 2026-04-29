@@ -16,7 +16,7 @@ import XorGate from "../Gates/XorGate";
 function RenderObject() {
   const gates = useObjectsSlice(state => state.GATES)
   const line = useObjectsSlice(state => state.LINES)
-  // console.log(gates)
+  // console.log(JSON.stringify({ gates, line }))
   return (
     <>
       {gates.map((obj, j) => (
@@ -67,13 +67,13 @@ function RenderObject() {
         </>
       ))}
       {line
-        .filter(obj => obj.positions.length > 0)
+        .filter(obj => obj.positions.length > 1)
         .map(obj => {
           return (
             <Line
               key={obj.id}
               points={obj.positions}
-              lineWidth={2}
+              lineWidth={4}
               color={obj.status == 0 ? "blue" : "red"} />
           )
         })}

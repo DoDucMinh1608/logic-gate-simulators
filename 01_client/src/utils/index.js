@@ -92,26 +92,41 @@ export function convertWirePosToWorldCoor(x, y = 0, z) {
     .add(prefixVec4)
 }
 
-const prefixVec3 = new Vector3(2, 0, 2)
-export function convertGatePosToWirePos(x, y, z) {
-  return new Vector3(x, y, z)
-    .addScalar(0.5)
-    .multiply(prefixVec3)
-}
+// const prefixVec3 = new Vector3(2, 0, 2)
+// export function convertGatePosToWirePos(x, y, z) {
+//   return new Vector3(x, y, z)
+//     .addScalar(0.5)
+//     .multiply(prefixVec3)
+// }
 
 // GatePos -> outQ, inA, inB wirePos
 export function GetWirePosFromGatePos1(x, y, z) {
   return {
-    in_A: [(x + 0.2) * 2, (y + 0.5) * 0, (z + 0.4) * 2],
-    in_B: [(x + 0.2) * 2, (y + 0.5) * 0, (z + 0.6) * 2],
-    out_Q: [(x + 0.8) * 2, (y + 0.5) * 0, (z + 0.5) * 2]
+    in_A: [
+      [x * 5 + 0, 0, z * 5 + 2],
+      [x * 5 + 1, 0, z * 5 + 2],
+    ],
+    in_B: [
+      [x * 5 + 0, y, z * 5 + 3],
+      [x * 5 + 1, y, z * 5 + 3],
+    ],
+    out_Q: [
+      [x * 5 + 4, y, z * 5 + 2.5],
+      [x * 5 + 5, y, z * 5 + 2.5],
+    ]
   }
 }
 
 export function GetWirePosFromGatePos2(x, y, z) {
   return {
-    in_A: [(x + 0.2) * 2, (y + 0.5) * 0, (z + 0.5) * 2],
-    out_Q: [(x + 0.8) * 2, (y + 0.5) * 0, (z + 0.5) * 2]
+    in_A: [
+      [x * 5 + 0, y, z * 5 + 2.5],
+      [x * 5 + 1, y, z * 5 + 2.5],
+    ],
+    out_Q: [
+      [x * 5 + 4, y, z * 5 + 2.5],
+      [x * 5 + 5, y, z * 5 + 2.5],
+    ]
   }
 }
 
