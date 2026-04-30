@@ -1,4 +1,4 @@
-import { GATE_COLORS } from "@/utils/colors"
+import { GATE_COLORS, PORT_COLORS } from "@/utils/colors"
 
 function Clock({ id, tick, custom, ...props }) {
   return (
@@ -22,6 +22,15 @@ function Clock({ id, tick, custom, ...props }) {
           envMapIntensity={1.5}
           flatShading={true}
         />
+      </mesh>
+      <mesh position={[1.5, 0.125, 0]}>
+        <boxGeometry args={[.4, .3, .3]} />
+        <meshStandardMaterial
+          color={PORT_COLORS}
+          metalness={1}
+          roughness={0.4}
+          envMapIntensity={1.5}
+          flatShading={true} />
       </mesh>
     </group>
   )

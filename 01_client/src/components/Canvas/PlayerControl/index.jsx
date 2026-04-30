@@ -1,14 +1,15 @@
-
-import ControlPlacement from "./ControlPlacement";
+import ControlGatePlacement from "./ControlGatePlacement";
+import ControlWirePlacement from "./ControlWirePlacement";
 import PointerLockGlobal from "./PointerLockGlobal";
 import UserMovements from "./UserMovements";
 
 function PlayerControl() {
   return (
     <>
-      <ControlPlacement />
       <UserMovements />
       <PointerLockGlobal />
+      <ControlGatePlacement />
+      <ControlWirePlacement />
     </>
   )
 }

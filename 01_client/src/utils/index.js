@@ -46,6 +46,7 @@ export function testSnapPos(objectPosition, lookingPos, size, result) {
   }
 }
 export function setSnapGridPosition(position, size, result) {
+  if (position == null) return
   try {
     result.set(
       Math.floor(position.x / size.x) * size.x + size.x / 2,

@@ -2,6 +2,7 @@ import { Vector3 } from "three"
 
 // export const NORMAL_VALUE = 0.0001
 
+export const WIRE = 'WIRE'
 export const AND_GATE = 'AND'
 export const OR_GATE = 'OR'
 export const NOT_GATE = 'NOT'
@@ -13,6 +14,7 @@ export const XOR_GATE = 'XOR'
 export const SWITCH = 'SWITCH'
 export const CLOCK = 'CLOCK'
 export const GATE_TYPES = [
+  WIRE,
   AND_GATE,
   OR_GATE,
   NOT_GATE,
