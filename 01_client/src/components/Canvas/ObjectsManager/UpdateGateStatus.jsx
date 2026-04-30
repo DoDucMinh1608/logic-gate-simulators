@@ -100,7 +100,7 @@ function UpdateGateStatus() {
       }
     }
     updateGates(nextStates)
-  }, 0, 60)
+  }, 0, 120)
 }
 
 export default UpdateGateStatus

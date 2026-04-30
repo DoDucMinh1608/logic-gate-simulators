@@ -11,6 +11,7 @@ import Switch from "@/components/Canvas/Gates/Switch";
 import XorGate from "@/components/Canvas/Gates/XorGate";
 
 import { AND_GATE, CLOCK, NAND_GATE, NOR_GATE, NOT_GATE, OR_GATE, SWITCH, XOR_GATE } from "@/utils/constants";
+import { Vector3 } from "three";
 
 
 export const useObjectsSlice = create((set, get) => ({
@@ -55,6 +56,7 @@ export const useObjectsSlice = create((set, get) => ({
       ]
     }))
   },
+
   removeGate(id) {
     set(state => ({
       GATES: state.GATES.filter(gate => gate.id !== id),
@@ -94,7 +96,6 @@ export const useObjectsSlice = create((set, get) => ({
     })
 
     if (dup.length > 0) return false
-
     set(state => ({
       WIRES: [
         ...state.WIRES,
@@ -105,6 +106,8 @@ export const useObjectsSlice = create((set, get) => ({
           to: { gateId: to.gateId, pin: to.pin },
           positions: [
             from.position,
+            new Vector3(from.position.x, 2, from.position.z),
+            new Vector3(to.position.x, 2, to.position.z),
             to.position
           ],
         }

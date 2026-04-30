@@ -68,6 +68,10 @@ function SetInteractPosition() {
         break
       case SWITCH:
       case CLOCK:
+        portPos = GetWirePosFromGatePos2(x, y, z)
+        tempVec.set(...portPos[OUT_Q][1])
+        portId = OUT_Q
+        break
       case NOT_GATE:
         portPos = GetWirePosFromGatePos2(x, y, z)
         if (contactPoint.x > gridPosition.x) {

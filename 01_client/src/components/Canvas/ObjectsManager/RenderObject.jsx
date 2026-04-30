@@ -2,8 +2,9 @@ import { Line } from "@react-three/drei";
 
 import { useObjectsSlice } from "@/store/objectsSlice";
 import { convertGatePosToWorldCoor } from "@/utils";
-
+import { usePlayerSlice } from "@/store/playerSlice";
 import { AND_GATE, CLOCK, NAND_GATE, NOR_GATE, NOT_GATE, OR_GATE, SWITCH, WIRE, XOR_GATE } from "@/utils/constants";
+
 import AndGate from "../Gates/AndGate";
 import Clock from "../Gates/Clock";
 import NandGate from "../Gates/NandGate";
@@ -12,7 +13,6 @@ import NotGate from "../Gates/NotGate";
 import OrGate from "../Gates/OrGate";
 import Switch from "../Gates/Switch";
 import XorGate from "../Gates/XorGate";
-import { usePlayerSlice } from "@/store/playerSlice";
 
 function RenderObject() {
   const gates = useObjectsSlice(state => state.GATES)
@@ -63,6 +63,8 @@ function RenderObject() {
             tick={obj.tick} />}
           {obj.type === SWITCH && <Switch
             key={obj.id}
+            id={obj.id}
+            state={obj.state}
             position={convertGatePosToWorldCoor(...obj.position)}
             rotation={[0, obj.rotation * Math.PI / 2, 0]}
             tick={obj.custom.tick} />}
@@ -75,7 +77,7 @@ function RenderObject() {
             <Line
               key={obj.id}
               points={obj.positions}
-              lineWidth={10}
+              lineWidth={15}
               onClick={e => {
                 e.stopPropagation()
                 // console.log(e.button)

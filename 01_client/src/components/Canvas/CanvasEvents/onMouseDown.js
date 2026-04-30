@@ -74,7 +74,7 @@ function onMouseDown(event) {
       }
 
       if (selectPort.gateId === selectBuildPort.gateId
-        && selectPort.pin === selectBuildPort.pi) {
+        && selectPort.pin === selectBuildPort.pin) {
         return
       }
 
