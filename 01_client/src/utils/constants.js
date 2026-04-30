@@ -2,6 +2,10 @@ import { Vector3 } from "three"
 
 // export const NORMAL_VALUE = 0.0001
 
+export const INPUT_PIN = 'input_pin'
+export const OUTPUT_PIN = 'output_pin'
+export const INVALID_PIN = 'invalid_pin'
+
 export const WIRE = 'WIRE'
 export const AND_GATE = 'AND'
 export const OR_GATE = 'OR'
@@ -10,6 +14,10 @@ export const NOT_GATE = 'NOT'
 export const NAND_GATE = 'NAND'
 export const NOR_GATE = 'NOR'
 export const XOR_GATE = 'XOR'
+
+export const OUT_Q = 'out_Q'
+export const IN_A = 'in_A'
+export const IN_B = 'in_B'
 
 export const SWITCH = 'SWITCH'
 export const CLOCK = 'CLOCK'

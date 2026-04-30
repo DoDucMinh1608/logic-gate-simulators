@@ -8,6 +8,7 @@ import React from 'react'
 import { useGLTF } from '@react-three/drei'
 
 import { GATE_COLORS, PORT_COLORS } from '@/utils/colors'
+import { IN_A, IN_B, OUT_Q } from '@/utils/constants'
 
 export default function XorGate(props) {
   const { nodes, materials } = useGLTF('/XOR-transformed.glb')
@@ -56,19 +57,19 @@ export default function XorGate(props) {
   )
 }
 
-const gateState = { in_A: 0, in_B: 0, out_Q: 0 }
-const wireState = { in_A: 0, in_B: 0, out_Q: 0 }
+const gateState = { [IN_A]: 0, [IN_B]: 0, [OUT_Q]: 0 }
+const wireState = { [IN_A]: 0, [IN_B]: 0, [OUT_Q]: 0 }
 function NextState(wireState, gateState) {
   return {
-    in_A: wireState.in_A,
-    in_B: wireState.in_B,
-    out_Q: wireState.in_A == wireState.in_B
+    [IN_A]: wireState[IN_A],
+    [IN_B]: wireState[IN_B],
+    [OUT_Q]: wireState[IN_A] != wireState[IN_B]
   }
 }
 
-XorGate.inputs = ['in_A', 'in_B']
-XorGate.outputs = ['out_Q']
-XorGate.defaultState = { in_A: 0, in_B: 0, out_Q: 0 }
+XorGate.inputs = [IN_A, IN_B]
+XorGate.outputs = [OUT_Q]
+XorGate.defaultState = { [IN_A]: 0, [IN_B]: 0, [OUT_Q]: 0 }
 XorGate.NextState = NextState
 
 useGLTF.preload('/XOR-transformed.glb')

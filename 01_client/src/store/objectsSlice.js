@@ -13,10 +13,9 @@ import XorGate from "@/components/Canvas/Gates/XorGate";
 import { AND_GATE, CLOCK, NAND_GATE, NOR_GATE, NOT_GATE, OR_GATE, SWITCH, XOR_GATE } from "@/utils/constants";
 
 
-export const useObjectsSlice = create(set => ({
+export const useObjectsSlice = create((set, get) => ({
   GATES: [],
   WIRES: [],
-  getInput(gateId) { },
   addGate(input) {
     const gate = {
       id: generateUUID(),
@@ -82,6 +81,32 @@ export const useObjectsSlice = create(set => ({
       })
     }))
   },
+  addGateConnection(start, end) {
+    const dup = get().WIRES.filter(wire =>
+      wire.from.gateId === start.gateId
+      && wire.from.pin === start.pin
+      && wire.to.gateId === end.gateId
+      && wire.to.pin === end.pin)
+    console.log({ start, end })
+
+    if (dup.length > 0) return
+
+    set(state => ({
+      WIRES: [
+        ...state.WIRES,
+        {
+          id: generateUUID(),
+          status: false,
+          from: { gateId: start.gateId, pin: start.pin },
+          to: { gateId: end.gateId, pin: end.pin },
+          positions: [
+            start.position,
+            end.position
+          ],
+        }
+      ]
+    }))
+  },
   updateWires(objects) {
     set(state => ({
       WIRES: state.WIRES.map(line => {
@@ -99,8 +124,7 @@ export const useObjectsSlice = create(set => ({
       .getState()
       .GATES
       .find((gate) => {
-        return [0, 2]
-          .every(i => Math.round(gate.position[i]) == Math.round(position[i]))
+        return [0, 2].every(i => Math.round(gate.position[i]) == Math.round(position[i]))
       })
     return foundGate
   }

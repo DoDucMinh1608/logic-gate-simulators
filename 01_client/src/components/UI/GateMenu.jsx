@@ -4,9 +4,8 @@ import { usePlayerSlice } from "@/store/playerSlice";
 import { GATE_TYPES } from "@/utils/constants";
 
 function GateMenu(props) {
-  const selectBuildGate = usePlayerSlice(state => state.selectBuildGate
-
-  );
+  const selectBuildGate = usePlayerSlice(state => state.selectBuildGate);
+  const setSelectBuildPort = usePlayerSlice(state => state.setSelectBuildPort)
   const setSelectBuildGate = usePlayerSlice(state => state.setSelectBuildGate);
   // const [gate, setGate] = useState(selectGate)
   // console.log(gate)
@@ -24,6 +23,7 @@ function GateMenu(props) {
 
       if (e.deltaY > 0) index = (index + 1) % GATE_TYPES.length;
       else index = (index - 1 + GATE_TYPES.length) % GATE_TYPES.length;
+      setSelectBuildPort(null)
       setSelectBuildGate(GATE_TYPES[index])
     };
 

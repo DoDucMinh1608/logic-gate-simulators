@@ -3,7 +3,7 @@ import { Plane, Vector3 } from "three";
 import { useThrottledFrame } from "@/hooks/useThrottledFrame";
 import { useUtilitySlice } from "@/store/utilitiesSlice";
 import { convertWorldCoorToGatePos, getLookingPositionOnPlane, GetWirePosFromGatePos1, GetWirePosFromGatePos2, setSnapGridPosition } from "@/utils";
-import { AND_GATE, CLOCK, NAND_GATE, NOR_GATE, NOT_GATE, OR_GATE, SWITCH, TRANSISTOR_SIZE, WIRE, XOR_GATE } from "@/utils/constants";
+import { AND_GATE, CLOCK, IN_A, IN_B, NAND_GATE, NOR_GATE, NOT_GATE, OR_GATE, OUT_Q, SWITCH, TRANSISTOR_SIZE, WIRE, XOR_GATE } from "@/utils/constants";
 import { usePlayerSlice } from "@/store/playerSlice";
 import { useObjectsSlice } from "@/store/objectsSlice";
 
@@ -18,6 +18,7 @@ function SetInteractPosition() {
   const setInteractPosition = useUtilitySlice(state => state.setInteractPosition)
   const selectBuildGate = usePlayerSlice(state => state.selectBuildGate)
   const getGateByPosition = useObjectsSlice(state => state.getGateByPosition)
+  const setSelectPort = usePlayerSlice(state => state.setSelectPort)
 
   useThrottledFrame(state => {
     const raycaster = state.raycaster
@@ -44,33 +45,37 @@ function SetInteractPosition() {
       return
     }
 
-    let ports
+    let portPos, portId, gateId = gate.id
     switch (gate.type) {
       case AND_GATE:
       case OR_GATE:
       case NAND_GATE:
       case NOR_GATE:
       case XOR_GATE:
-        ports = GetWirePosFromGatePos1(x, y, z)
+        portPos = GetWirePosFromGatePos1(x, y, z)
         break
       case SWITCH:
       case CLOCK:
       case NOT_GATE:
-        ports = GetWirePosFromGatePos2(x, y, z)
+        portPos = GetWirePosFromGatePos2(x, y, z)
         break
     }
+
     if (contactPoint.x > gridPosition.x) {
-      tempVec.set(...ports.out_Q[1])
+      tempVec.set(...portPos[OUT_Q][1])
+      portId = OUT_Q
     } else {
       if (contactPoint.z < gridPosition.z) {
-        tempVec.set(...ports.in_A[0])
+        tempVec.set(...portPos[IN_A][0])
+        portId = IN_A
       } else {
-        tempVec.set(...(ports.in_B || ports.in_A)[0])
+        tempVec.set(...(portPos[IN_B] || portPos[IN_A])[0])
+        portId = IN_B
       }
     }
     setInteractPosition(tempVec)
-
-  }, -1, 60)
+    setSelectPort({ gateId, pin: portId, position: tempVec })
+  }, -1, 30)
 
   return null;
 }

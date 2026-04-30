@@ -1,5 +1,5 @@
 import { Vector3 } from "three";
-import { TRANSISTOR_SIZE } from "./constants";
+import { AND_GATE, CLOCK, IN_A, IN_B, INPUT_PIN, INVALID_PIN, NAND_GATE, NOR_GATE, OR_GATE, OUT_Q, OUTPUT_PIN, SWITCH, TRANSISTOR_SIZE, XOR_GATE } from "./constants";
 import { useObjectsSlice } from "@/store/objectsSlice";
 
 export function getDegrees(direction) {
@@ -144,4 +144,29 @@ export function ConnectToPosition(startWire, endWire) {
     [se[0], se[1], es[2]],
     ...endWire
   ]
+}
+
+export function CheckPinType(gateId, pin) {
+  const gate = useObjectsSlice
+    .getState()
+    .GATES
+    .find(i => i.id === gateId)
+
+  switch (gate.type) {
+    case AND_GATE:
+    case OR_GATE:
+    case NAND_GATE:
+    case NOR_GATE:
+    case XOR_GATE:
+      if (pin === IN_A || pin === IN_B) return INPUT_PIN
+      if (pin === OUT_Q) return OUTPUT_PIN
+      return INVALID_PIN
+    case SWITCH:
+    case CLOCK:
+      if (pin === OUT_Q) return OUTPUT_PIN
+      return INVALID_PIN
+    default:
+      return INVALID_PIN
+  }
+  console.log(gate)
 }

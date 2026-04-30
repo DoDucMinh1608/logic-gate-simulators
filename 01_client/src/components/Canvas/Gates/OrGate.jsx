@@ -4,10 +4,10 @@ Command: npx gltfjsx@6.5.3 ./models/OR.glb -o ./src/components/Canvas/Gates/OrGa
 Files: ./models/OR.glb [3.54KB] > C:\Users\ducmi\projects\logic-gate-simulators\src\components\Canvas\Gates\OR-transformed.glb [1.55KB] (56%)
 */
 
-import React from 'react'
 import { useGLTF } from '@react-three/drei'
 
 import { GATE_COLORS, PORT_COLORS } from '@/utils/colors'
+import { IN_A, IN_B, OUT_Q } from '@/utils/constants'
 
 export default function OrGate(props) {
   const { nodes, materials } = useGLTF('/OR-transformed.glb')
@@ -52,20 +52,19 @@ export default function OrGate(props) {
   )
 }
 
-const gateState = { in_A: 0, in_B: 0, out_Q: 0 }
-const wireState = { in_A: 0, in_B: 0, out_Q: 0 }
+const gateState = { [IN_A]: 0, [IN_B]: 0, [OUT_Q]: 0 }
+const wireState = { [IN_A]: 0, [IN_B]: 0, [OUT_Q]: 0 }
 function NextState(wireState, gateState) {
-  let result = wireState.in_A || wireState.in_B
   return {
-    in_A: wireState.in_A,
-    in_B: wireState.in_B,
-    out_Q: result
+    [IN_A]: wireState[IN_A],
+    [IN_B]: wireState[IN_B],
+    [OUT_Q]: wireState[IN_A] || wireState[IN_B]
   }
 }
 
-OrGate.inputs = ['in_A', 'in_B']
-OrGate.outputs = ['out_Q']
-OrGate.defaultState = { in_A: 0, in_B: 0, out_Q: 0 }
+OrGate.inputs = [IN_A, IN_B]
+OrGate.outputs = [OUT_Q]
+OrGate.defaultState = { [IN_A]: 0, [IN_B]: 0, [OUT_Q]: 0 }
 OrGate.NextState = NextState
 
 useGLTF.preload('/OR-transformed.glb')

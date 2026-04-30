@@ -14,7 +14,7 @@ function ControlGatePlacement() {
 
   useThrottledFrame(state => {
     if (!ref.current) return
-    ref.current.position.copy(interactPosition)
+    ref.current.position?.copy(interactPosition)
   }, 0, 30)
 
   return (

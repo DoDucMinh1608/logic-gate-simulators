@@ -1,10 +1,9 @@
 import { Vector3 } from "three";
 
-
 import { useObjectsSlice } from "@/store/objectsSlice";
 import { usePlayerSlice } from "@/store/playerSlice";
 import { useUtilitySlice } from "@/store/utilitiesSlice";
-import { convertWorldCoorToGatePos, setSnapGridPosition } from "@/utils";
+import { CheckPinType, convertWorldCoorToGatePos, setSnapGridPosition } from "@/utils";
 import { TRANSISTOR_SIZE, WIRE } from "@/utils/constants";
 
 // TODO: update mouse down to place gates on the grid base on mouse key
@@ -12,14 +11,18 @@ const position = new Vector3()
 function onMouseDown(event) {
   const camera = usePlayerSlice.getState().camera; // Access the camera from the player slice
   const selectBuildGate = usePlayerSlice.getState().selectBuildGate
-  const selectedWire = usePlayerSlice.getState().selectedWire
-  const setConnectWire = usePlayerSlice.getState().setConnectWire
+  const selectPort = usePlayerSlice.getState().selectPort
+  const selectBuildPort = usePlayerSlice.getState().selectBuildPort
+  const setSelectPort = usePlayerSlice.getState().setSelectPort
+  const setSelectBuildPort = usePlayerSlice.getState().setSelectBuildPort
 
   const interactPosition = useUtilitySlice.getState().interactPosition; // Access the interact position from the player slice
 
   const addGate = useObjectsSlice.getState().addGate; // Access the addGate function from the player slice
   const getGateByPosition = useObjectsSlice.getState().getGateByPosition; // Access the getGateByPosition function from the player slice
   const removeGate = useObjectsSlice.getState().removeGate
+  const addGateConnection = useObjectsSlice.getState().addGateConnection
+  // const add
 
   if (!camera) {
     console.warn("Camera not found in player slice.");
@@ -33,6 +36,8 @@ function onMouseDown(event) {
   if (selectBuildGate != WIRE) {
     if (event.button === 0 && existingGate) {
       removeGate(existingGate?.id)
+      setSelectBuildPort(null)
+      setSelectPort(null)
       return
     }
 
@@ -53,13 +58,32 @@ function onMouseDown(event) {
   }
 
   if (selectBuildGate == WIRE) {
-
-    if (!selectedWire) {
-      console.log('test')
-      // setConnectWire()
+    if (event.button === 0 && existingGate) {
+      setSelectBuildPort(null)
       return
     }
 
+    if (event.button === 2) {
+      if (!selectBuildPort) {
+        setSelectBuildPort({
+          gateId: selectPort.gateId,
+          pin: selectPort.pin,
+          position: selectPort.position
+        })
+        return
+      }
+
+      if (selectPort.gateId === selectBuildPort.gateId) {
+        return
+      }
+
+      let port1Type = CheckPinType(selectPort.gateId, selectPort.pin)
+      let port2Type = CheckPinType(selectBuildPort.gateId, selectBuildPort.pin)
+      if (port1Type == port2Type) {
+        return
+      }
+      addGateConnection(selectPort, selectBuildPort)
+    }
   }
 }
 

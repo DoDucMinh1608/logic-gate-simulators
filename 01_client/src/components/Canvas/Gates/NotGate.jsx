@@ -4,10 +4,10 @@ Command: npx gltfjsx@6.5.3 ./models/NOT.glb -o ./src/components/Canvas/Gates/Not
 Files: ./models/NOT.glb [26.64KB] > C:\Users\ducmi\projects\logic-gate-simulators\src\components\Canvas\Gates\NOT-transformed.glb [5.07KB] (81%)
 */
 
-import React from 'react'
 import { useGLTF } from '@react-three/drei'
 
 import { GATE_COLORS, PORT_COLORS } from '@/utils/colors'
+import { IN_A, OUT_Q } from '@/utils/constants'
 
 export default function NotGate(props) {
   const { nodes, materials } = useGLTF('/NOT-transformed.glb')
@@ -45,16 +45,18 @@ export default function NotGate(props) {
   )
 }
 
-NotGate.inputs = ['in_A']
-NotGate.outputs = ['out_Q']
-NotGate.defaultState = { in_A: 0, out_Q: 0 }
-const gateState = { in_A: 0, out_Q: 0 }
-const wireState = { in_A: 0, out_Q: 0 }
-NotGate.NextState = function (wireState, gateState) {
+const gateState = { [IN_A]: 0, [OUT_Q]: 0 }
+const wireState = { [IN_A]: 0, [OUT_Q]: 0 }
+function NextState(wireState, gateState) {
   return {
-    in_A: wireState.in_A,
-    out_Q: !wireState.in_A
+    [IN_A]: wireState[IN_A],
+    [OUT_Q]: !wireState[IN_A]
   }
 }
+
+NotGate.inputs = [IN_A]
+NotGate.outputs = [OUT_Q]
+NotGate.defaultState = { [IN_A]: 0, [OUT_Q]: 0 }
+NotGate.NextState = NextState
 
 useGLTF.preload('/NOT-transformed.glb')

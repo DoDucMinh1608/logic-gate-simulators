@@ -4,9 +4,9 @@ Command: npx gltfjsx@6.5.3 ./models/NAND.glb -o ./src/components/Canvas/Gates/Na
 Files: ./models/NAND.glb [48.19KB] > C:\Users\ducmi\projects\logic-gate-simulators\src\components\Canvas\Gates\NAND-transformed.glb [8.25KB] (83%)
 */
 
-import React from 'react'
-import { useGLTF } from '@react-three/drei'
 import { GATE_COLORS, PORT_COLORS } from '@/utils/colors'
+import { IN_A, IN_B, OUT_Q } from '@/utils/constants'
+import { useGLTF } from '@react-three/drei'
 
 export default function NandGate(props) {
   const { nodes, materials } = useGLTF('/NAND-transformed.glb')
@@ -54,20 +54,19 @@ export default function NandGate(props) {
   )
 }
 
-const gateState = { in_A: 0, in_B: 0, out_Q: 0 }
-const wireState = { in_A: 0, in_B: 0, out_Q: 0 }
+const gateState = { [IN_A]: 0, [IN_B]: 0, [OUT_Q]: 0 }
+const wireState = { [IN_A]: 0, [IN_B]: 0, [OUT_Q]: 0 }
 function NextState(wireState, gateState) {
-  let result = wireState.in_A && wireState.in_B
   return {
-    in_A: wireState.in_A,
-    in_B: wireState.in_B,
-    out_Q: !result
+    [IN_A]: wireState[IN_A],
+    [IN_B]: wireState[IN_B],
+    [OUT_Q]: !(wireState[IN_A] && wireState[IN_B])
   }
 }
 
-NandGate.inputs = ['in_A', 'in_B']
-NandGate.outputs = ['out_Q']
-NandGate.defaultState = { in_A: 0, in_B: 0, out_Q: 0 }
+NandGate.inputs = [IN_A, IN_B]
+NandGate.outputs = [OUT_Q]
+NandGate.defaultState = { [IN_A]: 0, [IN_B]: 0, [OUT_Q]: 0 }
 NandGate.NextState = NextState
 
 useGLTF.preload('/NAND-transformed.glb')

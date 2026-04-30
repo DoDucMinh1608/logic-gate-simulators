@@ -4,10 +4,10 @@ Command: npx gltfjsx@6.5.3 ./models/NOR.glb -o ./src/components/Canvas/Gates/Nor
 Files: ./models/NOR.glb [28.94KB] > C:\Users\ducmi\projects\logic-gate-simulators\src\components\Canvas\Gates\NOR-transformed.glb [5.49KB] (81%)
 */
 
-import React from 'react'
 import { useGLTF } from '@react-three/drei'
 
 import { GATE_COLORS, PORT_COLORS } from '@/utils/colors'
+import { IN_A, IN_B, OUT_Q } from '@/utils/constants'
 
 export default function NorGate(props) {
   const { nodes, materials } = useGLTF('/NOR-transformed.glb')
@@ -55,20 +55,19 @@ export default function NorGate(props) {
   )
 }
 
-const gateState = { in_A: 0, in_B: 0, out_Q: 0 }
-const wireState = { in_A: 0, in_B: 0, out_Q: 0 }
+const gateState = { [IN_A]: 0, [IN_B]: 0, [OUT_Q]: 0 }
+const wireState = { [IN_A]: 0, [IN_B]: 0, [OUT_Q]: 0 }
 function NextState(wireState, gateState) {
-  let result = wireState.in_A || wireState.in_B
   return {
-    in_A: wireState.in_A,
-    in_B: wireState.in_B,
-    out_Q: !result
+    [IN_A]: wireState[IN_A],
+    [IN_B]: wireState[IN_B],
+    [OUT_Q]: !(wireState[IN_A] || wireState[IN_B])
   }
 }
 
-NorGate.inputs = ['in_A', 'in_B']
-NorGate.outputs = ['out_Q']
-NorGate.defaultState = { in_A: 0, in_B: 0, out_Q: 0 }
+NorGate.inputs = [IN_A, IN_B]
+NorGate.outputs = [OUT_Q]
+NorGate.defaultState = { [IN_A]: 0, [IN_B]: 0, [OUT_Q]: 0 }
 NorGate.NextState = NextState
 
 useGLTF.preload('/NOR-transformed.glb')

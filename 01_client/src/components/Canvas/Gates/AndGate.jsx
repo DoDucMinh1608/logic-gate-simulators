@@ -4,9 +4,9 @@ Command: npx gltfjsx@6.5.3 ./models/AND.glb -o ./src/components/Canvas/Gates/And
 Files: ./models/AND.glb [27.98KB] > C:\Users\ducmi\projects\logic-gate-simulators\src\components\Canvas\Gates\AND-transformed.glb [5.4KB] (81%)
 */
 
-import React from 'react'
-import { useGLTF } from '@react-three/drei'
 import { GATE_COLORS, PORT_COLORS } from '@/utils/colors'
+import { IN_A, IN_B, OUT_Q } from '@/utils/constants'
+import { useGLTF } from '@react-three/drei'
 
 
 export default function AndGate(props) {
@@ -52,32 +52,19 @@ export default function AndGate(props) {
   )
 }
 
-const gateState = { in_A: 0, in_B: 0, out_Q: 0 }
-const wireState = { in_A: 0, in_B: 0, out_Q: 0 }
+const gateState = { [IN_A]: 0, [IN_B]: 0, [OUT_Q]: 0 }
+const wireState = { [IN_A]: 0, [IN_B]: 0, [OUT_Q]: 0 }
 function NextState(wireState, gateState) {
   return {
-    in_A: wireState.in_A,
-    in_B: wireState.in_B,
-    out_Q: wireState.in_A && wireState.in_B
+    [IN_A]: wireState[IN_A],
+    [IN_B]: wireState[IN_B],
+    [OUT_Q]: wireState[IN_A] && wireState[IN_B]
   }
 }
 
-function GetPort(port, gatePos) {
-  switch (port) {
-    case 'in_A':
-      break;
-    case 'in_B':
-      break;
-    case 'out_Q':
-      break;
-    default:
-      return null
-  }
-}
-AndGate.inputs = ['in_A', 'in_B']
-AndGate.outputs = ['out_Q']
-AndGate.defaultState = { in_A: 0, in_B: 0, out_Q: 0 }
-AndGate.GetPort = GetPort
+AndGate.inputs = [IN_A, IN_B]
+AndGate.outputs = [OUT_Q]
+AndGate.defaultState = { [IN_A]: 0, [IN_B]: 0, [OUT_Q]: 0 }
 AndGate.NextState = NextState
 
 useGLTF.preload('/AND-transformed.glb')

@@ -1,4 +1,5 @@
 import { GATE_COLORS, PORT_COLORS } from "@/utils/colors"
+import { OUT_Q } from "@/utils/constants"
 
 function Clock({ id, tick, custom, ...props }) {
   return (
@@ -36,14 +37,14 @@ function Clock({ id, tick, custom, ...props }) {
   )
 }
 
-const gateState = { out_Q: 0 }
+const gateState = { [OUT_Q]: 0 }
 function NextState(wireState, gateState) {
-  return { out_Q: !gateState.out_Q }
+  return { [OUT_Q]: !gateState[OUT_Q] }
 }
 
 Clock.inputs = []
-Clock.outputs = ['out_Q']
-Clock.defaultState = { out_Q: 0 }
+Clock.outputs = [OUT_Q]
+Clock.defaultState = { [OUT_Q]: 0 }
 Clock.NextState = NextState
 
 export default Clock
