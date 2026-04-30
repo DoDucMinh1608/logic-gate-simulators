@@ -4,7 +4,7 @@ import { useObjectsSlice } from "@/store/objectsSlice";
 import { usePlayerSlice } from "@/store/playerSlice";
 import { useUtilitySlice } from "@/store/utilitiesSlice";
 import { CheckPinType, convertWorldCoorToGatePos, setSnapGridPosition } from "@/utils";
-import { TRANSISTOR_SIZE, WIRE } from "@/utils/constants";
+import { INPUT_PIN, OUTPUT_PIN, TRANSISTOR_SIZE, WIRE } from "@/utils/constants";
 
 // TODO: update mouse down to place gates on the grid base on mouse key
 const position = new Vector3()
@@ -22,7 +22,6 @@ function onMouseDown(event) {
   const getGateByPosition = useObjectsSlice.getState().getGateByPosition; // Access the getGateByPosition function from the player slice
   const removeGate = useObjectsSlice.getState().removeGate
   const addGateConnection = useObjectsSlice.getState().addGateConnection
-  // const add
 
   if (!camera) {
     console.warn("Camera not found in player slice.");
@@ -60,6 +59,7 @@ function onMouseDown(event) {
   if (selectBuildGate == WIRE) {
     if (event.button === 0 && existingGate) {
       setSelectBuildPort(null)
+
       return
     }
 
@@ -73,7 +73,8 @@ function onMouseDown(event) {
         return
       }
 
-      if (selectPort.gateId === selectBuildPort.gateId) {
+      if (selectPort.gateId === selectBuildPort.gateId
+        && selectPort.pin === selectBuildPort.pi) {
         return
       }
 
@@ -82,7 +83,13 @@ function onMouseDown(event) {
       if (port1Type == port2Type) {
         return
       }
-      addGateConnection(selectPort, selectBuildPort)
+      if (addGateConnection(
+        port1Type === OUTPUT_PIN ? selectPort : selectBuildPort,
+        port2Type === INPUT_PIN ? selectBuildPort : selectPort)
+      ) {
+        setSelectPort(null)
+        setSelectBuildPort(null)
+      }
     }
   }
 }

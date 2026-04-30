@@ -44,7 +44,7 @@ function NextState(wireState, gateState) {
 
 Clock.inputs = []
 Clock.outputs = [OUT_Q]
-Clock.defaultState = { [OUT_Q]: 0 }
+Clock.defaultState = { [OUT_Q]: false }
 Clock.NextState = NextState
 
 export default Clock

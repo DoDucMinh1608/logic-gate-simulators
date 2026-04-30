@@ -64,7 +64,7 @@ function NextState(wireState, gateState) {
 
 AndGate.inputs = [IN_A, IN_B]
 AndGate.outputs = [OUT_Q]
-AndGate.defaultState = { [IN_A]: 0, [IN_B]: 0, [OUT_Q]: 0 }
+AndGate.defaultState = { [IN_A]: false, [IN_B]: false, [OUT_Q]: false }
 AndGate.NextState = NextState
 
 useGLTF.preload('/AND-transformed.glb')

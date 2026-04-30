@@ -20,12 +20,13 @@ function UpdateGateStatus() {
   useThrottledFrame((state, delta) => {
     const nextStates = []
     for (let gate of gates) {
-      const gate_wires = Object.fromEntries(wires
-        .filter(wire => wire.from.gateId === gate.id || wire.to.gateId === gate.id)
-        .map(i => [
-          i[i.from.gateId === gate.id ? 'from' : 'to'].pin,
-          !!i.status
-        ]))
+      const gate_wires = Object.fromEntries(
+        wires
+          .filter(wire => wire.from.gateId === gate.id || wire.to.gateId === gate.id)
+          .map(i => [
+            i[i.from.gateId === gate.id ? 'from' : 'to'].pin,
+            !!i.status
+          ]))
 
       let nextState
       switch (gate.type) {
@@ -82,7 +83,8 @@ function UpdateGateStatus() {
           }
           break;
         case CLOCK:
-          if ((state.clock.elapsedTime - gate.custom.lastUpdate) <= gate.custom.tick) break
+          if ((state.clock.elapsedTime - gate.custom.lastUpdate) <= 1) break
+          // if ((state.clock.elapsedTime - gate.custom.lastUpdate) <= gate.custom.tick) break
           nextState = Clock.NextState({ ...Clock.defaultState, ...gate_wires }, gate.state)
           if (gate.state[OUT_Q] !== nextState[OUT_Q]) {
             nextStates.push({

@@ -67,7 +67,7 @@ function NextState(wireState, gateState) {
 
 NorGate.inputs = [IN_A, IN_B]
 NorGate.outputs = [OUT_Q]
-NorGate.defaultState = { [IN_A]: 0, [IN_B]: 0, [OUT_Q]: 0 }
+NorGate.defaultState = { [IN_A]: false, [IN_B]: false, [OUT_Q]: false }
 NorGate.NextState = NextState
 
 useGLTF.preload('/NOR-transformed.glb')

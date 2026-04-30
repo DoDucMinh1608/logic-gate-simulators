@@ -54,7 +54,6 @@ export const useObjectsSlice = create((set, get) => ({
         { ...gate }
       ]
     }))
-    console.log(input)
   },
   removeGate(id) {
     set(state => ({
@@ -81,15 +80,20 @@ export const useObjectsSlice = create((set, get) => ({
       })
     }))
   },
-  addGateConnection(start, end) {
-    const dup = get().WIRES.filter(wire =>
-      wire.from.gateId === start.gateId
-      && wire.from.pin === start.pin
-      && wire.to.gateId === end.gateId
-      && wire.to.pin === end.pin)
-    console.log({ start, end })
+  removeWire(id) {
+    set(state => ({
+      WIRES: state.WIRES.filter(line => line.id !== id),
+    }))
+  },
+  addGateConnection(from, to) {
+    const dup = get().WIRES.filter(wire => {
+      return (
+        wire.to.gateId === to.gateId
+        && wire.to.pin === to.pin
+      )
+    })
 
-    if (dup.length > 0) return
+    if (dup.length > 0) return false
 
     set(state => ({
       WIRES: [
@@ -97,15 +101,16 @@ export const useObjectsSlice = create((set, get) => ({
         {
           id: generateUUID(),
           status: false,
-          from: { gateId: start.gateId, pin: start.pin },
-          to: { gateId: end.gateId, pin: end.pin },
+          from: { gateId: from.gateId, pin: from.pin },
+          to: { gateId: to.gateId, pin: to.pin },
           positions: [
-            start.position,
-            end.position
+            from.position,
+            to.position
           ],
         }
       ]
     }))
+    return true
   },
   updateWires(objects) {
     set(state => ({

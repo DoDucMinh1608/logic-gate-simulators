@@ -50,8 +50,7 @@ export default function XorGate(props) {
           metalness={1}
           roughness={0.4}
           envMapIntensity={1.5}
-          flatShading={true}
-        />
+          flatShading={true} />
       </mesh>
     </group>
   )
@@ -69,7 +68,7 @@ function NextState(wireState, gateState) {
 
 XorGate.inputs = [IN_A, IN_B]
 XorGate.outputs = [OUT_Q]
-XorGate.defaultState = { [IN_A]: 0, [IN_B]: 0, [OUT_Q]: 0 }
+XorGate.defaultState = { [IN_A]: false, [IN_B]: false, [OUT_Q]: false }
 XorGate.NextState = NextState
 
 useGLTF.preload('/XOR-transformed.glb')

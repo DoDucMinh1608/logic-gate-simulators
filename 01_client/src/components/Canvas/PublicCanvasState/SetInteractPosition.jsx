@@ -53,26 +53,33 @@ function SetInteractPosition() {
       case NOR_GATE:
       case XOR_GATE:
         portPos = GetWirePosFromGatePos1(x, y, z)
+        if (contactPoint.x > gridPosition.x) {
+          tempVec.set(...portPos[OUT_Q][1])
+          portId = OUT_Q
+        } else {
+          if (contactPoint.z < gridPosition.z) {
+            tempVec.set(...portPos[IN_A][0])
+            portId = IN_A
+          } else {
+            tempVec.set(...(portPos[IN_B] || portPos[IN_A])[0])
+            portId = IN_B
+          }
+        }
         break
       case SWITCH:
       case CLOCK:
       case NOT_GATE:
         portPos = GetWirePosFromGatePos2(x, y, z)
+        if (contactPoint.x > gridPosition.x) {
+          tempVec.set(...portPos[OUT_Q][1])
+          portId = OUT_Q
+        } else {
+          tempVec.set(...portPos[IN_A][0])
+          portId = IN_A
+        }
         break
     }
 
-    if (contactPoint.x > gridPosition.x) {
-      tempVec.set(...portPos[OUT_Q][1])
-      portId = OUT_Q
-    } else {
-      if (contactPoint.z < gridPosition.z) {
-        tempVec.set(...portPos[IN_A][0])
-        portId = IN_A
-      } else {
-        tempVec.set(...(portPos[IN_B] || portPos[IN_A])[0])
-        portId = IN_B
-      }
-    }
     setInteractPosition(tempVec)
     setSelectPort({ gateId, pin: portId, position: tempVec })
   }, -1, 30)

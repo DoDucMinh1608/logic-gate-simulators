@@ -56,7 +56,7 @@ function NextState(wireState, gateState) {
 
 NotGate.inputs = [IN_A]
 NotGate.outputs = [OUT_Q]
-NotGate.defaultState = { [IN_A]: 0, [OUT_Q]: 0 }
+NotGate.defaultState = { [IN_A]: false, [OUT_Q]: false }
 NotGate.NextState = NextState
 
 useGLTF.preload('/NOT-transformed.glb')

@@ -8,7 +8,6 @@ function GateMenu(props) {
   const setSelectBuildPort = usePlayerSlice(state => state.setSelectBuildPort)
   const setSelectBuildGate = usePlayerSlice(state => state.setSelectBuildGate);
   // const [gate, setGate] = useState(selectGate)
-  // console.log(gate)
   useEffect(() => {
     // const handleKeyDown = (e) => {
     //   const num = parseInt(e.key);
