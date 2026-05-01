@@ -1,4 +1,3 @@
-import Display from "../Gates/Display";
 import Ground from "./Ground";
 import LightSource from "./LightSource";
 import WorldEnvironment from "./WorldEnvironment";

@@ -3,7 +3,7 @@ import { Line } from "@react-three/drei";
 import { useObjectsSlice } from "@/store/objectsSlice";
 import { convertGatePosToWorldCoor } from "@/utils";
 import { usePlayerSlice } from "@/store/playerSlice";
-import { AND_GATE, CLOCK, DISPLAY, NAND_GATE, NOR_GATE, NOT_GATE, OR_GATE, SWITCH, WIRE, XOR_GATE } from "@/utils/constants";
+import { AND_GATE, CLOCK, NAND_GATE, NOR_GATE, NOT_GATE, OR_GATE, SWITCH, WIRE, XOR_GATE } from "@/utils/constants";
 
 import AndGate from "../Gates/AndGate";
 import Clock from "../Gates/Clock";
@@ -13,7 +13,6 @@ import NotGate from "../Gates/NotGate";
 import OrGate from "../Gates/OrGate";
 import Switch from "../Gates/Switch";
 import XorGate from "../Gates/XorGate";
-import Display from "../Gates/Display";
 
 function RenderObject() {
   const gates = useObjectsSlice(state => state.GATES)
@@ -69,12 +68,6 @@ function RenderObject() {
             position={convertGatePosToWorldCoor(...obj.position)}
             rotation={[0, obj.rotation * Math.PI / 2, 0]}
             tick={obj.custom.tick} />}
-          {obj.type === DISPLAY && <Display
-            key={obj.id}
-            id={obj.id}
-            position={convertGatePosToWorldCoor(...obj.position)}
-            rotation={[0, obj.rotation * Math.PI / 2, 0]}
-          />}
         </>
       ))}
       {wires

@@ -1,11 +1,11 @@
 import { Plane, Vector3 } from "three";
 
 import { useThrottledFrame } from "@/hooks/useThrottledFrame";
-import { useObjectsSlice } from "@/store/objectsSlice";
-import { usePlayerSlice } from "@/store/playerSlice";
 import { useUtilitySlice } from "@/store/utilitiesSlice";
 import { convertWorldCoorToGatePos, getLookingPositionOnPlane, GetWirePosFromGatePos1, GetWirePosFromGatePos2, setSnapGridPosition } from "@/utils";
-import { AND_GATE, CLOCK, DISPLAY, IN_A, IN_B, NAND_GATE, NOR_GATE, NOT_GATE, OR_GATE, OUT_Q, SWITCH, TRANSISTOR_SIZE, WIRE, XOR_GATE } from "@/utils/constants";
+import { AND_GATE, CLOCK, IN_A, IN_B, NAND_GATE, NOR_GATE, NOT_GATE, OR_GATE, OUT_Q, SWITCH, TRANSISTOR_SIZE, WIRE, XOR_GATE } from "@/utils/constants";
+import { usePlayerSlice } from "@/store/playerSlice";
+import { useObjectsSlice } from "@/store/objectsSlice";
 
 const actualSize = TRANSISTOR_SIZE
 const activePlane = new Plane(new Vector3(0, 1, 0), 0)
@@ -73,7 +73,6 @@ function SetInteractPosition() {
         portId = OUT_Q
         break
       case NOT_GATE:
-      case DISPLAY:
         portPos = GetWirePosFromGatePos2(x, y, z)
         if (contactPoint.x > gridPosition.x) {
           tempVec.set(...portPos[OUT_Q][1])

@@ -41,7 +41,7 @@ function onMouseDown(event) {
     }
 
     if (existingGate) {
-      // console.log("Gate already exists at this position:", existingGate.position)
+      console.log("Gate already exists at this position:", existingGate.position)
       return;
     }
 
