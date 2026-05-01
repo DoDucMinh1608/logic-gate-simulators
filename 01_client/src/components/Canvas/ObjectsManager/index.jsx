@@ -9,8 +9,8 @@ function ObjectsManager() {
   return (
     <>
       <RenderObject />
-      <UpdateGateStatus />
-      <UpdateWireStatus />
+      {/* <UpdateGateStatus />
+      <UpdateWireStatus /> */}
     </>
 
   )

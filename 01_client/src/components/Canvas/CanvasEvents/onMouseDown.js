@@ -4,66 +4,56 @@ import { useObjectsSlice } from "@/store/objectsSlice";
 import { usePlayerSlice } from "@/store/playerSlice";
 import { useUtilitySlice } from "@/store/utilitiesSlice";
 import { CheckPinType, convertWorldCoorToGatePos, setSnapGridPosition } from "@/utils";
-import { INPUT_PIN, OUTPUT_PIN, TRANSISTOR_SIZE, WIRE } from "@/utils/constants";
+import { INPUT_PIN, LEFT_CLICK, OUTPUT_PIN, RIGHT_CLICK, TRANSISTOR_SIZE, WIRE } from "@/utils/constants";
 
-// TODO: update mouse down to place gates on the grid base on mouse key
-const position = new Vector3()
-function onMouseDown(event) {
-  const camera = usePlayerSlice.getState().camera; // Access the camera from the player slice
+function placeGate(button, gatePosition) {
+  const addGate = useObjectsSlice.getState().addGate; // Access the addGate function from the player slice
+  const getGateByPosition = useObjectsSlice.getState().getGateByPosition; // Access the getGateByPosition function from the player slice
+  const removeGate = useObjectsSlice.getState().removeGate
   const selectBuildGate = usePlayerSlice.getState().selectBuildGate
+  const setSelectPort = usePlayerSlice.getState().setSelectPort
+  const setSelectBuildPort = usePlayerSlice.getState().setSelectBuildPort
+
+  const existingGate = getGateByPosition(gatePosition)
+
+  switch (button) {
+    case LEFT_CLICK:
+      if (!!existingGate) {
+        removeGate(existingGate.id)
+      }
+      break;
+    case RIGHT_CLICK:
+      if (!existingGate) {
+        addGate({
+          type: selectBuildGate,
+          position: [gatePosition[0], 0, gatePosition[2]],
+          rotation: 0,
+          custom: {}
+        })
+      }
+      break
+  }
+  setSelectBuildPort(null)
+  setSelectPort(null)
+}
+
+function placeWire(button, gatePosition) {
   const selectPort = usePlayerSlice.getState().selectPort
   const selectBuildPort = usePlayerSlice.getState().selectBuildPort
   const setSelectPort = usePlayerSlice.getState().setSelectPort
   const setSelectBuildPort = usePlayerSlice.getState().setSelectBuildPort
 
-  const interactPosition = useUtilitySlice.getState().interactPosition; // Access the interact position from the player slice
-
-  const addGate = useObjectsSlice.getState().addGate; // Access the addGate function from the player slice
-  const getGateByPosition = useObjectsSlice.getState().getGateByPosition; // Access the getGateByPosition function from the player slice
-  const removeGate = useObjectsSlice.getState().removeGate
+  const getGateByPosition = useObjectsSlice.getState().getGateByPosition
   const addGateConnection = useObjectsSlice.getState().addGateConnection
 
-  if (!camera) {
-    console.warn("Camera not found in player slice.");
-    return;
-  }
-
-  setSnapGridPosition(interactPosition, TRANSISTOR_SIZE, position)
-  const { x, y, z } = convertWorldCoorToGatePos(position.x, position.y, position.z)
-
-  const existingGate = getGateByPosition([x, y, z])
-  if (selectBuildGate != WIRE) {
-    if (event.button === 0 && existingGate) {
-      removeGate(existingGate?.id)
-      setSelectBuildPort(null)
-      setSelectPort(null)
-      return
-    }
-
-    if (existingGate) {
-      // console.log("Gate already exists at this position:", existingGate.position)
-      return;
-    }
-
-    if (event.button === 2) {
-      addGate({
-        type: selectBuildGate,
-        position: [x, 0, z],
-        rotation: 0,
-        custom: {}
-      })
-    }
-    return
-  }
-
-  if (selectBuildGate == WIRE) {
-    if (event.button === 0 && existingGate) {
-      setSelectBuildPort(null)
-
-      return
-    }
-
-    if (event.button === 2) {
+  const existingGate = getGateByPosition(gatePosition)
+  switch (button) {
+    case LEFT_CLICK:
+      if (existingGate) {
+        setSelectBuildPort(null)
+      }
+      break;
+    case RIGHT_CLICK:
       if (!selectBuildPort) {
         setSelectBuildPort({
           gateId: selectPort.gateId,
@@ -83,14 +73,41 @@ function onMouseDown(event) {
       if (port1Type == port2Type) {
         return
       }
+
       if (addGateConnection(
         port1Type === OUTPUT_PIN ? selectPort : selectBuildPort,
-        port2Type === INPUT_PIN ? selectBuildPort : selectPort)
-      ) {
+        port2Type === INPUT_PIN ? selectBuildPort : selectPort
+      )) {
         setSelectPort(null)
         setSelectBuildPort(null)
       }
-    }
+      break
+    default:
+      break;
+  }
+}
+
+const position = new Vector3()
+function onMouseDown(event) {
+  const camera = usePlayerSlice.getState().camera; // Access the camera from the player slice
+  const selectBuildGate = usePlayerSlice.getState().selectBuildGate
+  const interactPosition = useUtilitySlice.getState().interactPosition; // Access the interact position from the player slice
+
+  if (!camera) {
+    console.warn("Camera not found in player slice.");
+    return;
+  }
+
+  setSnapGridPosition(interactPosition, TRANSISTOR_SIZE, position)
+  const { x, y, z } = convertWorldCoorToGatePos(position.x, position.y, position.z)
+
+  if (selectBuildGate != WIRE) {
+    placeGate(event.button, [x, y, z])
+    return
+  }
+
+  if (selectBuildGate == WIRE) {
+    placeWire(event.button, [x, y, z])
   }
 }
 

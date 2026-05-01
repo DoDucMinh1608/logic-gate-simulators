@@ -1,5 +1,8 @@
 import { Vector3 } from "three"
 
+export const LEFT_CLICK = 0
+export const RIGHT_CLICK = 2
+
 // export const NORMAL_VALUE = 0.0001
 export const OUT_Q = 'out_Q'
 export const IN_A = 'in_A'

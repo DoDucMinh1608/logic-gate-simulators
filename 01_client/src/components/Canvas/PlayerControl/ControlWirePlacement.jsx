@@ -28,7 +28,7 @@ function ControlWirePlacement() {
     }
   }, 0, 30)
 
-  return selectBuildGate === WIRE && (
+  return (
     <>
       {/* {interactPosition &&
         <mesh ref={ref}>
@@ -37,7 +37,7 @@ function ControlWirePlacement() {
           <Edges threshold={5} color="black" lineWidth={1} />
         </mesh>} */}
 
-      {selectBuildPort &&
+      {selectBuildGate === WIRE && selectBuildPort &&
         <mesh ref={selectPin}>
           <boxGeometry args={[x + .05, y + .05, z + .05]} />
           <meshNormalMaterial transparent opacity={1} />

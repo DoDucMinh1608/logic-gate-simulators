@@ -1,3 +1,4 @@
+import { Vector3 } from "three";
 import { generateUUID } from "three/src/math/MathUtils.js";
 import { create } from "zustand";
 
@@ -9,10 +10,7 @@ import NotGate from "@/components/Canvas/Gates/NotGate";
 import OrGate from "@/components/Canvas/Gates/OrGate";
 import Switch from "@/components/Canvas/Gates/Switch";
 import XorGate from "@/components/Canvas/Gates/XorGate";
-
 import { AND_GATE, CLOCK, NAND_GATE, NOR_GATE, NOT_GATE, OR_GATE, SWITCH, XOR_GATE } from "@/utils/constants";
-import { Vector3 } from "three";
-
 
 export const useObjectsSlice = create((set, get) => ({
   GATES: [],
@@ -53,7 +51,7 @@ export const useObjectsSlice = create((set, get) => ({
     set(state => ({
       GATES: [
         ...state.GATES,
-        { ...gate }
+        gate
       ]
     }))
   },
@@ -97,6 +95,12 @@ export const useObjectsSlice = create((set, get) => ({
     })
 
     if (dup.length > 0) return false
+
+    const f1 = from.position.clone()
+    f1.setX(f1.x - .7)
+    const f2 = to.position.clone()
+    f2.setX(f2.x + .45)
+
     set(state => ({
       WIRES: [
         ...state.WIRES,
@@ -106,10 +110,10 @@ export const useObjectsSlice = create((set, get) => ({
           from: { gateId: from.gateId, pin: from.pin },
           to: { gateId: to.gateId, pin: to.pin },
           positions: [
-            from.position,
-            new Vector3(from.position.x, -1, from.position.z),
-            new Vector3(to.position.x, -1, to.position.z),
-            to.position
+            f1,
+            new Vector3(f1.x, -1, f1.z),
+            new Vector3(f2.x, -1, f2.z),
+            f2
           ],
         }
       ]
