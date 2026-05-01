@@ -62,7 +62,7 @@ function tick(now) {
 //                                                          │
 //                                           ┌──────────────┴──────────────┐
 //                                      isSelfFiring?                  epoch stale?
-//                                           │                              │
+//                                           │                             │
 //                                      gate.fire()                     discard
 //                                           │
 //                                   scheduleDownstream()

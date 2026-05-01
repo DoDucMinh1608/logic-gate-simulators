@@ -8,7 +8,7 @@ import React from 'react'
 import { useGLTF } from '@react-three/drei'
 
 import { GATE_COLORS, PORT_COLORS } from '@/utils/colors'
-import { IN_A, IN_B, OUT_Q } from '@/utils/constants'
+import { DEFAULT_STATE_A, IN_A, IN_B, OUT_Q } from '@/utils/constants'
 
 export default function XorGate(props) {
   const { nodes, materials } = useGLTF('/XOR-transformed.glb')
@@ -20,8 +20,7 @@ export default function XorGate(props) {
           metalness={1}
           roughness={0.4}
           envMapIntensity={1.5}
-          flatShading={true}
-        />
+          flatShading={true} />
       </mesh>
       <mesh position={[1.5, 0.125, 0]}>
         <boxGeometry args={[.4, .3, .3]} />
@@ -30,8 +29,7 @@ export default function XorGate(props) {
           metalness={1}
           roughness={0.4}
           envMapIntensity={1.5}
-          flatShading={true}
-        />
+          flatShading={true} />
       </mesh>
       <mesh position={[-1.4, 0.125, .5]}>
         <boxGeometry args={[.5, .3, .3]} />
@@ -40,8 +38,7 @@ export default function XorGate(props) {
           metalness={1}
           roughness={0.4}
           envMapIntensity={1.5}
-          flatShading={true}
-        />
+          flatShading={true} />
       </mesh>
       <mesh position={[-1.4, 0.125, -.5]}>
         <boxGeometry args={[.5, .3, .3]} />
@@ -56,9 +53,7 @@ export default function XorGate(props) {
   )
 }
 
-const gateState = { [IN_A]: 0, [IN_B]: 0, [OUT_Q]: 0 }
-const wireState = { [IN_A]: 0, [IN_B]: 0, [OUT_Q]: 0 }
-function NextState(wireState, gateState) {
+function NextState(wireState) {
   return {
     [IN_A]: wireState[IN_A],
     [IN_B]: wireState[IN_B],
@@ -66,9 +61,8 @@ function NextState(wireState, gateState) {
   }
 }
 
-XorGate.inputs = [IN_A, IN_B]
-XorGate.outputs = [OUT_Q]
-XorGate.defaultState = { [IN_A]: false, [IN_B]: false, [OUT_Q]: false }
 XorGate.NextState = NextState
+XorGate.Init = function () {
+}
 
 useGLTF.preload('/XOR-transformed.glb')

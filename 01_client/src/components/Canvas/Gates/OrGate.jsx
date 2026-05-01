@@ -7,7 +7,7 @@ Files: ./models/OR.glb [3.54KB] > C:\Users\ducmi\projects\logic-gate-simulators\
 import { useGLTF } from '@react-three/drei'
 
 import { GATE_COLORS, PORT_COLORS } from '@/utils/colors'
-import { IN_A, IN_B, OUT_Q } from '@/utils/constants'
+import { DEFAULT_STATE_A, IN_A, IN_B, OUT_Q } from '@/utils/constants'
 
 export default function OrGate(props) {
   const { nodes, materials } = useGLTF('/OR-transformed.glb')
@@ -52,8 +52,6 @@ export default function OrGate(props) {
   )
 }
 
-const gateState = { [IN_A]: 0, [IN_B]: 0, [OUT_Q]: 0 }
-const wireState = { [IN_A]: 0, [IN_B]: 0, [OUT_Q]: 0 }
 function NextState(wireState, gateState) {
   return {
     [IN_A]: wireState[IN_A],
@@ -62,9 +60,7 @@ function NextState(wireState, gateState) {
   }
 }
 
-OrGate.inputs = [IN_A, IN_B]
-OrGate.outputs = [OUT_Q]
-OrGate.defaultState = { [IN_A]: false, [IN_B]: false, [OUT_Q]: false }
 OrGate.NextState = NextState
+OrGate.Init = function () { }
 
 useGLTF.preload('/OR-transformed.glb')

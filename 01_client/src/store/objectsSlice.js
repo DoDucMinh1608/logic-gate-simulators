@@ -1,145 +1,103 @@
-import { Vector3 } from "three";
-import { generateUUID } from "three/src/math/MathUtils.js";
+import { v7 } from 'uuid';
 import { create } from "zustand";
 
-import AndGate from "@/components/Canvas/Gates/AndGate";
-import Clock from "@/components/Canvas/Gates/Clock";
-import NandGate from "@/components/Canvas/Gates/NandGate";
-import NorGate from "@/components/Canvas/Gates/NorGate";
-import NotGate from "@/components/Canvas/Gates/NotGate";
-import OrGate from "@/components/Canvas/Gates/OrGate";
-import Switch from "@/components/Canvas/Gates/Switch";
-import XorGate from "@/components/Canvas/Gates/XorGate";
-import { AND_GATE, CLOCK, NAND_GATE, NOR_GATE, NOT_GATE, OR_GATE, SWITCH, XOR_GATE } from "@/utils/constants";
+import { AND_GATE, CLOCK, DEFAULT_STATE_A, DEFAULT_STATE_B, DEFAULT_STATE_C, DISPLAY, IN_A, IN_B, NAND_GATE, NOR_GATE, NOT_GATE, OR_GATE, OUT_Q, SWITCH, XOR_GATE } from "@/utils/constants";
 
+// TODO: update GATES
 export const useObjectsSlice = create((set, get) => ({
-  GATES: [],
-  WIRES: [],
-  addGate(input) {
-    const gate = {
-      id: generateUUID(),
-      state: {},
-      ...input
+  GATES: {
+    clock: {
+      id: v7(),
+      type: CLOCK,
+      position: [-1, 0, 3],
+      rotation: 0,
+      inputs: {
+        [IN_A]: { gateId: "", pin: "" },
+        [IN_B]: {}
+      },
+      outputs: {
+        [OUT_Q]: false
+      },
+      custom: { tick: 0.5, lastUpdate: 0 },
     }
+  },
+  EVENTS: [],
+  getGateById(gateId) {
+    return get().GATES[gateId]
+  },
+  getGateByPosition(position) {
+    const gates = useObjectsSlice.getState().GATES
+    for (const gateId in gates) {
+      const gate = gates[gateId]
+      if (!(gate.position[0] == position[0] && gate.position[2] == position[2])) {
+        continue
+      }
+      return gate
+    }
+  },
+  getStateByGateId(gateId) {
+    const gate = get().GATES[gateId]
+    const result = {}
+
+    for (let output of gate.state) {
+      result.output
+    }
+
+  },
+  addGate(input) {
+    const gate = { id: v7(), inputs: {}, outputs: {}, ...input }
+    let event
     switch (input.type) {
       case AND_GATE:
-        gate.state = { ...AndGate.defaultState }
-        break
       case OR_GATE:
-        gate.state = { ...OrGate.defaultState }
+      case NAND_GATE:
+      case NOR_GATE:
+      case XOR_GATE:
+        gate.state = { ...DEFAULT_STATE_A }
         break
       case NOT_GATE:
-        gate.state = { ...NotGate.defaultState }
-        break
-      case NAND_GATE:
-        gate.state = { ...NandGate.defaultState }
-        break
-      case NOR_GATE:
-        gate.state = { ...NorGate.defaultState }
-        break
-      case XOR_GATE:
-        gate.state = { ...XorGate.defaultState }
+      case DISPLAY:
+        gate.state = { ...DEFAULT_STATE_B }
         break
       case CLOCK:
-        gate.state = { ...Clock.defaultState }
-        gate.custom = { tick: 1, lastUpdate: 0 }
-        break
       case SWITCH:
-        gate.state = { ...Switch.defaultState }
+        gate.state = { ...DEFAULT_STATE_C }
+
+        if (gate.type != CLOCK) break
+        gate.custom = { tick: 1, lastUpdate: 0 }
+        event = { gateId: gate.id, time: 0 }
+        break
+      default:
         break
     }
     set(state => ({
-      GATES: [
-        ...state.GATES,
-        gate
-      ]
+      EVENTS: event ? [event, ...state.EVENTS] : state.EVENTS,
+      GATES: { ...state.GATES, [gate.id]: gate }
     }))
   },
-
-  removeGate(id) {
+  addEvent(gateId, time) {
     set(state => ({
-      GATES: state.GATES.filter(gate => gate.id !== id),
-      WIRES: state.WIRES.filter(line => line.to.gateId != id && line.from.gateId != id),
+      EVENTS: [...state.EVENTS, { gateId: gateId, time: time }]
+        .sort((a, b) => a.time - b.time)
     }))
   },
-  updateGate(id, input) {
-    set(state => ({
-      GATES: state.GATES.map(i => i.id === id ? { ...i, ...input } : i)
-    }))
+  dispatchEvent(now) {
+    return get().EVENTS.filter(e => e.time <= now)
   },
-  updateWire(id, input) {
+  removeOldEvent(now) {
     set(state => ({
-      WIRES: state.WIRES.map(i => i.id === id ? { ...i, ...input } : i)
-    }))
-  },
-  updateGates(objects) {
-    set(state => ({
-      GATES: state.GATES.map(gate => {
-        let nextState = objects.find(j => j.id === gate.id)
-        if (nextState == null) return gate
-        return { ...gate, ...nextState }
-      })
-    }))
-  },
-  removeWire(id) {
-    set(state => ({
-      WIRES: state.WIRES.filter(line => line.id !== id),
+      EVENTS: state.EVENTS.filter(e => e.time > now)
     }))
   },
   addGateConnection(from, to) {
-    const dup = get().WIRES.filter(wire => {
-      return (
-        wire.to.gateId === to.gateId
-        && wire.to.pin === to.pin
-      )
-    })
-
-    if (dup.length > 0) return false
-
-    const f1 = from.position.clone()
-    f1.setX(f1.x - .7)
-    const f2 = to.position.clone()
-    f2.setX(f2.x + .45)
-
-    set(state => ({
-      WIRES: [
-        ...state.WIRES,
-        {
-          id: generateUUID(),
-          status: false,
-          from: { gateId: from.gateId, pin: from.pin },
-          to: { gateId: to.gateId, pin: to.pin },
-          positions: [
-            f1,
-            new Vector3(f1.x, -1, f1.z),
-            new Vector3(f2.x, -1, f2.z),
-            f2
-          ],
-        }
-      ]
-    }))
-    return true
   },
-  updateWires(objects) {
-    set(state => ({
-      WIRES: state.WIRES.map(line => {
-        let nextState = objects.find(j => j.id === line.id)
-        if (nextState == null) return line
-        return {
-          ...line,
-          ...nextState
-        }
-      })
-    }))
+  updateGates(objects) {
   },
-  getGateByPosition(position) {
-    const foundGate = useObjectsSlice
-      .getState()
-      .GATES
-      .find((gate) => {
-        return [0, 2].every(i => Math.round(gate.position[i]) == Math.round(position[i]))
-      })
-    return foundGate
-  }
+  updateNextState(objects) {
+  },
+  removeGate(id) {
+  },
+  removeWire(id) {
+  },
 }))
 

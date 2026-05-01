@@ -24,6 +24,7 @@ export const XOR_GATE = 'XOR'
 export const DISPLAY = "DISPLAY"
 export const SWITCH = 'SWITCH'
 export const CLOCK = 'CLOCK'
+
 export const GATE_TYPES = [
   WIRE,
   CLOCK,
@@ -31,11 +32,16 @@ export const GATE_TYPES = [
   DISPLAY,
   AND_GATE,
   OR_GATE,
+  XOR_GATE,
   NOT_GATE,
-  // NAND_GATE,
-  // NOR_GATE,
-  // XOR_GATE,
+  NAND_GATE,
+  NOR_GATE,
 ];
 
+export const DELAY_TIME = 50 // ms
 
 export const TRANSISTOR_SIZE = new Vector3(5, 2.5, 5)
+
+export const DEFAULT_STATE_A = { [IN_A]: false, [IN_B]: false, [OUT_Q]: false }
+export const DEFAULT_STATE_B = { [IN_A]: false, [OUT_Q]: false }
+export const DEFAULT_STATE_C = { [OUT_Q]: false }

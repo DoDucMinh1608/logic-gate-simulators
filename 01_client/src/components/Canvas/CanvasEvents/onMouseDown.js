@@ -82,8 +82,6 @@ function placeWire(button, gatePosition) {
         setSelectBuildPort(null)
       }
       break
-    default:
-      break;
   }
 }
 

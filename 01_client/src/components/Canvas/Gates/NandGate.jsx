@@ -5,7 +5,7 @@ Files: ./models/NAND.glb [48.19KB] > C:\Users\ducmi\projects\logic-gate-simulato
 */
 
 import { GATE_COLORS, PORT_COLORS } from '@/utils/colors'
-import { IN_A, IN_B, OUT_Q } from '@/utils/constants'
+import { DEFAULT_STATE_A, IN_A, IN_B, OUT_Q } from '@/utils/constants'
 import { useGLTF } from '@react-three/drei'
 
 export default function NandGate(props) {
@@ -54,9 +54,7 @@ export default function NandGate(props) {
   )
 }
 
-const gateState = { [IN_A]: 0, [IN_B]: 0, [OUT_Q]: 0 }
-const wireState = { [IN_A]: 0, [IN_B]: 0, [OUT_Q]: 0 }
-function NextState(wireState, gateState) {
+function NextState(wireState) {
   return {
     [IN_A]: wireState[IN_A],
     [IN_B]: wireState[IN_B],
@@ -64,9 +62,7 @@ function NextState(wireState, gateState) {
   }
 }
 
-NandGate.inputs = [IN_A, IN_B]
-NandGate.outputs = [OUT_Q]
-NandGate.defaultState = { [IN_A]: false, [IN_B]: false, [OUT_Q]: false }
 NandGate.NextState = NextState
+NandGate.Init = function () { }
 
 useGLTF.preload('/NAND-transformed.glb')

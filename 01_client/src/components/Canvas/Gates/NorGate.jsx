@@ -7,7 +7,7 @@ Files: ./models/NOR.glb [28.94KB] > C:\Users\ducmi\projects\logic-gate-simulator
 import { useGLTF } from '@react-three/drei'
 
 import { GATE_COLORS, PORT_COLORS } from '@/utils/colors'
-import { IN_A, IN_B, OUT_Q } from '@/utils/constants'
+import { DEFAULT_STATE_A, IN_A, IN_B, OUT_Q } from '@/utils/constants'
 
 export default function NorGate(props) {
   const { nodes, materials } = useGLTF('/NOR-transformed.glb')
@@ -19,8 +19,7 @@ export default function NorGate(props) {
           metalness={1}
           roughness={0.4}
           envMapIntensity={1.5}
-          flatShading={true}
-        />
+          flatShading={true} />
       </mesh>
       <mesh geometry={nodes.Cot3.geometry} material={nodes.Cot3.material}>
         <meshStandardMaterial
@@ -28,8 +27,7 @@ export default function NorGate(props) {
           metalness={1}
           roughness={0.4}
           envMapIntensity={1.5}
-          flatShading={true}
-        />
+          flatShading={true} />
       </mesh>
       <mesh position={[-1.3, 0.125, .5]}>
         <boxGeometry args={[.6, .3, .3]} />
@@ -38,8 +36,7 @@ export default function NorGate(props) {
           metalness={1}
           roughness={0.4}
           envMapIntensity={1.5}
-          flatShading={true}
-        />
+          flatShading={true} />
       </mesh>
       <mesh position={[-1.3, 0.125, -.5]}>
         <boxGeometry args={[.6, .3, .3]} />
@@ -48,16 +45,13 @@ export default function NorGate(props) {
           metalness={1}
           roughness={0.4}
           envMapIntensity={1.5}
-          flatShading={true}
-        />
+          flatShading={true} />
       </mesh>
     </group>
   )
 }
 
-const gateState = { [IN_A]: 0, [IN_B]: 0, [OUT_Q]: 0 }
-const wireState = { [IN_A]: 0, [IN_B]: 0, [OUT_Q]: 0 }
-function NextState(wireState, gateState) {
+function NextState(wireState) {
   return {
     [IN_A]: wireState[IN_A],
     [IN_B]: wireState[IN_B],
@@ -65,9 +59,7 @@ function NextState(wireState, gateState) {
   }
 }
 
-NorGate.inputs = [IN_A, IN_B]
-NorGate.outputs = [OUT_Q]
-NorGate.defaultState = { [IN_A]: false, [IN_B]: false, [OUT_Q]: false }
 NorGate.NextState = NextState
+NorGate.Init = function () { }
 
 useGLTF.preload('/NOR-transformed.glb')

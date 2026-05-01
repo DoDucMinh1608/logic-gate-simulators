@@ -5,7 +5,7 @@ Files: ./models/AND.glb [27.98KB] > C:\Users\ducmi\projects\logic-gate-simulator
 */
 
 import { GATE_COLORS, PORT_COLORS } from '@/utils/colors'
-import { IN_A, IN_B, OUT_Q } from '@/utils/constants'
+import { DEFAULT_STATE_A, IN_A, IN_B, OUT_Q } from '@/utils/constants'
 import { useGLTF } from '@react-three/drei'
 
 
@@ -13,7 +13,7 @@ export default function AndGate(props) {
   const { nodes, materials } = useGLTF('/AND-transformed.glb')
   return (
     <group {...props} dispose={null}>
-      <mesh geometry={nodes['4'].geometry}>
+      <mesh geometry={nodes['4'].geometry} material={materials}>
         <meshStandardMaterial
           color={GATE_COLORS}
           metalness={1}
@@ -52,9 +52,7 @@ export default function AndGate(props) {
   )
 }
 
-const gateState = { [IN_A]: 0, [IN_B]: 0, [OUT_Q]: 0 }
-const wireState = { [IN_A]: 0, [IN_B]: 0, [OUT_Q]: 0 }
-function NextState(wireState, gateState) {
+function NextState(wireState) {
   return {
     [IN_A]: wireState[IN_A],
     [IN_B]: wireState[IN_B],
@@ -62,9 +60,7 @@ function NextState(wireState, gateState) {
   }
 }
 
-AndGate.inputs = [IN_A, IN_B]
-AndGate.outputs = [OUT_Q]
-AndGate.defaultState = { [IN_A]: false, [IN_B]: false, [OUT_Q]: false }
 AndGate.NextState = NextState
+AndGate.Init = function () { }
 
 useGLTF.preload('/AND-transformed.glb')

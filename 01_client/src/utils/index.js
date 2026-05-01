@@ -21,30 +21,6 @@ export function getLookingPositionOnPlane(state, plane, result) {
   return result
 }
 
-export function testSnapPos(objectPosition, lookingPos, size, result) {
-  try {
-    const
-      x0 = lookingPos.x > objectPosition.x ? 1 : -1,
-      y0 = lookingPos.y > objectPosition.y ? 1 : -1,
-      z0 = lookingPos.z > objectPosition.z ? 1 : -1
-    result.set(
-      Math.floor(lookingPos.x / size.x) * size.x + size.x / 2 * x0,
-      Math.floor(lookingPos.y / size.y) * size.y + size.y / 2 * y0,
-      Math.floor(lookingPos.z / size.z) * size.z + size.z / 2 * z0,
-    )
-    // if (lookingPos.z > objectPosition.z) {
-    // } else {
-    //   result.set(
-    //     Math.floor(lookingPos.x / size.x) * size.x + size.x / 2,
-    //     Math.floor(lookingPos.y / size.y) * size.y + size.y / 2,
-    //     Math.floor(lookingPos.z / size.z) * size.z - size.z / 2,
-    //   )
-    // }
-    // result.addScalar(NORMAL_VALUE)
-  } catch (error) {
-
-  }
-}
 export function setSnapGridPosition(position, size, result) {
   if (position == null) return
   try {
@@ -69,7 +45,6 @@ export function calculateIntPosition(position, scale, result) {
   return result
 }
 
-
 const prefixVec = new Vector3(0.5, 0.0001, 0.5)
 export function convertGatePosToWorldCoor(x, y = 0, z, result = new Vector3()) {
   return result.set(x, y, z)
@@ -86,22 +61,6 @@ export function convertWorldCoorToGatePos(x, y, z, result = new Vector3()) {
   return result
 }
 
-const prefixVec2 = new Vector3(5, 1, 5)
-const prefixVec4 = new Vector3(0, 0.1, 0)
-export function convertWirePosToWorldCoor(x, y = 0, z) {
-  return new Vector3(x, y, z)
-    .multiply(prefixVec2)
-    .add(prefixVec4)
-}
-
-// const prefixVec3 = new Vector3(2, 0, 2)
-// export function convertGatePosToWirePos(x, y, z) {
-//   return new Vector3(x, y, z)
-//     .addScalar(0.5)
-//     .multiply(prefixVec3)
-// }
-
-// GatePos -> outQ, inA, inB wirePos
 export function GetWirePosFromGatePos1(x, y, z) {
   return {
     in_A: [
@@ -133,8 +92,6 @@ export function GetWirePosFromGatePos2(x, y, z) {
 }
 
 export function ConnectToPosition(startWire, endWire) {
-  console.log(startWire, endWire)
-
   const [ss, se] = startWire
   const [es, ee] = endWire
 
@@ -146,10 +103,7 @@ export function ConnectToPosition(startWire, endWire) {
 }
 
 export function CheckPinType(gateId, pin) {
-  const gate = useObjectsSlice
-    .getState()
-    .GATES
-    .find(i => i.id === gateId)
+  const gate = useObjectsSlice.getState().GATES[gateId]
 
   switch (gate.type) {
     case AND_GATE:
@@ -162,7 +116,6 @@ export function CheckPinType(gateId, pin) {
       return INVALID_PIN
     case NOT_GATE:
     case DISPLAY:
-      console.log(pin)
       if (pin === IN_A) return INPUT_PIN
       if (pin === OUT_Q) return OUTPUT_PIN
       return INVALID_PIN

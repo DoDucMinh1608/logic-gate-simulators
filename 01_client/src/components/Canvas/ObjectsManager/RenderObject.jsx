@@ -1,101 +1,91 @@
-import { Line } from "@react-three/drei";
+import { useMemo } from "react";
 
 import { useObjectsSlice } from "@/store/objectsSlice";
 import { convertGatePosToWorldCoor } from "@/utils";
-import { usePlayerSlice } from "@/store/playerSlice";
-import { AND_GATE, CLOCK, DISPLAY, NAND_GATE, NOR_GATE, NOT_GATE, OR_GATE, SWITCH, WIRE, XOR_GATE } from "@/utils/constants";
+import { AND_GATE, CLOCK, DISPLAY, IN_A, NAND_GATE, NOR_GATE, NOT_GATE, OR_GATE, SWITCH, XOR_GATE } from "@/utils/constants";
 
 import AndGate from "../Gates/AndGate";
-import Clock from "../Gates/Clock";
+import ClockGate from "../Gates/ClockGate";
+import Display from "../Gates/Display";
 import NandGate from "../Gates/NandGate";
 import NorGate from "../Gates/NorGate";
 import NotGate from "../Gates/NotGate";
 import OrGate from "../Gates/OrGate";
-import Switch from "../Gates/Switch";
+import SwitchGate from "../Gates/SwitchGate";
 import XorGate from "../Gates/XorGate";
-import Display from "../Gates/Display";
+
+const GATE_COMPONENTS = {
+  [AND_GATE]: AndGate,
+  [OR_GATE]: OrGate,
+  [NOT_GATE]: NotGate,
+  [NAND_GATE]: NandGate,
+  [NOR_GATE]: NorGate,
+  [XOR_GATE]: XorGate,
+};
+
+function renderGate(obj) {
+  const position = convertGatePosToWorldCoor(...obj.position);
+  const rotation = [0, obj.rotation * Math.PI / 2, 0];
+
+  // Standard logic gates — all share the same props shape
+  const StandardGate = GATE_COMPONENTS[obj.type];
+  if (StandardGate) {
+    return <StandardGate key={obj.id} position={position} rotation={rotation} />;
+  }
+
+  // Self-firing / stateful gates need extra props
+  if (obj.type === CLOCK) {
+    return (
+      <ClockGate
+        key={obj.id}
+        id={obj.id}
+        position={position}
+        rotation={rotation}
+        tick={obj.tick}
+      />
+    );
+  }
+
+  if (obj.type === SWITCH) {
+    return (
+      <SwitchGate
+        key={obj.id}
+        id={obj.id}
+        position={position}
+        rotation={rotation}
+        state={obj.state[IN_A]}
+        tick={obj.custom.tick}
+      />
+    );
+  }
+
+  if (obj.type === DISPLAY) {
+    return (
+      <Display
+        key={obj.id}
+        id={obj.id}
+        position={position}
+        rotation={rotation}
+        state={obj.state[IN_A]}
+      />
+    );
+  }
+
+  // Unknown gate type — fail visibly in dev, silently in prod
+  if (process.env.NODE_ENV === "development") {
+    console.warn(`RenderObject: unknown gate type "${obj.type}" (id: ${obj.id})`);
+  }
+  return null;
+}
 
 function RenderObject() {
-  const gates = useObjectsSlice(state => state.GATES)
-  const wires = useObjectsSlice(state => state.WIRES)
-  const removeWire = useObjectsSlice(state => state.removeWire)
-  const selectBuildGate = usePlayerSlice(state => state.selectBuildGate)
+  const gates = useObjectsSlice(state => state.GATES);
+  const data = useMemo(() => Object.values(gates), [gates]);
+
   return (
     <>
-      {gates.map((obj, j) => (
-        <>
-          {obj.type === AND_GATE && <AndGate
-            key={obj.id}
-            position={convertGatePosToWorldCoor(...obj.position)}
-            rotation={[0, obj.rotation * Math.PI / 2, 0]}
-          />}
-          {obj.type === OR_GATE && <OrGate
-            key={obj.id}
-            position={convertGatePosToWorldCoor(...obj.position)}
-            rotation={[0, obj.rotation * Math.PI / 2, 0]}
-          />}
-          {obj.type === NOT_GATE && <NotGate
-            key={obj.id}
-            position={convertGatePosToWorldCoor(...obj.position)}
-            rotation={[0, obj.rotation * Math.PI / 2, 0]}
-          />}
-
-          {obj.type === NAND_GATE && <NandGate
-            key={obj.id}
-            position={convertGatePosToWorldCoor(...obj.position)}
-            rotation={[0, obj.rotation * Math.PI / 2, 0]}
-          />}
-          {obj.type === NOR_GATE && <NorGate
-            key={obj.id}
-            position={convertGatePosToWorldCoor(...obj.position)}
-            rotation={[0, obj.rotation * Math.PI / 2, 0]}
-          />}
-          {obj.type === XOR_GATE && <XorGate
-            key={obj.id}
-            position={convertGatePosToWorldCoor(...obj.position)}
-            rotation={[0, obj.rotation * Math.PI / 2, 0]}
-          />}
-
-          {obj.type === CLOCK && <Clock
-            id={obj.id}
-            key={obj.id}
-            position={convertGatePosToWorldCoor(...obj.position)}
-            rotation={[0, obj.rotation * Math.PI / 2, 0]}
-            tick={obj.tick} />}
-          {obj.type === SWITCH && <Switch
-            key={obj.id}
-            id={obj.id}
-            state={obj.state}
-            position={convertGatePosToWorldCoor(...obj.position)}
-            rotation={[0, obj.rotation * Math.PI / 2, 0]}
-            tick={obj.custom.tick} />}
-          {obj.type === DISPLAY && <Display
-            key={obj.id}
-            id={obj.id}
-            position={convertGatePosToWorldCoor(...obj.position)}
-            rotation={[0, obj.rotation * Math.PI / 2, 0]}
-          />}
-        </>
-      ))}
-      {wires
-        .filter(obj => obj.positions.length > 1)
-        .map(obj => {
-          return (
-            <Line
-              key={obj.id}
-              points={obj.positions}
-              lineWidth={15}
-              onClick={e => {
-                e.stopPropagation()
-                // console.log(e.button)
-                if (selectBuildGate == WIRE && e.button == 0) {
-                  removeWire(obj.id)
-                }
-              }}
-              color={obj.status == 0 ? "blue" : "red"} />
-          )
-        })}
+      {data.map(renderGate)}
     </>
-  )
+  );
 }
 export default RenderObject
