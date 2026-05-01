@@ -13,7 +13,7 @@ function ControlGatePlacement() {
   const selectBuildGate = usePlayerSlice(state => state.selectBuildGate)
 
   useThrottledFrame(state => {
-    if (!ref.current) return
+    if (!ref.current || !interactPosition) return
     ref.current.position?.copy(interactPosition)
   }, 0, 30)
 

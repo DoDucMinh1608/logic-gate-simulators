@@ -1,7 +1,7 @@
 import { useThrottledFrame } from "@/hooks/useThrottledFrame"
 import { useObjectsSlice } from "@/store/objectsSlice"
 
-import { AND_GATE, CLOCK, NAND_GATE, NOR_GATE, NOT_GATE, OR_GATE, OUT_Q, XOR_GATE } from "@/utils/constants"
+import { AND_GATE, CLOCK, DISPLAY, NAND_GATE, NOR_GATE, NOT_GATE, OR_GATE, OUT_Q, XOR_GATE } from "@/utils/constants"
 import AndGate from "../Gates/AndGate"
 import Clock from "../Gates/Clock"
 import NandGate from "../Gates/NandGate"
@@ -9,6 +9,7 @@ import NorGate from "../Gates/NorGate"
 import NotGate from "../Gates/NotGate"
 import OrGate from "../Gates/OrGate"
 import XorGate from "../Gates/XorGate"
+import Display from "../Gates/Display"
 
 function UpdateGateStatus() {
   const gates = useObjectsSlice(state => state.GATES)
@@ -94,6 +95,15 @@ function UpdateGateStatus() {
                 ...gate.custom,
                 lastUpdate: state.clock.elapsedTime
               }
+            })
+          }
+          break
+        case DISPLAY:
+          nextState = Display.NextState({ ...Display.defaultState, ...gate_wires }, gate.state)
+          if (nextState[OUT_Q] !== gate.state[OUT_Q]) {
+            nextStates.push({
+              id: gate.id,
+              state: nextState
             })
           }
           break

@@ -107,8 +107,8 @@ export const useObjectsSlice = create((set, get) => ({
           to: { gateId: to.gateId, pin: to.pin },
           positions: [
             from.position,
-            new Vector3(from.position.x, 2, from.position.z),
-            new Vector3(to.position.x, 2, to.position.z),
+            new Vector3(from.position.x, -1, from.position.z),
+            new Vector3(to.position.x, -1, to.position.z),
             to.position
           ],
         }
