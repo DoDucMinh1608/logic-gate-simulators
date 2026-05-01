@@ -1,15 +1,6 @@
-import { useObjectsSlice } from '@/store/objectsSlice'
 import { GATE_COLORS, PORT_COLORS } from '@/utils/colors'
-import { DEFAULT_STATE_C, OUT_Q } from '@/utils/constants'
 
 function onSwitchClick() {
-  const gate = useObjectsSlice.getState().GATES.find(g => g.id === id)
-  const updateGates = useObjectsSlice.getState().updateGates
-
-  updateGates([{
-    id,
-    state: { [OUT_Q]: !gate.state[OUT_Q] }
-  }])
 }
 
 function SwitchGate({ id, state, custom, ...props }) {

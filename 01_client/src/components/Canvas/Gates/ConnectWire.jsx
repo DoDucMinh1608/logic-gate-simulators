@@ -26,7 +26,7 @@ function ConnectWire({ obj, status, ...props }) {
         onClick={e => {
           e.stopPropagation()
           if (e.button == LEFT_CLICK) {
-            onConnectWireClick(obj.id)
+            onConnectWireClick(obj)
           }
         }}
         color={status ? "red" : "blue"}

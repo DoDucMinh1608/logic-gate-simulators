@@ -6,6 +6,7 @@ import { AND_GATE, CLOCK, DISPLAY, IN_A, NAND_GATE, NOR_GATE, NOT_GATE, OR_GATE,
 
 import AndGate from "../Gates/AndGate";
 import ClockGate from "../Gates/ClockGate";
+import ConnectWire from "../Gates/ConnectWire";
 import Display from "../Gates/Display";
 import NandGate from "../Gates/NandGate";
 import NorGate from "../Gates/NorGate";
@@ -80,11 +81,13 @@ function renderGate(obj) {
 
 function RenderObject() {
   const gates = useObjectsSlice(state => state.GATES);
-  const data = useMemo(() => Object.values(gates), [gates]);
+  const data = useMemo(() => Object.values(gates), [gates])
+  const wires = useMemo(() => Object.values(gates).map(i => Object.values(i.inputs)).flat(), [gates])
 
   return (
     <>
       {data.map(renderGate)}
+      {wires?.map(wire => <ConnectWire key={wire.id} obj={wire} />)}
     </>
   );
 }

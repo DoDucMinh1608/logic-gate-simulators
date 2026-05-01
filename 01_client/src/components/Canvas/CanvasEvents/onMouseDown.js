@@ -15,7 +15,6 @@ function placeGate(button, gatePosition) {
   const setSelectBuildPort = usePlayerSlice.getState().setSelectBuildPort
 
   const existingGate = getGateByPosition(gatePosition)
-
   switch (button) {
     case LEFT_CLICK:
       if (!!existingGate) {
@@ -74,13 +73,12 @@ function placeWire(button, gatePosition) {
         return
       }
 
-      if (addGateConnection(
+      addGateConnection(
         port1Type === OUTPUT_PIN ? selectPort : selectBuildPort,
         port2Type === INPUT_PIN ? selectBuildPort : selectPort
-      )) {
-        setSelectPort(null)
-        setSelectBuildPort(null)
-      }
+      )
+      setSelectPort(null)
+      setSelectBuildPort(null)
       break
   }
 }
