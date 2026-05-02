@@ -1,0 +1,19 @@
+{
+  "019de940-d6b7-70ce-b7c9-667d921e4022": {
+    "id": "019de940-d6b7-70ce-b7c9-667d921e4022",
+    "type": "SWITCH",
+    "position": [
+      1,
+      0,
+      2
+    ],
+    "rotation": 0,
+    "inputs": {},
+    "outputs": {
+      "out_Q": {
+        "status": false,
+        "destGate": []
+      }
+    }
+  }
+}

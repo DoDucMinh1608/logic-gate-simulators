@@ -1,17 +1,8 @@
 import { GATE_COLORS, PORT_COLORS } from '@/utils/colors'
 
-function onSwitchClick() {
-}
-
-function SwitchGate({ id, state, custom, ...props }) {
+function SwitchGate({ ...props }) {
   return (
-    <group {...props} dispose={null}
-      onClick={e => {
-        e.stopPropagation()
-        if (e.button == 2) {
-          onSwitchClick()
-        }
-      }}>
+    <group {...props} dispose={null}>
       <mesh position={[0, 0.625, 0]}>
         <boxGeometry args={[3, 1.25, 3]} />
         <meshStandardMaterial
@@ -24,7 +15,7 @@ function SwitchGate({ id, state, custom, ...props }) {
       <mesh position={[0, 1, 0]} rotation={[0, Math.PI / 2, 0]}>
         <cylinderGeometry args={[1, 1, 1.2, 10]} />
         <meshStandardMaterial
-          color={state ? 0xff0000 : 0x0000ff}
+          color={props?.state ? 0xff0000 : 0x0000ff}
           metalness={1}
           roughness={0.4}
           envMapIntensity={1.5}

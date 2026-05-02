@@ -31,12 +31,12 @@ function UpdateLogicGateState() {
       // console.log(gateState)
       switch (targetGate.type) {
         case CLOCK:
-          const nextState = ClockGate.NextState(gateState)
+          // const nextState = ClockGate.NextState(gateState)
 
-          if (nextState[OUT_Q] == gateState[OUT_Q]) break
+          // if (nextState[OUT_Q] == gateState[OUT_Q]) break
 
-          needUpdate.push({ gateId: targetGate.id, pin: OUT_Q, outputs: nextState })
-          addEvent(targetGate.id, elapsedTime + targetGate.custom.tick)
+          // needUpdate.push({ gateId: targetGate.id, pin: OUT_Q, outputs: nextState })
+          // addEvent(targetGate.id, elapsedTime + targetGate.custom.tick)
           break;
       }
     }

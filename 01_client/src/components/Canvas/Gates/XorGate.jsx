@@ -4,11 +4,10 @@ Command: npx gltfjsx@6.5.3 ./models/XOR.glb -o ./src/components/Canvas/Gates/Xor
 Files: ./models/XOR.glb [7KB] > C:\Users\ducmi\projects\logic-gate-simulators\src\components\Canvas\Gates\XOR-transformed.glb [1.98KB] (72%)
 */
 
-import React from 'react'
 import { useGLTF } from '@react-three/drei'
 
 import { GATE_COLORS, PORT_COLORS } from '@/utils/colors'
-import { DEFAULT_STATE_A, IN_A, IN_B, OUT_Q } from '@/utils/constants'
+import { IN_A, IN_B, OUT_Q } from '@/utils/constants'
 
 export default function XorGate(props) {
   const { nodes, materials } = useGLTF('/XOR-transformed.glb')

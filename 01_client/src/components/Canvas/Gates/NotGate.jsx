@@ -7,7 +7,7 @@ Files: ./models/NOT.glb [26.64KB] > C:\Users\ducmi\projects\logic-gate-simulator
 import { useGLTF } from '@react-three/drei'
 
 import { GATE_COLORS, PORT_COLORS } from '@/utils/colors'
-import { DEFAULT_STATE_B, IN_A, OUT_Q } from '@/utils/constants'
+import { IN_A, OUT_Q } from '@/utils/constants'
 
 export default function NotGate(props) {
   const { nodes, materials } = useGLTF('/NOT-transformed.glb')

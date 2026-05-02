@@ -1,7 +1,7 @@
 import { GATE_COLORS, PORT_COLORS } from "@/utils/colors"
 import { DEFAULT_STATE_C, OUT_Q } from "@/utils/constants"
 
-function ClockGate({ id, tick, custom, ...props }) {
+function ClockGate({ ...props }) {
   return (
     <group {...props} dispose={null} >
       <mesh position={[0, 0.625, 0]}>
@@ -16,7 +16,7 @@ function ClockGate({ id, tick, custom, ...props }) {
       <mesh position={[-.25, 1, 0]} rotation={[0, Math.PI / 2, 0]}>
         <cylinderGeometry args={[1, 1, 1, 3]} />
         <meshStandardMaterial
-          color={custom?.color}
+          color={props?.custom?.color}
           metalness={1}
           roughness={0.2}
           envMapIntensity={1.5}

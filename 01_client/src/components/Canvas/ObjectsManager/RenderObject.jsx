@@ -27,7 +27,6 @@ const GATE_COMPONENTS = {
 function renderGate(obj) {
   const position = convertGatePosToWorldCoor(...obj.position);
   const rotation = [0, obj.rotation * Math.PI / 2, 0];
-
   // Standard logic gates — all share the same props shape
   const StandardGate = GATE_COMPONENTS[obj.type];
   if (StandardGate) {
@@ -39,10 +38,8 @@ function renderGate(obj) {
     return (
       <ClockGate
         key={obj.id}
-        id={obj.id}
         position={position}
         rotation={rotation}
-        tick={obj.tick}
       />
     );
   }
@@ -51,11 +48,9 @@ function renderGate(obj) {
     return (
       <SwitchGate
         key={obj.id}
-        id={obj.id}
         position={position}
         rotation={rotation}
         state={obj.outputs[IN_A]}
-        tick={obj.custom.tick}
       />
     );
   }
@@ -64,7 +59,6 @@ function renderGate(obj) {
     return (
       <Display
         key={obj.id}
-        id={obj.id}
         position={position}
         rotation={rotation}
         state={obj.outputs[IN_A]}
@@ -86,11 +80,15 @@ function RenderObject() {
     .map(i => Object.values(i.inputs))
     .flat()
     .filter(i => i.positions?.length > 1), [gates])
-
+  console.log(wires)
   return (
     <>
       {data.map(renderGate)}
-      {wires?.map(wire => <ConnectWire key={wire.id} status={gates[wire.gateId]?.outputs?.[wire.pin].status} obj={wire} />)}
+      {wires?.map(wire => <ConnectWire
+        key={wire.id}
+        obj={wire}
+        status={gates[wire.srcGate]?.outputs?.[wire.srcPin].status}
+      />)}
     </>
   );
 }

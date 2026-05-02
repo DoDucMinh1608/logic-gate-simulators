@@ -1,3 +1,4 @@
+import { useObjectsSlice } from "@/store/objectsSlice"
 import { usePlayerSlice } from "@/store/playerSlice"
 import { getDegrees } from "@/utils"
 
@@ -6,7 +7,11 @@ function CurrentCameraState() {
   const angles = getDegrees(camera?.direction)
 
   return (
-    <div className="font-mono absolute  left-0 top-0 translate-x-2 flex bg-[rgba(255,255,255,0.5)] p-1 gap-5 z-10">
+    <div className="font-mono absolute  left-0 top-0 translate-x-2 flex bg-[rgba(255,255,255,0.5)] p-1 gap-5 z-10"
+      onClick={(e) => {
+        console.log(JSON.stringify(useObjectsSlice.getState().GATES))
+        console.log(JSON.stringify(useObjectsSlice.getState().EVENTS))
+      }}>
       <div>
         Position:<br />
         <p className="pl-5 grid grid-cols-2 gapx-5">

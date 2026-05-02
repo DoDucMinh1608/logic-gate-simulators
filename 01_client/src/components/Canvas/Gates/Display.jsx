@@ -1,5 +1,5 @@
 import { PORT_COLORS } from "@/utils/colors"
-import { DEFAULT_STATE_B, IN_A, OUT_Q } from "@/utils/constants"
+import { IN_A, OUT_Q } from "@/utils/constants"
 import { Edges } from "@react-three/drei"
 
 function Display({ id, state, ...props }) {

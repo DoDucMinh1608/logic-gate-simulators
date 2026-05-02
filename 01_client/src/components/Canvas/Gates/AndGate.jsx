@@ -5,9 +5,8 @@ Files: ./models/AND.glb [27.98KB] > C:\Users\ducmi\projects\logic-gate-simulator
 */
 
 import { GATE_COLORS, PORT_COLORS } from '@/utils/colors'
-import { DEFAULT_STATE_A, IN_A, IN_B, OUT_Q } from '@/utils/constants'
+import { IN_A, IN_B, OUT_Q } from '@/utils/constants'
 import { useGLTF } from '@react-three/drei'
-
 
 export default function AndGate(props) {
   const { nodes, materials } = useGLTF('/AND-transformed.glb')

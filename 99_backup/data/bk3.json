@@ -1,0 +1,312 @@
+{
+  "019de92d-d9b2-7758-ad3c-13393714b018": {
+    "id": "019de92d-d9b2-7758-ad3c-13393714b018",
+    "type": "NAND",
+    "position": [
+      -1,
+      0,
+      3
+    ],
+    "rotation": 0,
+    "inputs": {
+      "in_A": {
+        "srcGate": "019de92d-eb08-72cb-a1c4-6d730b8ac732",
+        "srcPin": "out_Q",
+        "selfGate": "019de92d-d9b2-7758-ad3c-13393714b018",
+        "selfPin": "in_A",
+        "positions": [
+          {
+            "x": -5.25,
+            "y": 0,
+            "z": 17.5
+          },
+          {
+            "x": -5.25,
+            "y": -1,
+            "z": 17.5
+          },
+          {
+            "x": -4.5,
+            "y": -1,
+            "z": 17
+          },
+          {
+            "x": -4.5,
+            "y": 0,
+            "z": 17
+          }
+        ]
+      },
+      "in_B": {
+        "srcGate": "019de92d-daf0-749f-9987-429e8cd6b789",
+        "srcPin": "out_Q",
+        "selfGate": "019de92d-d9b2-7758-ad3c-13393714b018",
+        "selfPin": "in_B",
+        "positions": [
+          {
+            "x": -0.25,
+            "y": 0,
+            "z": 22.5
+          },
+          {
+            "x": -0.25,
+            "y": -1,
+            "z": 22.5
+          },
+          {
+            "x": -4.5,
+            "y": -1,
+            "z": 18
+          },
+          {
+            "x": -4.5,
+            "y": 0,
+            "z": 18
+          }
+        ]
+      }
+    },
+    "outputs": {
+      "out_Q": {
+        "status": false,
+        "destGate": [
+          {
+            "gateId": "019de92d-daf0-749f-9987-429e8cd6b789",
+            "pin": "in_A"
+          },
+          {
+            "gateId": "019de92d-e4b1-7380-aac0-bae8b76cf533",
+            "pin": "in_A"
+          }
+        ]
+      }
+    }
+  },
+  "019de92d-daf0-749f-9987-429e8cd6b789": {
+    "id": "019de92d-daf0-749f-9987-429e8cd6b789",
+    "type": "NAND",
+    "position": [
+      -1,
+      0,
+      4
+    ],
+    "rotation": 0,
+    "inputs": {
+      "in_A": {
+        "srcGate": "019de92d-d9b2-7758-ad3c-13393714b018",
+        "srcPin": "out_Q",
+        "selfGate": "019de92d-daf0-749f-9987-429e8cd6b789",
+        "selfPin": "in_A",
+        "positions": [
+          {
+            "x": -0.25,
+            "y": 0,
+            "z": 17.5
+          },
+          {
+            "x": -0.25,
+            "y": -1,
+            "z": 17.5
+          },
+          {
+            "x": -4.5,
+            "y": -1,
+            "z": 22
+          },
+          {
+            "x": -4.5,
+            "y": 0,
+            "z": 22
+          }
+        ]
+      },
+      "in_B": {
+        "srcGate": "019de92d-ec35-7582-820a-bd11f0b7ea16",
+        "srcPin": "out_Q",
+        "selfGate": "019de92d-daf0-749f-9987-429e8cd6b789",
+        "selfPin": "in_B",
+        "positions": [
+          {
+            "x": -5.25,
+            "y": 0,
+            "z": 22.5
+          },
+          {
+            "x": -5.25,
+            "y": -1,
+            "z": 22.5
+          },
+          {
+            "x": -4.5,
+            "y": -1,
+            "z": 23
+          },
+          {
+            "x": -4.5,
+            "y": 0,
+            "z": 23
+          }
+        ]
+      }
+    },
+    "outputs": {
+      "out_Q": {
+        "status": false,
+        "destGate": [
+          {
+            "gateId": "019de92d-d9b2-7758-ad3c-13393714b018",
+            "pin": "in_B"
+          },
+          {
+            "gateId": "019de92d-d9b2-7758-ad3c-13393714b018",
+            "pin": "in_B"
+          },
+          {
+            "gateId": "019de92d-e62a-7635-bcc1-d709fa3e18a9",
+            "pin": "in_A"
+          }
+        ]
+      }
+    }
+  },
+  "019de92d-e4b1-7380-aac0-bae8b76cf533": {
+    "id": "019de92d-e4b1-7380-aac0-bae8b76cf533",
+    "type": "DISPLAY",
+    "position": [
+      0,
+      0,
+      3
+    ],
+    "rotation": 0,
+    "inputs": {
+      "in_A": {
+        "srcGate": "019de92d-d9b2-7758-ad3c-13393714b018",
+        "srcPin": "out_Q",
+        "selfGate": "019de92d-e4b1-7380-aac0-bae8b76cf533",
+        "selfPin": "in_A",
+        "positions": [
+          {
+            "x": -0.25,
+            "y": 0,
+            "z": 17.5
+          },
+          {
+            "x": -0.25,
+            "y": -1,
+            "z": 17.5
+          },
+          {
+            "x": 0.5,
+            "y": -1,
+            "z": 17.5
+          },
+          {
+            "x": 0.5,
+            "y": 0,
+            "z": 17.5
+          }
+        ]
+      }
+    },
+    "outputs": {
+      "out_Q": {
+        "status": false,
+        "destGate": []
+      }
+    }
+  },
+  "019de92d-e62a-7635-bcc1-d709fa3e18a9": {
+    "id": "019de92d-e62a-7635-bcc1-d709fa3e18a9",
+    "type": "DISPLAY",
+    "position": [
+      0,
+      0,
+      4
+    ],
+    "rotation": 0,
+    "inputs": {
+      "in_A": {
+        "srcGate": "019de92d-daf0-749f-9987-429e8cd6b789",
+        "srcPin": "out_Q",
+        "selfGate": "019de92d-e62a-7635-bcc1-d709fa3e18a9",
+        "selfPin": "in_A",
+        "positions": [
+          {
+            "x": -0.25,
+            "y": 0,
+            "z": 22.5
+          },
+          {
+            "x": -0.25,
+            "y": -1,
+            "z": 22.5
+          },
+          {
+            "x": 0.5,
+            "y": -1,
+            "z": 22.5
+          },
+          {
+            "x": 0.5,
+            "y": 0,
+            "z": 22.5
+          }
+        ]
+      }
+    },
+    "outputs": {
+      "out_Q": {
+        "status": false,
+        "destGate": []
+      }
+    }
+  },
+  "019de92d-eb08-72cb-a1c4-6d730b8ac732": {
+    "id": "019de92d-eb08-72cb-a1c4-6d730b8ac732",
+    "type": "SWITCH",
+    "position": [
+      -2,
+      0,
+      3
+    ],
+    "rotation": 0,
+    "inputs": {},
+    "outputs": {
+      "out_Q": {
+        "status": false,
+        "destGate": [
+          {
+            "gateId": "019de92d-d9b2-7758-ad3c-13393714b018",
+            "pin": "in_B"
+          },
+          {
+            "gateId": "019de92d-d9b2-7758-ad3c-13393714b018",
+            "pin": "in_A"
+          }
+        ]
+      }
+    }
+  },
+  "019de92d-ec35-7582-820a-bd11f0b7ea16": {
+    "id": "019de92d-ec35-7582-820a-bd11f0b7ea16",
+    "type": "SWITCH",
+    "position": [
+      -2,
+      0,
+      4
+    ],
+    "rotation": 0,
+    "inputs": {},
+    "outputs": {
+      "out_Q": {
+        "status": false,
+        "destGate": [
+          {
+            "gateId": "019de92d-daf0-749f-9987-429e8cd6b789",
+            "pin": "in_B"
+          }
+        ]
+      }
+    }
+  }
+}

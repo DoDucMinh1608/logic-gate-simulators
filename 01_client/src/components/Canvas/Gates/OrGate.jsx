@@ -7,7 +7,7 @@ Files: ./models/OR.glb [3.54KB] > C:\Users\ducmi\projects\logic-gate-simulators\
 import { useGLTF } from '@react-three/drei'
 
 import { GATE_COLORS, PORT_COLORS } from '@/utils/colors'
-import { DEFAULT_STATE_A, IN_A, IN_B, OUT_Q } from '@/utils/constants'
+import { IN_A, IN_B, OUT_Q } from '@/utils/constants'
 
 export default function OrGate(props) {
   const { nodes, materials } = useGLTF('/OR-transformed.glb')

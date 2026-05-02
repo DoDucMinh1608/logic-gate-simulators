@@ -4,43 +4,10 @@ import { create } from "zustand";
 import { AND_GATE, CLOCK, DEFAULT_STATE_A, DEFAULT_STATE_B, DEFAULT_STATE_C, DISPLAY, IN_A, IN_B, NAND_GATE, NOR_GATE, NOT_GATE, OR_GATE, OUT_Q, SWITCH, XOR_GATE } from "@/utils/constants";
 import { Vector3 } from 'three';
 
-// TODO: update GATES
 export const useObjectsSlice = create((set, get) => ({
-  GATES: {
-    clock: {
-      id: v7(),
-      type: CLOCK,
-      position: [-1, 0, 3],
-      rotation: 0,
-      inputs: {
-        [IN_A]: { gateId: "", pin: "", positions: [], self: "", selfPin: "" },
-        [IN_B]: {}
-      },
-      outputs: {
-        [OUT_Q]: {
-          status: false,
-          gates: []
-        }
-      },
-      custom: { tick: 0.5, lastUpdate: 0 },
-    }
-  },
+  GATES: {},
   EVENTS: [],
-  updateGateOutputs(params) {
-    // console.log(params)
-    const gates = { ...get().GATES }
-    for (const val of params) {
-
-      gates[val.gateId].outputs = {
-        ...gates[val.gateId].outputs,
-        [val.pin]: {
-          ...gates[val.gateId].outputs[val.pin],
-          status: val.outputs[val.pin]
-        }
-      }
-    }
-    set(s => ({ GATES: gates }))
-  },
+  updateGateOutputs(params) { },
   getGateByPosition(position) {
     const gates = useObjectsSlice.getState().GATES
     for (const gateId in gates) {
@@ -51,61 +18,18 @@ export const useObjectsSlice = create((set, get) => ({
       return gate
     }
   },
-  getStateByGateId(gateId) {
-    const gates = get().GATES
-    const gate = gates[gateId]
-
-    const result = {}
-    for (const input in gate.inputs) {
-      const input_gate = gate.inputs[input]
-      result[input] = gate[input_gate.gateId].outputs[input_gate.pin]
-    }
-    for (const pin in gate.outputs) {
-      result[pin] = gate.outputs[pin].status
-    }
-    return result
-  },
-  addGateConnection(from, to) {
-    const gates = get().GATES
-    const toGate = gates[to.gateId]
-    const fromGate = gates[from.gateId]
-
-    const result = { ...get().GATES }
-    result[toGate.id] = {
-      ...toGate,
-      inputs: {
-        ...toGate.inputs,
-        [to.pin]: {
-          gateId: from.gateId,
-          pin: from.pin,
-          self: to.gateId,
-          selfPin: to.pin,
-          positions: [
-            from.position,
-            new Vector3(from.position.x, -1, from.position.z),
-            new Vector3(to.position.x, -1, to.position.z),
-            to.position
-          ]
-        }
-      }
-    }
-    result[fromGate.id] = {
-      ...fromGate,
-      outputs: {
-        ...fromGate.outputs,
-        [from.pin]: {
-          ...fromGate.outputs[from.pin],
-          gates: [
-            ...fromGate.outputs[from.pin].gates,
-            { gateId: to.gateId, pin: to.pin }
-          ]
-        }
-      }
-    }
-    set(state => ({ GATES: result }))
-  },
+  getStateByGateId(gateId) { },
   addGate(input) {
-    const gate = { id: v7(), inputs: {}, outputs: {}, ...input }
+    const gates = { ...get().GATES }
+    const newGate = {
+      id: v7(),
+      type: input.type,
+      position: input.position,
+      rotation: input.rotation,
+      inputs: {},
+      outputs: {}
+    }
+
     let event
     switch (input.type) {
       case AND_GATE:
@@ -113,77 +37,116 @@ export const useObjectsSlice = create((set, get) => ({
       case NAND_GATE:
       case NOR_GATE:
       case XOR_GATE:
-        gate.outputs = { ...DEFAULT_STATE_A }
+        newGate.inputs[IN_A] = { srcGate: "", srcPin: "", selfGate: "", selfPin: "" }
+        newGate.inputs[IN_B] = { srcGate: "", srcPin: "", selfGate: "", selfPin: "" }
+        newGate.outputs[OUT_Q] = { status: true, destGate: [] }
         break
       case NOT_GATE:
       case DISPLAY:
-        gate.outputs = { ...DEFAULT_STATE_B }
+        newGate.inputs[IN_A] = { srcGate: "", srcPin: "", selfGate: "", selfPin: "" }
+        newGate.outputs[OUT_Q] = { status: true, destGate: [] }
         break
       case CLOCK:
       case SWITCH:
-        gate.outputs = { ...DEFAULT_STATE_C }
-        gate.outputs[OUT_Q] = {
-          status: false,
-          gates: []
-        }
-        if (gate.type != CLOCK) break
-        gate.custom = { tick: 0.2, lastUpdate: 0 }
-        event = { gateId: gate.id, time: 0 }
-        break
-      default:
+        newGate.outputs[OUT_Q] = { status: true, destGate: [] }
+        if (newGate.type != CLOCK) break
+        newGate.custom = { tick: 0.2, lastUpdate: 0 }
+        event = { gateId: newGate.id, time: 0 }
         break
     }
-    set(state => ({
-      EVENTS: event ? [event, ...state.EVENTS] : state.EVENTS,
-      GATES: { ...state.GATES, [gate.id]: gate }
+    gates[newGate.id] = newGate
+    set(s => ({
+      GATES: gates,
+      EVENTS: event != null ? [event, ...s.EVENTS] : s.EVENTS
     }))
   },
-  addEvent(gateId, time) {
-    const events = [...get().EVENTS, { gateId: gateId, time: time }]
-    events.sort((a, b) => a.time - b.time)
-    set(s => ({ EVENTS: events }))
+  addGateConnection(srcGate, dstGate) {
+    const gates = { ...get().GATES }
+    const srcGateI = gates[srcGate.gateId]
+    const dstGateI = gates[dstGate.gateId]
+
+    // remove old gate
+    const curConnect = dstGateI.inputs[dstGate.pin]
+    const oldConnectGate = gates[curConnect.srcGate]
+    if (oldConnectGate != null) {
+      oldConnectGate.outputs[curConnect.srcPin].destGate = oldConnectGate.outputs[curConnect.srcPin].destGate
+        .filter(i => !(i.gateId == curConnect.selfGate && i.pin == curConnect.selfPin))
+    }
+
+    // setup inputGate
+    srcGateI.outputs[srcGate.pin] = {
+      ...srcGateI.outputs[srcGate.pin],
+      destGate: [
+        ...srcGateI.outputs[srcGate.pin].destGate,
+        { gateId: dstGate.gateId, pin: dstGate.pin }
+      ]
+    }
+
+    // setup outputGate
+    dstGateI.inputs[dstGate.pin] = {
+      srcGate: srcGate.gateId,
+      srcPin: srcGate.pin,
+      selfGate: dstGate.gateId,
+      selfPin: dstGate.pin,
+      positions: [
+        srcGate.position,
+        new Vector3(srcGate.position.x, -1, srcGate.position.z),
+        new Vector3(dstGate.position.x, -1, dstGate.position.z),
+        dstGate.position
+      ]
+    }
+
+    set(s => ({ GATES: gates }))
+  },
+  addEvent(srcGate, time) {
+    const events = [...get().EVENTS, new EventDispatch(srcGate, time)]
+      .sort((a, b) => a.time - b.time)
+    set(state => ({ EVENTS: events }))
   },
   getEvents(now) {
-    const events = get().EVENTS
-    return events.filter(e => e.time <= now)
+    return get().EVENTS.filter(a => a.time <= now)
   },
   removeOldEvent(now) {
-    set(state => ({
-      EVENTS: state.EVENTS.filter(e => e.time > now)
-    }))
+    const events = [...get().EVENTS].filter(a => a.time > now)
+    set(state => ({ EVENTS: events }))
   },
-  removeGate(id) {
-    const gates = get().GATES
-    const result = {}
+  removeGate(id = "") {
+    const gates = { ...get().GATES }
+    const gate = gates[id]
+    const { inputs, outputs } = gate
 
-    for (const gateId in gates) {
-      if (gateId === id) continue
+    for (const pin in inputs) {
+      const inputPin = inputs[pin]
+      const src = gates[inputPin.srcGate]
+      if (!src) continue
 
-      const gate = gates[gateId]
-      result[gateId] = gate
-
-      const inputs = []
-      for (const wire in gate.inputs) {
-        if (gate.inputs[wire].gateId == id) continue
-        inputs.push(gate.inputs[wire])
-      }
-      result[gateId].inputs = inputs
+      src.outputs[inputPin.srcPin].destGate = src.outputs[inputPin.srcPin].destGate
+        .filter(i => !(i.gateId == inputPin.selfGate && i.pin == inputPin.selfPin))
     }
-    set(state => ({ GATES: result }))
+
+    for (const pin in outputs) {
+      const outPin = outputs[pin]
+      for (const destGate of outPin.destGate) {
+        const gate = gates[destGate.gateId]
+        gate.inputs[destGate.pin] = { srcGate: "", srcPin: "", selfGate: "", selfPin: "" }
+      }
+    }
+
+    delete gates[id]
+
+    set(s => ({ GATES: gates }))
   },
   removeWire(obj) {
-    const gates = get().GATES
-    const gate = gates[obj.self]
+    const gates = { ...get().GATES }
+    const fromGate = gates[obj.srcGate]
+    const toGate = gates[obj.selfGate]
 
-    const result = { ...get().GATES }
+    fromGate.outputs[obj.srcPin].destGate = fromGate.outputs[obj.srcPin].destGate
+      .filter(i => !(i.gateId === obj.selfGate && i.pin === obj.selfPin))
+    toGate.inputs[obj.selfPin] = { srcGate: "", srcPin: "", selfGate: "", selfPin: "" }
 
-    delete gate.inputs[obj.selfPin]
-    result[obj.self] = {
-      ...gate,
-      inputs: { ...gate.inputs, }
-    }
-
-    set(state => ({ GATES: result }))
+    set(s => ({ GATES: gates }))
   },
 }))
+
 

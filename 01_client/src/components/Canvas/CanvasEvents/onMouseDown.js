@@ -7,8 +7,8 @@ import { CheckPinType, convertWorldCoorToGatePos, setSnapGridPosition } from "@/
 import { INPUT_PIN, LEFT_CLICK, OUTPUT_PIN, RIGHT_CLICK, TRANSISTOR_SIZE, WIRE } from "@/utils/constants";
 
 function placeGate(button, gatePosition) {
-  const addGate = useObjectsSlice.getState().addGate; // Access the addGate function from the player slice
-  const getGateByPosition = useObjectsSlice.getState().getGateByPosition; // Access the getGateByPosition function from the player slice
+  const addGate = useObjectsSlice.getState().addGate;
+  const getGateByPosition = useObjectsSlice.getState().getGateByPosition;
   const removeGate = useObjectsSlice.getState().removeGate
   const selectBuildGate = usePlayerSlice.getState().selectBuildGate
   const setSelectPort = usePlayerSlice.getState().setSelectPort
