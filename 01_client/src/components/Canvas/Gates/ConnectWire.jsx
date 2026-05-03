@@ -8,6 +8,7 @@ import { LEFT_CLICK, WIRE } from "@/utils/constants"
 function onConnectWireClick(id) {
   const selectBuildGate = usePlayerSlice.getState().selectBuildGate
   const removeWire = useObjectsSlice.getState().removeWire
+
   if (selectBuildGate == WIRE) {
     removeWire(id)
   }
