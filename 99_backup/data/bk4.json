@@ -1,17 +1,126 @@
 {
-  "019de940-d6b7-70ce-b7c9-667d921e4022": {
-    "id": "019de940-d6b7-70ce-b7c9-667d921e4022",
-    "type": "SWITCH",
+  "019dee48-a305-74aa-8bec-cc0128eabefd": {
+    "id": "019dee48-a305-74aa-8bec-cc0128eabefd",
+    "type": "CLOCK",
     "position": [
-      1,
+      6,
       0,
-      2
+      -2
     ],
     "rotation": 0,
+    "selfCall": true,
     "inputs": {},
     "outputs": {
       "out_Q": {
         "status": false,
+        "destGate": [
+          {
+            "gateId": "019dee48-cff0-75f2-8594-5cbb8a0e203d",
+            "pin": "in_A"
+          }
+        ]
+      }
+    },
+    "custom": {
+      "tick": 0.2,
+      "lastUpdate": 0
+    }
+  },
+  "019dee48-cff0-75f2-8594-5cbb8a0e203d": {
+    "id": "019dee48-cff0-75f2-8594-5cbb8a0e203d",
+    "type": "DISPLAY",
+    "position": [
+      8,
+      0,
+      -2
+    ],
+    "rotation": 0,
+    "selfCall": false,
+    "inputs": {
+      "in_A": {
+        "srcGate": "019dee48-a305-74aa-8bec-cc0128eabefd",
+        "srcPin": "out_Q",
+        "selfGate": "019dee48-cff0-75f2-8594-5cbb8a0e203d",
+        "selfPin": "in_A",
+        "positions": [
+          {
+            "x": 34.75,
+            "y": 0,
+            "z": -7.5
+          },
+          {
+            "x": 34.75,
+            "y": -1,
+            "z": -7.5
+          },
+          {
+            "x": 40.5,
+            "y": -1,
+            "z": -7.5
+          },
+          {
+            "x": 40.5,
+            "y": 0,
+            "z": -7.5
+          }
+        ]
+      }
+    },
+    "outputs": {
+      "out_Q": {
+        "status": true,
+        "destGate": [
+          {
+            "gateId": "019dee48-e8be-715d-8182-ff528af3f420",
+            "pin": "in_A"
+          }
+        ]
+      }
+    }
+  },
+  "019dee48-e8be-715d-8182-ff528af3f420": {
+    "id": "019dee48-e8be-715d-8182-ff528af3f420",
+    "type": "NOT",
+    "position": [
+      10,
+      0,
+      -2
+    ],
+    "rotation": 0,
+    "selfCall": false,
+    "inputs": {
+      "in_A": {
+        "srcGate": "019dee48-cff0-75f2-8594-5cbb8a0e203d",
+        "srcPin": "out_Q",
+        "selfGate": "019dee48-e8be-715d-8182-ff528af3f420",
+        "selfPin": "in_A",
+        "positions": [
+          {
+            "x": 44.75,
+            "y": 0,
+            "z": -7.5
+          },
+          {
+            "x": 44.75,
+            "y": -1,
+            "z": -7.5
+          },
+          {
+            "x": 50.5,
+            "y": -1,
+            "z": -7.5
+          },
+          {
+            "x": 50.5,
+            "y": 0,
+            "z": -7.5
+          }
+        ]
+      }
+    },
+    "outputs": {
+      "out_Q": {
+        "status": true,
         "destGate": []
       }
     }

@@ -17,7 +17,7 @@ function Display({ id, state, ...props }) {
           opacity={.5}
           envMapIntensity={1.5}
           flatShading={true} />
-        <Edges threshold={5} color={state ? 0x000000 : 0xffffff} lineWidth={5} />
+        <Edges threshold={5} color={state ? 0xff0000 : 0x0000ff} lineWidth={5} />
       </mesh>
       <mesh position={[-1.5, 0.125, 0]}>
         <boxGeometry args={[.4, .3, .3]} />

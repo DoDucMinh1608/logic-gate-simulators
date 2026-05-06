@@ -3,7 +3,7 @@ import { create } from "zustand";
 
 import { AND_GATE, CLOCK, DISPLAY, IN_A, IN_B, NAND_GATE, NOR_GATE, NOT_GATE, OR_GATE, OUT_Q, SWITCH, XOR_GATE } from "@/utils/constants";
 
-const GATE_FUNCTIONS = {
+export const GATE_FUNCTIONS = {
   [AND_GATE]: (wireState) => {
     return { [OUT_Q]: wireState[IN_A] && wireState[IN_B] }
   },
@@ -102,23 +102,31 @@ export const useObjectsSlice = create((set, get) => ({
       case XOR_GATE:
         newGate.inputs[IN_A] = { srcGate: "", srcPin: "", selfGate: "", selfPin: "" }
         newGate.inputs[IN_B] = { srcGate: "", srcPin: "", selfGate: "", selfPin: "" }
-        newGate.outputs[OUT_Q] = { status: true, destGate: [] }
+        newGate.outputs[OUT_Q] = { status: false, destGate: [] }
+        newGate.delay = 0.1
+
+        if (input.type == NAND_GATE || input.type == NOR_GATE)
+          newGate.delay = 0.2
+        if (input.type == XOR_GATE)
+          newGate.delay = 0.3
         break
       case NOT_GATE:
       case DISPLAY:
         newGate.inputs[IN_A] = { srcGate: "", srcPin: "", selfGate: "", selfPin: "" }
-        newGate.outputs[OUT_Q] = { status: true, destGate: [] }
+        newGate.outputs[OUT_Q] = { status: false, destGate: [] }
+        newGate.delay = 0.05
         break
       case CLOCK:
       case SWITCH:
-        newGate.outputs[OUT_Q] = { status: true, destGate: [] }
+        newGate.outputs[OUT_Q] = { status: false, destGate: [] }
         if (newGate.type != CLOCK) break
         newGate.selfCall = true
-        newGate.custom = { tick: 0.2, lastUpdate: 0 }
+        newGate.delay = 0.2
         event = { gateId: newGate.id, time: 0 }
         break
     }
     gates[newGate.id] = newGate
+    console.log(newGate)
     set(s => ({
       GATES: gates,
       EVENTS: event != null ? [event, ...s.EVENTS] : s.EVENTS

@@ -10,6 +10,10 @@ export const usePlayerSlice = create((set, get) => ({
   mouseLock: true,
   selectPort: null,
   selectBuildPort: null,
+  executeNextStep: true,
+  setExecuteNextStep(value) {
+    set(s => ({ executeNextStep: value }))
+  },
   setSelectPort(param) {
     if (param == null) {
       return set(state => ({ selectPort: null }))
