@@ -30,9 +30,12 @@ function CurrentCameraState() {
         </div>
       </div>
       <button onClick={e => {
-        setExecuteNextStep(true)
+
         console.log(JSON.stringify(useObjectsSlice.getState().GATES))
         console.log(JSON.stringify(useObjectsSlice.getState().EVENTS))
+      }}>Export</button>
+      <button onClick={e => {
+        setExecuteNextStep(true)
       }}>DEBUG</button>
     </div>
   )

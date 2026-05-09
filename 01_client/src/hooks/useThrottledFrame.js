@@ -1,4 +1,4 @@
-import { getRootState, useFrame } from "@react-three/fiber"
+import { useFrame } from "@react-three/fiber"
 import { useRef } from "react"
 
 
@@ -10,8 +10,8 @@ export function useThrottledFrame(callback = (state, delta) => { }, priority = 0
     accumulator.current += delta
 
     if (accumulator.current >= delay) {
-      accumulator.current %= delay
       callback(state, accumulator.current)
+      accumulator.current %= delay
     }
   }, priority)
 }

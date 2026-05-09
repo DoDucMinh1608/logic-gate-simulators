@@ -21,7 +21,7 @@ function ConnectWire({ obj, status, ...props }) {
       <Line
         {...props}
         points={obj.positions}
-        lineWidth={15}
+        lineWidth={10}
         onPointerEnter={e => { setHover(true) }}
         onPointerLeave={e => { setHover(false) }}
         onClick={e => {

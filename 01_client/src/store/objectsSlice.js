@@ -37,7 +37,478 @@ export const GATE_FUNCTIONS = {
 }
 
 export const useObjectsSlice = create((set, get) => ({
-  GATES: {},
+  // GATES: {},
+  GATES: {
+    "Switch-1": {
+      "id": "Switch-1",
+      "type": "SWITCH",
+      "position": [
+        9,
+        0,
+        -6
+      ],
+      "rotation": 0,
+      "selfCall": false,
+      "inputs": {},
+      "outputs": {
+        "out_Q": {
+          "status": true,
+          "destGate": [
+            {
+              "gateId": "Not-1",
+              "pin": "in_A"
+            },
+            {
+              "gateId": "And-1",
+              "pin": "in_B"
+            }
+          ]
+        }
+      }
+    },
+    "Not-1": {
+      "id": "Not-1",
+      "type": "NOT",
+      "position": [
+        10,
+        0,
+        -6
+      ],
+      "rotation": 0,
+      "selfCall": false,
+      "inputs": {
+        "in_A": {
+          "srcGate": "Switch-1",
+          "srcPin": "out_Q",
+          "selfGate": "Not-1",
+          "selfPin": "in_A",
+          "positions": [
+            {
+              "x": 49.75,
+              "y": 0,
+              "z": -27.5
+            },
+            {
+              "x": 49.75,
+              "y": -0.0375,
+              "z": -27.5
+            },
+            {
+              "x": 50.5,
+              "y": -0.0375,
+              "z": -27.5
+            },
+            {
+              "x": 50.5,
+              "y": 0,
+              "z": -27.5
+            }
+          ]
+        }
+      },
+      "outputs": {
+        "out_Q": {
+          "status": false,
+          "destGate": [
+            {
+              "gateId": "And-1",
+              "pin": "in_A"
+            }
+          ]
+        }
+      },
+      "delay": 0.05
+    },
+    "And-1": {
+      "id": "And-1",
+      "type": "AND",
+      "position": [
+        11,
+        0,
+        -6
+      ],
+      "rotation": 0,
+      "selfCall": false,
+      "inputs": {
+        "in_A": {
+          "srcGate": "Not-1",
+          "srcPin": "out_Q",
+          "selfGate": "And-1",
+          "selfPin": "in_A",
+          "positions": [
+            {
+              "x": 54.75,
+              "y": 0,
+              "z": -27.5
+            },
+            {
+              "x": 54.75,
+              "y": -0.04506939094329986,
+              "z": -27.5
+            },
+            {
+              "x": 55.5,
+              "y": -0.04506939094329986,
+              "z": -28
+            },
+            {
+              "x": 55.5,
+              "y": 0,
+              "z": -28
+            }
+          ]
+        },
+        "in_B": {
+          "srcGate": "Switch-1",
+          "srcPin": "out_Q",
+          "selfGate": "And-1",
+          "selfPin": "in_B",
+          "positions": [
+            {
+              "x": 49.75,
+              "y": 0,
+              "z": -27.5
+            },
+            {
+              "x": 49.75,
+              "y": -0.2885849095153799,
+              "z": -27.5
+            },
+            {
+              "x": 55.5,
+              "y": -0.2885849095153799,
+              "z": -27
+            },
+            {
+              "x": 55.5,
+              "y": 0,
+              "z": -27
+            }
+          ]
+        }
+      },
+      "outputs": {
+        "out_Q": {
+          "status": false,
+          "destGate": [
+            {
+              "gateId": "And-2",
+              "pin": "in_A"
+            },
+            {
+              "gateId": "And-3",
+              "pin": "in_B"
+            }
+          ]
+        }
+      },
+      "delay": 0.1
+    },
+    "And-3": {
+      "id": "And-3",
+      "type": "AND",
+      "position": [
+        12,
+        0,
+        -7
+      ],
+      "rotation": 0,
+      "selfCall": false,
+      "inputs": {
+        "in_A": {
+          "srcGate": "Switch-3",
+          "srcPin": "out_Q",
+          "selfGate": "And-3",
+          "selfPin": "in_A",
+          "positions": [
+            {
+              "x": 59.75,
+              "y": 0,
+              "z": -32.5
+            },
+            {
+              "x": 59.75,
+              "y": -0.04506939094329986,
+              "z": -32.5
+            },
+            {
+              "x": 60.5,
+              "y": -0.04506939094329986,
+              "z": -33
+            },
+            {
+              "x": 60.5,
+              "y": 0,
+              "z": -33
+            }
+          ]
+        },
+        "in_B": {
+          "srcGate": "And-1",
+          "srcPin": "out_Q",
+          "selfGate": "And-3",
+          "selfPin": "in_B",
+          "positions": [
+            {
+              "x": 59.75,
+              "y": 0,
+              "z": -27.5
+            },
+            {
+              "x": 59.75,
+              "y": -0.22810359488618323,
+              "z": -27.5
+            },
+            {
+              "x": 60.5,
+              "y": -0.22810359488618323,
+              "z": -32
+            },
+            {
+              "x": 60.5,
+              "y": 0,
+              "z": -32
+            }
+          ]
+        }
+      },
+      "outputs": {
+        "out_Q": {
+          "status": false,
+          "destGate": [
+            {
+              "gateId": "Display-1",
+              "pin": "in_A"
+            }
+          ]
+        }
+      },
+      "delay": 0.1
+    },
+    "And-2": {
+      "id": "And-2",
+      "type": "AND",
+      "position": [
+        12,
+        0,
+        -6
+      ],
+      "rotation": 0,
+      "selfCall": false,
+      "inputs": {
+        "in_A": {
+          "srcGate": "And-1",
+          "srcPin": "out_Q",
+          "selfGate": "And-2",
+          "selfPin": "in_A",
+          "positions": [
+            {
+              "x": 59.75,
+              "y": 0,
+              "z": -27.5
+            },
+            {
+              "x": 59.75,
+              "y": -0.04506939094329986,
+              "z": -27.5
+            },
+            {
+              "x": 60.5,
+              "y": -0.04506939094329986,
+              "z": -28
+            },
+            {
+              "x": 60.5,
+              "y": 0,
+              "z": -28
+            }
+          ]
+        },
+        "in_B": {
+          "srcGate": "Switch-2",
+          "srcPin": "out_Q",
+          "selfGate": "And-2",
+          "selfPin": "in_B",
+          "positions": [
+            {
+              "x": 59.75,
+              "y": 0,
+              "z": -22.5
+            },
+            {
+              "x": 59.75,
+              "y": -0.22810359488618323,
+              "z": -22.5
+            },
+            {
+              "x": 60.5,
+              "y": -0.22810359488618323,
+              "z": -27
+            },
+            {
+              "x": 60.5,
+              "y": 0,
+              "z": -27
+            }
+          ]
+        }
+      },
+      "outputs": {
+        "out_Q": {
+          "status": false,
+          "destGate": [
+            {
+              "gateId": "Display-2",
+              "pin": "in_A"
+            }
+          ]
+        }
+      },
+      "delay": 0.1
+    },
+    "Display-1": {
+      "id": "Display-1",
+      "type": "DISPLAY",
+      "position": [
+        13,
+        0,
+        -7
+      ],
+      "rotation": 0,
+      "selfCall": false,
+      "inputs": {
+        "in_A": {
+          "srcGate": "And-3",
+          "srcPin": "out_Q",
+          "selfGate": "Display-1",
+          "selfPin": "in_A",
+          "positions": [
+            {
+              "x": 64.75,
+              "y": 0,
+              "z": -32.5
+            },
+            {
+              "x": 64.75,
+              "y": -0.0375,
+              "z": -32.5
+            },
+            {
+              "x": 65.5,
+              "y": -0.0375,
+              "z": -32.5
+            },
+            {
+              "x": 65.5,
+              "y": 0,
+              "z": -32.5
+            }
+          ]
+        }
+      },
+      "outputs": {
+        "out_Q": {
+          "status": false,
+          "destGate": []
+        }
+      },
+      "delay": 0.05
+    },
+    "Display-2": {
+      "id": "Display-2",
+      "type": "DISPLAY",
+      "position": [
+        13,
+        0,
+        -6
+      ],
+      "rotation": 0,
+      "selfCall": false,
+      "inputs": {
+        "in_A": {
+          "srcGate": "And-2",
+          "srcPin": "out_Q",
+          "selfGate": "Display-2",
+          "selfPin": "in_A",
+          "positions": [
+            {
+              "x": 64.75,
+              "y": 0,
+              "z": -27.5
+            },
+            {
+              "x": 64.75,
+              "y": -0.0375,
+              "z": -27.5
+            },
+            {
+              "x": 65.5,
+              "y": -0.0375,
+              "z": -27.5
+            },
+            {
+              "x": 65.5,
+              "y": 0,
+              "z": -27.5
+            }
+          ]
+        }
+      },
+      "outputs": {
+        "out_Q": {
+          "status": false,
+          "destGate": []
+        }
+      },
+      "delay": 0.05
+    },
+    "Switch-3": {
+      "id": "Switch-3",
+      "type": "SWITCH",
+      "position": [
+        11,
+        0,
+        -7
+      ],
+      "rotation": 0,
+      "selfCall": false,
+      "inputs": {},
+      "outputs": {
+        "out_Q": {
+          "status": true,
+          "destGate": [
+            {
+              "gateId": "And-3",
+              "pin": "in_A"
+            }
+          ]
+        }
+      }
+    },
+    "Switch-2": {
+      "id": "Switch-2",
+      "type": "SWITCH",
+      "position": [
+        11,
+        0,
+        -5
+      ],
+      "rotation": 0,
+      "selfCall": false,
+      "inputs": {},
+      "outputs": {
+        "out_Q": {
+          "status": false,
+          "destGate": [
+            {
+              "gateId": "And-2",
+              "pin": "in_B"
+            }
+          ]
+        }
+      }
+    }
+  },
   EVENTS: [],
   updateGateOutputs(params) {
     const gates = { ...get().GATES }
@@ -106,7 +577,7 @@ export const useObjectsSlice = create((set, get) => ({
         newGate.delay = 0.1
 
         if (input.type == NAND_GATE || input.type == NOR_GATE)
-          newGate.delay = 0.2
+          newGate.delay = 0.5
         if (input.type == XOR_GATE)
           newGate.delay = 0.3
         break
@@ -153,7 +624,7 @@ export const useObjectsSlice = create((set, get) => ({
         { gateId: dstGate.gateId, pin: dstGate.pin }
       ]
     }
-
+    const distance = srcGate.position.distanceTo(dstGate.position) / 10
     // setup outputGate
     dstGateI.inputs[dstGate.pin] = {
       srcGate: srcGate.gateId,
@@ -162,8 +633,8 @@ export const useObjectsSlice = create((set, get) => ({
       selfPin: dstGate.pin,
       positions: [
         { ...srcGate.position },
-        { x: srcGate.position.x, y: -1, z: srcGate.position.z },
-        { x: dstGate.position.x, y: -1, z: dstGate.position.z },
+        { x: srcGate.position.x, y: -distance, z: srcGate.position.z },
+        { x: dstGate.position.x, y: -distance, z: dstGate.position.z },
         { ...dstGate.position }
       ]
     }
@@ -174,15 +645,22 @@ export const useObjectsSlice = create((set, get) => ({
     }))
   },
   addEvent(event_list = []) {
-    const events = [...get().EVENTS, ...event_list]
-      .sort((a, b) => a.time - b.time)
+    const events = [...get().EVENTS, ...event_list].sort((a, b) => a.time - b.time)
     set(state => ({ EVENTS: events }))
   },
   getEvents(now) {
-    const result = get().EVENTS.filter(a => a.time <= now)
-    const newEvents = get().EVENTS.filter(i => i.time > now)
+    const events = []
+    const result = Object.values([...get().EVENTS].reduce((acc, i) => {
+      if (i.time > now) {
+        events.push(i)
+        return acc
+      }
+      if (!acc[i.gateId]) acc[i.gateId] = i
 
-    set(s => ({ EVENTS: newEvents }))
+      return acc
+    }, {}))
+
+    set(s => ({ EVENTS: events }))
     return result
   },
   removeGate(id = "") {

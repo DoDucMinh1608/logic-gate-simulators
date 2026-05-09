@@ -1,4 +1,3 @@
-import { useThrottledFrame } from "@/hooks/useThrottledFrame";
 import { GATE_FUNCTIONS, useObjectsSlice } from "@/store/objectsSlice";
 import { usePlayerSlice } from "@/store/playerSlice";
 import { useFrame } from "@react-three/fiber";
@@ -15,10 +14,11 @@ function UpdateLogicGateState() {
   useFrame(function (state, delta) {
     // if (!executeNextStep) return
     // setExecuteNextStep(false)
-
     const gates = { ...useObjectsSlice.getState().GATES }
     const elapsedTime = state.clock.elapsedTime
     const events = getEvents(elapsedTime)
+
+    if (events.length > 0) console.log('______________________________________________')
 
     const needUpdates = []
     const dispatchEvents = []
@@ -28,8 +28,8 @@ function UpdateLogicGateState() {
 
       const gateState = getStateByGateId(targetGate.id)
       const nextState = GATE_FUNCTIONS[targetGate.type](gateState)
-
       const needUpdate = { gateId: targetGate.id, pins: [], time: elapsedTime }
+
       for (let pin in nextState) {
         if (!targetGate.outputs[pin]) continue
         if (nextState[pin] === targetGate.outputs[pin]?.status) continue
@@ -37,9 +37,10 @@ function UpdateLogicGateState() {
         needUpdate.pins.push({ pin, status: nextState[pin] })
         for (const gate of targetGate.outputs[pin].destGate) {
           const nextGate = gates[gate.gateId]
+          console.log(targetGate.delay)
           dispatchEvents.push({
             gateId: nextGate.id,
-            time: elapsedTime + (targetGate.delay ?? 0.1),
+            time: event.time + (targetGate.delay ?? 0.1),
             gate: gates[nextGate.id]
           })
         }
@@ -51,9 +52,11 @@ function UpdateLogicGateState() {
           gate: gates[targetGate.id]
         })
       }
-      console.log(dispatchEvents)
       if (needUpdate.pins.length > 0) needUpdates.push(needUpdate)
+
+      console.log({ gateState, nextState, needUpdate })
     }
+    if (dispatchEvents.length > 0) console.log('dispatchEvents: ', dispatchEvents)
     addEvent(dispatchEvents)
     updateGateOutputs(needUpdates)
 
