@@ -1,68 +1,67 @@
 {
-  "019df369-8598-77ae-bac7-c3e0bc1dfb4e": {
-    "id": "019df369-8598-77ae-bac7-c3e0bc1dfb4e",
-    "type": "AND",
+  "019e0be3-7e13-76ab-9925-148469cec45f": {
+    "id": "019e0be3-7e13-76ab-9925-148469cec45f",
+    "type": "SWITCH",
     "position": [
-      -8,
       0,
-      0
+      0,
+      -2
+    ],
+    "rotation": 0,
+    "selfCall": false,
+    "inputs": {},
+    "outputs": {
+      "out_Q": {
+        "status": true,
+        "destGate": [
+          {
+            "gateId": "019e0be3-b801-77f9-8701-53b0919b2b22",
+            "pin": "in_A"
+          },
+          {
+            "gateId": "019e0be3-bd7c-754c-9960-03a2b945a0d4",
+            "pin": "in_A"
+          }
+        ]
+      }
+    }
+  },
+  "019e0be3-b801-77f9-8701-53b0919b2b22": {
+    "id": "019e0be3-b801-77f9-8701-53b0919b2b22",
+    "type": "NOT",
+    "position": [
+      1,
+      0,
+      -2
     ],
     "rotation": 0,
     "selfCall": false,
     "inputs": {
       "in_A": {
-        "srcGate": "019df36a-a3b5-7007-b6a7-a9e6a559a82e",
+        "srcGate": "019e0be3-7e13-76ab-9925-148469cec45f",
         "srcPin": "out_Q",
-        "selfGate": "019df369-8598-77ae-bac7-c3e0bc1dfb4e",
+        "selfGate": "019e0be3-b801-77f9-8701-53b0919b2b22",
         "selfPin": "in_A",
         "positions": [
           {
-            "x": -40.25,
+            "x": 4.75,
             "y": 0,
-            "z": 2.5
+            "z": -7.5
           },
           {
-            "x": -40.25,
-            "y": -1,
-            "z": 2.5
+            "x": 4.75,
+            "y": -0.075,
+            "z": -7.5
           },
           {
-            "x": -39.5,
-            "y": -1,
-            "z": 2
+            "x": 5.5,
+            "y": -0.075,
+            "z": -7.5
           },
           {
-            "x": -39.5,
+            "x": 5.5,
             "y": 0,
-            "z": 2
-          }
-        ]
-      },
-      "in_B": {
-        "srcGate": "019df36a-5af2-71c9-ac7a-61cb96ecd253",
-        "srcPin": "out_Q",
-        "selfGate": "019df369-8598-77ae-bac7-c3e0bc1dfb4e",
-        "selfPin": "in_B",
-        "positions": [
-          {
-            "x": -45.25,
-            "y": 0,
-            "z": 2.5
-          },
-          {
-            "x": -45.25,
-            "y": -1,
-            "z": 2.5
-          },
-          {
-            "x": -39.5,
-            "y": -1,
-            "z": 3
-          },
-          {
-            "x": -39.5,
-            "y": 0,
-            "z": 3
+            "z": -7.5
           }
         ]
       }
@@ -72,50 +71,561 @@
         "status": false,
         "destGate": [
           {
-            "gateId": "019df369-b623-7390-ba28-3e20451425a0",
-            "pin": "in_A"
+            "gateId": "019e0be3-bd7c-754c-9960-03a2b945a0d4",
+            "pin": "in_B"
           }
         ]
       }
     },
-    "delay": 0.1
+    "delay": 1
   },
-  "019df369-b623-7390-ba28-3e20451425a0": {
-    "id": "019df369-b623-7390-ba28-3e20451425a0",
-    "type": "DISPLAY",
+  "019e0be3-bd7c-754c-9960-03a2b945a0d4": {
+    "id": "019e0be3-bd7c-754c-9960-03a2b945a0d4",
+    "type": "AND",
     "position": [
-      -7,
+      2,
       0,
-      0
+      -2
     ],
     "rotation": 0,
     "selfCall": false,
     "inputs": {
       "in_A": {
-        "srcGate": "019df369-8598-77ae-bac7-c3e0bc1dfb4e",
+        "srcGate": "019e0be3-7e13-76ab-9925-148469cec45f",
         "srcPin": "out_Q",
-        "selfGate": "019df369-b623-7390-ba28-3e20451425a0",
+        "selfGate": "019e0be3-bd7c-754c-9960-03a2b945a0d4",
         "selfPin": "in_A",
         "positions": [
           {
-            "x": -35.25,
+            "x": 4.75,
             "y": 0,
-            "z": 2.5
+            "z": -7.5
           },
           {
-            "x": -35.25,
-            "y": -1,
-            "z": 2.5
+            "x": 4.75,
+            "y": -0.5771698190307598,
+            "z": -7.5
           },
           {
-            "x": -34.5,
-            "y": -1,
-            "z": 2.5
+            "x": 10.5,
+            "y": -0.5771698190307598,
+            "z": -8
           },
           {
-            "x": -34.5,
+            "x": 10.5,
             "y": 0,
-            "z": 2.5
+            "z": -8
+          }
+        ]
+      },
+      "in_B": {
+        "srcGate": "019e0be3-b801-77f9-8701-53b0919b2b22",
+        "srcPin": "out_Q",
+        "selfGate": "019e0be3-bd7c-754c-9960-03a2b945a0d4",
+        "selfPin": "in_B",
+        "positions": [
+          {
+            "x": 9.75,
+            "y": 0,
+            "z": -7.5
+          },
+          {
+            "x": 9.75,
+            "y": -0.09013878188659973,
+            "z": -7.5
+          },
+          {
+            "x": 10.5,
+            "y": -0.09013878188659973,
+            "z": -7
+          },
+          {
+            "x": 10.5,
+            "y": 0,
+            "z": -7
+          }
+        ]
+      }
+    },
+    "outputs": {
+      "out_Q": {
+        "status": false,
+        "destGate": [
+          {
+            "gateId": "019e0be4-64f5-7713-95d9-2649fdb9a06f",
+            "pin": "in_B"
+          },
+          {
+            "gateId": "019e0be4-6648-747e-af76-29b1188e3997",
+            "pin": "in_A"
+          }
+        ]
+      }
+    },
+    "delay": 2
+  },
+  "019e0be4-64f5-7713-95d9-2649fdb9a06f": {
+    "id": "019e0be4-64f5-7713-95d9-2649fdb9a06f",
+    "type": "AND",
+    "position": [
+      3,
+      0,
+      -3
+    ],
+    "rotation": 0,
+    "selfCall": false,
+    "inputs": {
+      "in_A": {
+        "srcGate": "019e0be4-7d60-76fe-92dd-04264fd3aec3",
+        "srcPin": "out_Q",
+        "selfGate": "019e0be4-64f5-7713-95d9-2649fdb9a06f",
+        "selfPin": "in_A",
+        "positions": [
+          {
+            "x": 14.75,
+            "y": 0,
+            "z": -12.5
+          },
+          {
+            "x": 14.75,
+            "y": -0.09013878188659973,
+            "z": -12.5
+          },
+          {
+            "x": 15.5,
+            "y": -0.09013878188659973,
+            "z": -13
+          },
+          {
+            "x": 15.5,
+            "y": 0,
+            "z": -13
+          }
+        ]
+      },
+      "in_B": {
+        "srcGate": "019e0be3-bd7c-754c-9960-03a2b945a0d4",
+        "srcPin": "out_Q",
+        "selfGate": "019e0be4-64f5-7713-95d9-2649fdb9a06f",
+        "selfPin": "in_B",
+        "positions": [
+          {
+            "x": 14.75,
+            "y": 0,
+            "z": -7.5
+          },
+          {
+            "x": 14.75,
+            "y": -0.45620718977236646,
+            "z": -7.5
+          },
+          {
+            "x": 15.5,
+            "y": -0.45620718977236646,
+            "z": -12
+          },
+          {
+            "x": 15.5,
+            "y": 0,
+            "z": -12
+          }
+        ]
+      }
+    },
+    "outputs": {
+      "out_Q": {
+        "status": false,
+        "destGate": [
+          {
+            "gateId": "019e0be4-a14f-75ad-8216-313d036c3ff1",
+            "pin": "in_A"
+          }
+        ]
+      }
+    },
+    "delay": 2
+  },
+  "019e0be4-6648-747e-af76-29b1188e3997": {
+    "id": "019e0be4-6648-747e-af76-29b1188e3997",
+    "type": "AND",
+    "position": [
+      3,
+      0,
+      -2
+    ],
+    "rotation": 0,
+    "selfCall": false,
+    "inputs": {
+      "in_A": {
+        "srcGate": "019e0be3-bd7c-754c-9960-03a2b945a0d4",
+        "srcPin": "out_Q",
+        "selfGate": "019e0be4-6648-747e-af76-29b1188e3997",
+        "selfPin": "in_A",
+        "positions": [
+          {
+            "x": 14.75,
+            "y": 0,
+            "z": -7.5
+          },
+          {
+            "x": 14.75,
+            "y": -0.09013878188659973,
+            "z": -7.5
+          },
+          {
+            "x": 15.5,
+            "y": -0.09013878188659973,
+            "z": -8
+          },
+          {
+            "x": 15.5,
+            "y": 0,
+            "z": -8
+          }
+        ]
+      },
+      "in_B": {
+        "srcGate": "019e0be4-882f-701d-bdc0-63d3aff23077",
+        "srcPin": "out_Q",
+        "selfGate": "019e0be4-6648-747e-af76-29b1188e3997",
+        "selfPin": "in_B",
+        "positions": [
+          {
+            "x": 14.75,
+            "y": 0,
+            "z": -2.5
+          },
+          {
+            "x": 14.75,
+            "y": -0.45620718977236646,
+            "z": -2.5
+          },
+          {
+            "x": 15.5,
+            "y": -0.45620718977236646,
+            "z": -7
+          },
+          {
+            "x": 15.5,
+            "y": 0,
+            "z": -7
+          }
+        ]
+      }
+    },
+    "outputs": {
+      "out_Q": {
+        "status": false,
+        "destGate": [
+          {
+            "gateId": "019e0be4-a304-7623-acfa-748f3628bd68",
+            "pin": "in_B"
+          }
+        ]
+      }
+    },
+    "delay": 2
+  },
+  "019e0be4-7d60-76fe-92dd-04264fd3aec3": {
+    "id": "019e0be4-7d60-76fe-92dd-04264fd3aec3",
+    "type": "SWITCH",
+    "position": [
+      2,
+      0,
+      -3
+    ],
+    "rotation": 0,
+    "selfCall": false,
+    "inputs": {},
+    "outputs": {
+      "out_Q": {
+        "status": false,
+        "destGate": [
+          {
+            "gateId": "019e0be4-64f5-7713-95d9-2649fdb9a06f",
+            "pin": "in_A"
+          }
+        ]
+      }
+    }
+  },
+  "019e0be4-882f-701d-bdc0-63d3aff23077": {
+    "id": "019e0be4-882f-701d-bdc0-63d3aff23077",
+    "type": "SWITCH",
+    "position": [
+      2,
+      0,
+      -1
+    ],
+    "rotation": 0,
+    "selfCall": false,
+    "inputs": {},
+    "outputs": {
+      "out_Q": {
+        "status": true,
+        "destGate": [
+          {
+            "gateId": "019e0be4-6648-747e-af76-29b1188e3997",
+            "pin": "in_B"
+          }
+        ]
+      }
+    }
+  },
+  "019e0be4-a14f-75ad-8216-313d036c3ff1": {
+    "id": "019e0be4-a14f-75ad-8216-313d036c3ff1",
+    "type": "NOR",
+    "position": [
+      4,
+      0,
+      -3
+    ],
+    "rotation": 0,
+    "selfCall": false,
+    "inputs": {
+      "in_A": {
+        "srcGate": "019e0be4-64f5-7713-95d9-2649fdb9a06f",
+        "srcPin": "out_Q",
+        "selfGate": "019e0be4-a14f-75ad-8216-313d036c3ff1",
+        "selfPin": "in_A",
+        "positions": [
+          {
+            "x": 19.75,
+            "y": 0,
+            "z": -12.5
+          },
+          {
+            "x": 19.75,
+            "y": -0.09013878188659973,
+            "z": -12.5
+          },
+          {
+            "x": 20.5,
+            "y": -0.09013878188659973,
+            "z": -13
+          },
+          {
+            "x": 20.5,
+            "y": 0,
+            "z": -13
+          }
+        ]
+      },
+      "in_B": {
+        "srcGate": "019e0be4-a304-7623-acfa-748f3628bd68",
+        "srcPin": "out_Q",
+        "selfGate": "019e0be4-a14f-75ad-8216-313d036c3ff1",
+        "selfPin": "in_B",
+        "positions": [
+          {
+            "x": 24.75,
+            "y": 0,
+            "z": -7.5
+          },
+          {
+            "x": 24.75,
+            "y": -0.6189709201569974,
+            "z": -7.5
+          },
+          {
+            "x": 20.5,
+            "y": -0.6189709201569974,
+            "z": -12
+          },
+          {
+            "x": 20.5,
+            "y": 0,
+            "z": -12
+          }
+        ]
+      }
+    },
+    "outputs": {
+      "out_Q": {
+        "status": true,
+        "destGate": [
+          {
+            "gateId": "019e0be4-a886-73f8-8515-51ca6876094e",
+            "pin": "in_A"
+          },
+          {
+            "gateId": "019e0be4-a304-7623-acfa-748f3628bd68",
+            "pin": "in_A"
+          }
+        ]
+      }
+    },
+    "delay": 3
+  },
+  "019e0be4-a304-7623-acfa-748f3628bd68": {
+    "id": "019e0be4-a304-7623-acfa-748f3628bd68",
+    "type": "NOR",
+    "position": [
+      4,
+      0,
+      -2
+    ],
+    "rotation": 0,
+    "selfCall": false,
+    "inputs": {
+      "in_A": {
+        "srcGate": "019e0be4-a14f-75ad-8216-313d036c3ff1",
+        "srcPin": "out_Q",
+        "selfGate": "019e0be4-a304-7623-acfa-748f3628bd68",
+        "selfPin": "in_A",
+        "positions": [
+          {
+            "x": 24.75,
+            "y": 0,
+            "z": -12.5
+          },
+          {
+            "x": 24.75,
+            "y": -0.6189709201569974,
+            "z": -12.5
+          },
+          {
+            "x": 20.5,
+            "y": -0.6189709201569974,
+            "z": -8
+          },
+          {
+            "x": 20.5,
+            "y": 0,
+            "z": -8
+          }
+        ]
+      },
+      "in_B": {
+        "srcGate": "019e0be4-6648-747e-af76-29b1188e3997",
+        "srcPin": "out_Q",
+        "selfGate": "019e0be4-a304-7623-acfa-748f3628bd68",
+        "selfPin": "in_B",
+        "positions": [
+          {
+            "x": 19.75,
+            "y": 0,
+            "z": -7.5
+          },
+          {
+            "x": 19.75,
+            "y": -0.09013878188659973,
+            "z": -7.5
+          },
+          {
+            "x": 20.5,
+            "y": -0.09013878188659973,
+            "z": -7
+          },
+          {
+            "x": 20.5,
+            "y": 0,
+            "z": -7
+          }
+        ]
+      }
+    },
+    "outputs": {
+      "out_Q": {
+        "status": false,
+        "destGate": [
+          {
+            "gateId": "019e0be4-a9d8-7255-8c36-52703010d581",
+            "pin": "in_A"
+          },
+          {
+            "gateId": "019e0be4-a14f-75ad-8216-313d036c3ff1",
+            "pin": "in_B"
+          }
+        ]
+      }
+    },
+    "delay": 3
+  },
+  "019e0be4-a886-73f8-8515-51ca6876094e": {
+    "id": "019e0be4-a886-73f8-8515-51ca6876094e",
+    "type": "DISPLAY",
+    "position": [
+      5,
+      0,
+      -3
+    ],
+    "rotation": 0,
+    "selfCall": false,
+    "inputs": {
+      "in_A": {
+        "srcGate": "019e0be4-a14f-75ad-8216-313d036c3ff1",
+        "srcPin": "out_Q",
+        "selfGate": "019e0be4-a886-73f8-8515-51ca6876094e",
+        "selfPin": "in_A",
+        "positions": [
+          {
+            "x": 24.75,
+            "y": 0,
+            "z": -12.5
+          },
+          {
+            "x": 24.75,
+            "y": -0.075,
+            "z": -12.5
+          },
+          {
+            "x": 25.5,
+            "y": -0.075,
+            "z": -12.5
+          },
+          {
+            "x": 25.5,
+            "y": 0,
+            "z": -12.5
+          }
+        ]
+      }
+    },
+    "outputs": {
+      "out_Q": {
+        "status": true,
+        "destGate": []
+      }
+    },
+    "delay": 1
+  },
+  "019e0be4-a9d8-7255-8c36-52703010d581": {
+    "id": "019e0be4-a9d8-7255-8c36-52703010d581",
+    "type": "DISPLAY",
+    "position": [
+      5,
+      0,
+      -2
+    ],
+    "rotation": 0,
+    "selfCall": false,
+    "inputs": {
+      "in_A": {
+        "srcGate": "019e0be4-a304-7623-acfa-748f3628bd68",
+        "srcPin": "out_Q",
+        "selfGate": "019e0be4-a9d8-7255-8c36-52703010d581",
+        "selfPin": "in_A",
+        "positions": [
+          {
+            "x": 24.75,
+            "y": 0,
+            "z": -7.5
+          },
+          {
+            "x": 24.75,
+            "y": -0.075,
+            "z": -7.5
+          },
+          {
+            "x": 25.5,
+            "y": -0.075,
+            "z": -7.5
+          },
+          {
+            "x": 25.5,
+            "y": 0,
+            "z": -7.5
           }
         ]
       }
@@ -126,86 +636,6 @@
         "destGate": []
       }
     },
-    "delay": 0
-  },
-  "019df36a-5af2-71c9-ac7a-61cb96ecd253": {
-    "id": "019df36a-5af2-71c9-ac7a-61cb96ecd253",
-    "type": "SWITCH",
-    "position": [
-      -10,
-      0,
-      0
-    ],
-    "rotation": 0,
-    "selfCall": false,
-    "inputs": {},
-    "outputs": {
-      "out_Q": {
-        "status": false,
-        "destGate": [
-          {
-            "gateId": "019df369-8598-77ae-bac7-c3e0bc1dfb4e",
-            "pin": "in_B"
-          },
-          {
-            "gateId": "019df36a-a3b5-7007-b6a7-a9e6a559a82e",
-            "pin": "in_A"
-          }
-        ]
-      }
-    }
-  },
-  "019df36a-a3b5-7007-b6a7-a9e6a559a82e": {
-    "id": "019df36a-a3b5-7007-b6a7-a9e6a559a82e",
-    "type": "NOT",
-    "position": [
-      -9,
-      0,
-      0
-    ],
-    "rotation": 0,
-    "selfCall": false,
-    "inputs": {
-      "in_A": {
-        "srcGate": "019df36a-5af2-71c9-ac7a-61cb96ecd253",
-        "srcPin": "out_Q",
-        "selfGate": "019df36a-a3b5-7007-b6a7-a9e6a559a82e",
-        "selfPin": "in_A",
-        "positions": [
-          {
-            "x": -45.25,
-            "y": 0,
-            "z": 2.5
-          },
-          {
-            "x": -45.25,
-            "y": -1,
-            "z": 2.5
-          },
-          {
-            "x": -44.5,
-            "y": -1,
-            "z": 2.5
-          },
-          {
-            "x": -44.5,
-            "y": 0,
-            "z": 2.5
-          }
-        ]
-      }
-    },
-    "outputs": {
-      "out_Q": {
-        "status": true,
-        "destGate": [
-          {
-            "gateId": "019df369-8598-77ae-bac7-c3e0bc1dfb4e",
-            "pin": "in_A"
-          }
-        ]
-      }
-    },
-    "delay": 0.05
+    "delay": 1
   }
 }

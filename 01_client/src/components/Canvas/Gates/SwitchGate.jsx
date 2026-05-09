@@ -3,7 +3,8 @@ import { GATE_COLORS, PORT_COLORS } from '@/utils/colors'
 
 function onClick(id) {
   const addEvent = useObjectsSlice.getState().addEvent
-  addEvent([{ gateId: id, time: 0 }])
+  const time = useObjectsSlice.getState().TIME
+  addEvent([{ gateId: id, time: time }])
 }
 
 function SwitchGate({ id, state, ...props }) {

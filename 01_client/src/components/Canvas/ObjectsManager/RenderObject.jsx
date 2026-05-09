@@ -3,7 +3,7 @@ import { Vector3 } from "three";
 
 import { useObjectsSlice } from "@/store/objectsSlice";
 import { convertGatePosToWorldCoor } from "@/utils";
-import { AND_GATE, CLOCK, DISPLAY, IN_A, NAND_GATE, NOR_GATE, NOT_GATE, OR_GATE, OUT_Q, SWITCH, XOR_GATE } from "@/utils/constants";
+import { AND_GATE, CLOCK, DISPLAY, NAND_GATE, NOR_GATE, NOT_GATE, OR_GATE, OUT_Q, SWITCH, XOR_GATE } from "@/utils/constants";
 
 import AndGate from "../Gates/AndGate";
 import ClockGate from "../Gates/ClockGate";
@@ -57,20 +57,13 @@ function renderGate(obj) {
   }
 
   if (obj.type === DISPLAY) {
-    const gates = useObjectsSlice.getState().GATES
-    const input = obj.inputs[IN_A]
     return (
       <Display
         key={obj.id}
         position={position}
         rotation={rotation}
-        state={gates[input.srcGate]?.outputs[input.srcPin].status} />
+        state={obj.outputs[OUT_Q].status} />
     );
-  }
-
-  // Unknown gate type — fail visibly in dev, silently in prod
-  if (process.env.NODE_ENV === "development") {
-    console.warn(`RenderObject: unknown gate type "${obj.type}" (id: ${obj.id})`);
   }
   return null;
 }
@@ -95,8 +88,8 @@ function RenderObject() {
           key={j}
           obj={wire}
           status={gates[wire.srcGate]?.outputs?.[wire.srcPin].status}
-        />)
-      )}
+        />
+      ))}
     </>
   );
 }

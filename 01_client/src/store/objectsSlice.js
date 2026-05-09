@@ -38,14 +38,15 @@ export const GATE_FUNCTIONS = {
 
 export const useObjectsSlice = create((set, get) => ({
   // GATES: {},
+  STATES: {},
   GATES: {
-    "Switch-1": {
-      "id": "Switch-1",
+    "019e0be3-7e13-76ab-9925-148469cec45f": {
+      "id": "019e0be3-7e13-76ab-9925-148469cec45f",
       "type": "SWITCH",
       "position": [
-        9,
         0,
-        -6
+        0,
+        -2
       ],
       "rotation": 0,
       "selfCall": false,
@@ -55,53 +56,53 @@ export const useObjectsSlice = create((set, get) => ({
           "status": true,
           "destGate": [
             {
-              "gateId": "Not-1",
+              "gateId": "019e0be3-b801-77f9-8701-53b0919b2b22",
               "pin": "in_A"
             },
             {
-              "gateId": "And-1",
-              "pin": "in_B"
+              "gateId": "019e0be3-bd7c-754c-9960-03a2b945a0d4",
+              "pin": "in_A"
             }
           ]
         }
       }
     },
-    "Not-1": {
-      "id": "Not-1",
+    "019e0be3-b801-77f9-8701-53b0919b2b22": {
+      "id": "019e0be3-b801-77f9-8701-53b0919b2b22",
       "type": "NOT",
       "position": [
-        10,
+        1,
         0,
-        -6
+        -2
       ],
       "rotation": 0,
       "selfCall": false,
       "inputs": {
         "in_A": {
-          "srcGate": "Switch-1",
+          "srcGate": "019e0be3-7e13-76ab-9925-148469cec45f",
           "srcPin": "out_Q",
-          "selfGate": "Not-1",
+          "selfGate": "019e0be3-b801-77f9-8701-53b0919b2b22",
           "selfPin": "in_A",
           "positions": [
             {
-              "x": 49.75,
+              "x": 4.75,
               "y": 0,
-              "z": -27.5
+              "z": -7.5
             },
             {
-              "x": 49.75,
-              "y": -0.0375,
-              "z": -27.5
+              "x": 4.75,
+              "y": -0.075,
+              "z": -7.5
             },
             {
-              "x": 50.5,
-              "y": -0.0375,
-              "z": -27.5
+              "x": 5.5,
+              "y": -0.075,
+              "z": -7.5
             },
             {
-              "x": 50.5,
+              "x": 5.5,
               "y": 0,
-              "z": -27.5
+              "z": -7.5
             }
           ]
         }
@@ -111,163 +112,78 @@ export const useObjectsSlice = create((set, get) => ({
           "status": false,
           "destGate": [
             {
-              "gateId": "And-1",
-              "pin": "in_A"
-            }
-          ]
-        }
-      },
-      "delay": 0.05
-    },
-    "And-1": {
-      "id": "And-1",
-      "type": "AND",
-      "position": [
-        11,
-        0,
-        -6
-      ],
-      "rotation": 0,
-      "selfCall": false,
-      "inputs": {
-        "in_A": {
-          "srcGate": "Not-1",
-          "srcPin": "out_Q",
-          "selfGate": "And-1",
-          "selfPin": "in_A",
-          "positions": [
-            {
-              "x": 54.75,
-              "y": 0,
-              "z": -27.5
-            },
-            {
-              "x": 54.75,
-              "y": -0.04506939094329986,
-              "z": -27.5
-            },
-            {
-              "x": 55.5,
-              "y": -0.04506939094329986,
-              "z": -28
-            },
-            {
-              "x": 55.5,
-              "y": 0,
-              "z": -28
-            }
-          ]
-        },
-        "in_B": {
-          "srcGate": "Switch-1",
-          "srcPin": "out_Q",
-          "selfGate": "And-1",
-          "selfPin": "in_B",
-          "positions": [
-            {
-              "x": 49.75,
-              "y": 0,
-              "z": -27.5
-            },
-            {
-              "x": 49.75,
-              "y": -0.2885849095153799,
-              "z": -27.5
-            },
-            {
-              "x": 55.5,
-              "y": -0.2885849095153799,
-              "z": -27
-            },
-            {
-              "x": 55.5,
-              "y": 0,
-              "z": -27
-            }
-          ]
-        }
-      },
-      "outputs": {
-        "out_Q": {
-          "status": false,
-          "destGate": [
-            {
-              "gateId": "And-2",
-              "pin": "in_A"
-            },
-            {
-              "gateId": "And-3",
+              "gateId": "019e0be3-bd7c-754c-9960-03a2b945a0d4",
               "pin": "in_B"
             }
           ]
         }
       },
-      "delay": 0.1
+      "delay": 1
     },
-    "And-3": {
-      "id": "And-3",
+    "019e0be3-bd7c-754c-9960-03a2b945a0d4": {
+      "id": "019e0be3-bd7c-754c-9960-03a2b945a0d4",
       "type": "AND",
       "position": [
-        12,
+        2,
         0,
-        -7
+        -2
       ],
       "rotation": 0,
       "selfCall": false,
       "inputs": {
         "in_A": {
-          "srcGate": "Switch-3",
+          "srcGate": "019e0be3-7e13-76ab-9925-148469cec45f",
           "srcPin": "out_Q",
-          "selfGate": "And-3",
+          "selfGate": "019e0be3-bd7c-754c-9960-03a2b945a0d4",
           "selfPin": "in_A",
           "positions": [
             {
-              "x": 59.75,
+              "x": 4.75,
               "y": 0,
-              "z": -32.5
+              "z": -7.5
             },
             {
-              "x": 59.75,
-              "y": -0.04506939094329986,
-              "z": -32.5
+              "x": 4.75,
+              "y": -0.5771698190307598,
+              "z": -7.5
             },
             {
-              "x": 60.5,
-              "y": -0.04506939094329986,
-              "z": -33
+              "x": 10.5,
+              "y": -0.5771698190307598,
+              "z": -8
             },
             {
-              "x": 60.5,
+              "x": 10.5,
               "y": 0,
-              "z": -33
+              "z": -8
             }
           ]
         },
         "in_B": {
-          "srcGate": "And-1",
+          "srcGate": "019e0be3-b801-77f9-8701-53b0919b2b22",
           "srcPin": "out_Q",
-          "selfGate": "And-3",
+          "selfGate": "019e0be3-bd7c-754c-9960-03a2b945a0d4",
           "selfPin": "in_B",
           "positions": [
             {
-              "x": 59.75,
+              "x": 9.75,
               "y": 0,
-              "z": -27.5
+              "z": -7.5
             },
             {
-              "x": 59.75,
-              "y": -0.22810359488618323,
-              "z": -27.5
+              "x": 9.75,
+              "y": -0.09013878188659973,
+              "z": -7.5
             },
             {
-              "x": 60.5,
-              "y": -0.22810359488618323,
-              "z": -32
+              "x": 10.5,
+              "y": -0.09013878188659973,
+              "z": -7
             },
             {
-              "x": 60.5,
+              "x": 10.5,
               "y": 0,
-              "z": -32
+              "z": -7
             }
           ]
         }
@@ -277,78 +193,82 @@ export const useObjectsSlice = create((set, get) => ({
           "status": false,
           "destGate": [
             {
-              "gateId": "Display-1",
+              "gateId": "019e0be4-64f5-7713-95d9-2649fdb9a06f",
+              "pin": "in_B"
+            },
+            {
+              "gateId": "019e0be4-6648-747e-af76-29b1188e3997",
               "pin": "in_A"
             }
           ]
         }
       },
-      "delay": 0.1
+      "delay": 2
     },
-    "And-2": {
-      "id": "And-2",
+    "019e0be4-64f5-7713-95d9-2649fdb9a06f": {
+      "id": "019e0be4-64f5-7713-95d9-2649fdb9a06f",
       "type": "AND",
       "position": [
-        12,
+        3,
         0,
-        -6
+        -3
       ],
       "rotation": 0,
       "selfCall": false,
       "inputs": {
         "in_A": {
-          "srcGate": "And-1",
+          "srcGate": "019e0be4-7d60-76fe-92dd-04264fd3aec3",
           "srcPin": "out_Q",
-          "selfGate": "And-2",
+          "selfGate": "019e0be4-64f5-7713-95d9-2649fdb9a06f",
           "selfPin": "in_A",
           "positions": [
             {
-              "x": 59.75,
+              "x": 14.75,
               "y": 0,
-              "z": -27.5
+              "z": -12.5
             },
             {
-              "x": 59.75,
-              "y": -0.04506939094329986,
-              "z": -27.5
+              "x": 14.75,
+              "y": -0.09013878188659973,
+              "z": -12.5
             },
             {
-              "x": 60.5,
-              "y": -0.04506939094329986,
-              "z": -28
+              "x": 15.5,
+              "y": -0.09013878188659973,
+              "z": -13
             },
             {
-              "x": 60.5,
+              "x": 15.5,
               "y": 0,
-              "z": -28
+              "z": -13
             }
           ]
         },
         "in_B": {
-          "srcGate": "Switch-2",
+          "srcGate": "019e0be3-bd7c-754c-9960-03a2b945a0d4",
           "srcPin": "out_Q",
-          "selfGate": "And-2",
+          "selfGate": "019e0be4-64f5-7713-95d9-2649fdb9a06f",
           "selfPin": "in_B",
           "positions": [
             {
-              "x": 59.75,
+              "x": 14.75,
               "y": 0,
-              "z": -22.5
+              "z": -7.5
             },
             {
-              "x": 59.75,
-              "y": -0.22810359488618323,
-              "z": -22.5
+              "x": 14.75,
+              "y": -0.45620718977236646,
+              "z": -7.5
             },
             {
-              "x": 60.5,
-              "y": -0.22810359488618323,
-              "z": -27
+              "x": 15.5,
+              "y": -0.45620718977236646,
+              "z": -12
             },
             {
-              "x": 60.5,
+              "x": 15.5,
               "y": 0,
-              "z": -27
+              "z": -12
             }
           ]
         }
@@ -358,50 +278,78 @@ export const useObjectsSlice = create((set, get) => ({
           "status": false,
           "destGate": [
             {
-              "gateId": "Display-2",
+              "gateId": "019e0be4-a14f-75ad-8216-313d036c3ff1",
               "pin": "in_A"
             }
           ]
         }
       },
-      "delay": 0.1
+      "delay": 2
     },
-    "Display-1": {
-      "id": "Display-1",
-      "type": "DISPLAY",
+    "019e0be4-6648-747e-af76-29b1188e3997": {
+      "id": "019e0be4-6648-747e-af76-29b1188e3997",
+      "type": "AND",
       "position": [
-        13,
+        3,
         0,
-        -7
+        -2
       ],
       "rotation": 0,
       "selfCall": false,
       "inputs": {
         "in_A": {
-          "srcGate": "And-3",
+          "srcGate": "019e0be3-bd7c-754c-9960-03a2b945a0d4",
           "srcPin": "out_Q",
-          "selfGate": "Display-1",
+          "selfGate": "019e0be4-6648-747e-af76-29b1188e3997",
           "selfPin": "in_A",
           "positions": [
             {
-              "x": 64.75,
+              "x": 14.75,
               "y": 0,
-              "z": -32.5
+              "z": -7.5
             },
             {
-              "x": 64.75,
-              "y": -0.0375,
-              "z": -32.5
+              "x": 14.75,
+              "y": -0.09013878188659973,
+              "z": -7.5
             },
             {
-              "x": 65.5,
-              "y": -0.0375,
-              "z": -32.5
+              "x": 15.5,
+              "y": -0.09013878188659973,
+              "z": -8
             },
             {
-              "x": 65.5,
+              "x": 15.5,
               "y": 0,
-              "z": -32.5
+              "z": -8
+            }
+          ]
+        },
+        "in_B": {
+          "srcGate": "019e0be4-882f-701d-bdc0-63d3aff23077",
+          "srcPin": "out_Q",
+          "selfGate": "019e0be4-6648-747e-af76-29b1188e3997",
+          "selfPin": "in_B",
+          "positions": [
+            {
+              "x": 14.75,
+              "y": 0,
+              "z": -2.5
+            },
+            {
+              "x": 14.75,
+              "y": -0.45620718977236646,
+              "z": -2.5
+            },
+            {
+              "x": 15.5,
+              "y": -0.45620718977236646,
+              "z": -7
+            },
+            {
+              "x": 15.5,
+              "y": 0,
+              "z": -7
             }
           ]
         }
@@ -409,66 +357,46 @@ export const useObjectsSlice = create((set, get) => ({
       "outputs": {
         "out_Q": {
           "status": false,
-          "destGate": []
-        }
-      },
-      "delay": 0.05
-    },
-    "Display-2": {
-      "id": "Display-2",
-      "type": "DISPLAY",
-      "position": [
-        13,
-        0,
-        -6
-      ],
-      "rotation": 0,
-      "selfCall": false,
-      "inputs": {
-        "in_A": {
-          "srcGate": "And-2",
-          "srcPin": "out_Q",
-          "selfGate": "Display-2",
-          "selfPin": "in_A",
-          "positions": [
+          "destGate": [
             {
-              "x": 64.75,
-              "y": 0,
-              "z": -27.5
-            },
-            {
-              "x": 64.75,
-              "y": -0.0375,
-              "z": -27.5
-            },
-            {
-              "x": 65.5,
-              "y": -0.0375,
-              "z": -27.5
-            },
-            {
-              "x": 65.5,
-              "y": 0,
-              "z": -27.5
+              "gateId": "019e0be4-a304-7623-acfa-748f3628bd68",
+              "pin": "in_B"
             }
           ]
         }
       },
-      "outputs": {
-        "out_Q": {
-          "status": false,
-          "destGate": []
-        }
-      },
-      "delay": 0.05
+      "delay": 2
     },
-    "Switch-3": {
-      "id": "Switch-3",
+    "019e0be4-7d60-76fe-92dd-04264fd3aec3": {
+      "id": "019e0be4-7d60-76fe-92dd-04264fd3aec3",
       "type": "SWITCH",
       "position": [
-        11,
+        2,
         0,
-        -7
+        -3
+      ],
+      "rotation": 0,
+      "selfCall": false,
+      "inputs": {},
+      "outputs": {
+        "out_Q": {
+          "status": false,
+          "destGate": [
+            {
+              "gateId": "019e0be4-64f5-7713-95d9-2649fdb9a06f",
+              "pin": "in_A"
+            }
+          ]
+        }
+      }
+    },
+    "019e0be4-882f-701d-bdc0-63d3aff23077": {
+      "id": "019e0be4-882f-701d-bdc0-63d3aff23077",
+      "type": "SWITCH",
+      "position": [
+        2,
+        0,
+        -1
       ],
       "rotation": 0,
       "selfCall": false,
@@ -478,38 +406,285 @@ export const useObjectsSlice = create((set, get) => ({
           "status": true,
           "destGate": [
             {
-              "gateId": "And-3",
-              "pin": "in_A"
-            }
-          ]
-        }
-      }
-    },
-    "Switch-2": {
-      "id": "Switch-2",
-      "type": "SWITCH",
-      "position": [
-        11,
-        0,
-        -5
-      ],
-      "rotation": 0,
-      "selfCall": false,
-      "inputs": {},
-      "outputs": {
-        "out_Q": {
-          "status": false,
-          "destGate": [
-            {
-              "gateId": "And-2",
+              "gateId": "019e0be4-6648-747e-af76-29b1188e3997",
               "pin": "in_B"
             }
           ]
         }
       }
+    },
+    "019e0be4-a14f-75ad-8216-313d036c3ff1": {
+      "id": "019e0be4-a14f-75ad-8216-313d036c3ff1",
+      "type": "NOR",
+      "position": [
+        4,
+        0,
+        -3
+      ],
+      "rotation": 0,
+      "selfCall": false,
+      "inputs": {
+        "in_A": {
+          "srcGate": "019e0be4-64f5-7713-95d9-2649fdb9a06f",
+          "srcPin": "out_Q",
+          "selfGate": "019e0be4-a14f-75ad-8216-313d036c3ff1",
+          "selfPin": "in_A",
+          "positions": [
+            {
+              "x": 19.75,
+              "y": 0,
+              "z": -12.5
+            },
+            {
+              "x": 19.75,
+              "y": -0.09013878188659973,
+              "z": -12.5
+            },
+            {
+              "x": 20.5,
+              "y": -0.09013878188659973,
+              "z": -13
+            },
+            {
+              "x": 20.5,
+              "y": 0,
+              "z": -13
+            }
+          ]
+        },
+        "in_B": {
+          "srcGate": "019e0be4-a304-7623-acfa-748f3628bd68",
+          "srcPin": "out_Q",
+          "selfGate": "019e0be4-a14f-75ad-8216-313d036c3ff1",
+          "selfPin": "in_B",
+          "positions": [
+            {
+              "x": 24.75,
+              "y": 0,
+              "z": -7.5
+            },
+            {
+              "x": 24.75,
+              "y": -0.6189709201569974,
+              "z": -7.5
+            },
+            {
+              "x": 20.5,
+              "y": -0.6189709201569974,
+              "z": -12
+            },
+            {
+              "x": 20.5,
+              "y": 0,
+              "z": -12
+            }
+          ]
+        }
+      },
+      "outputs": {
+        "out_Q": {
+          "status": true,
+          "destGate": [
+            {
+              "gateId": "019e0be4-a886-73f8-8515-51ca6876094e",
+              "pin": "in_A"
+            },
+            {
+              "gateId": "019e0be4-a304-7623-acfa-748f3628bd68",
+              "pin": "in_A"
+            }
+          ]
+        }
+      },
+      "delay": 3
+    },
+    "019e0be4-a304-7623-acfa-748f3628bd68": {
+      "id": "019e0be4-a304-7623-acfa-748f3628bd68",
+      "type": "NOR",
+      "position": [
+        4,
+        0,
+        -2
+      ],
+      "rotation": 0,
+      "selfCall": false,
+      "inputs": {
+        "in_A": {
+          "srcGate": "019e0be4-a14f-75ad-8216-313d036c3ff1",
+          "srcPin": "out_Q",
+          "selfGate": "019e0be4-a304-7623-acfa-748f3628bd68",
+          "selfPin": "in_A",
+          "positions": [
+            {
+              "x": 24.75,
+              "y": 0,
+              "z": -12.5
+            },
+            {
+              "x": 24.75,
+              "y": -0.6189709201569974,
+              "z": -12.5
+            },
+            {
+              "x": 20.5,
+              "y": -0.6189709201569974,
+              "z": -8
+            },
+            {
+              "x": 20.5,
+              "y": 0,
+              "z": -8
+            }
+          ]
+        },
+        "in_B": {
+          "srcGate": "019e0be4-6648-747e-af76-29b1188e3997",
+          "srcPin": "out_Q",
+          "selfGate": "019e0be4-a304-7623-acfa-748f3628bd68",
+          "selfPin": "in_B",
+          "positions": [
+            {
+              "x": 19.75,
+              "y": 0,
+              "z": -7.5
+            },
+            {
+              "x": 19.75,
+              "y": -0.09013878188659973,
+              "z": -7.5
+            },
+            {
+              "x": 20.5,
+              "y": -0.09013878188659973,
+              "z": -7
+            },
+            {
+              "x": 20.5,
+              "y": 0,
+              "z": -7
+            }
+          ]
+        }
+      },
+      "outputs": {
+        "out_Q": {
+          "status": false,
+          "destGate": [
+            {
+              "gateId": "019e0be4-a9d8-7255-8c36-52703010d581",
+              "pin": "in_A"
+            },
+            {
+              "gateId": "019e0be4-a14f-75ad-8216-313d036c3ff1",
+              "pin": "in_B"
+            }
+          ]
+        }
+      },
+      "delay": 3
+    },
+    "019e0be4-a886-73f8-8515-51ca6876094e": {
+      "id": "019e0be4-a886-73f8-8515-51ca6876094e",
+      "type": "DISPLAY",
+      "position": [
+        5,
+        0,
+        -3
+      ],
+      "rotation": 0,
+      "selfCall": false,
+      "inputs": {
+        "in_A": {
+          "srcGate": "019e0be4-a14f-75ad-8216-313d036c3ff1",
+          "srcPin": "out_Q",
+          "selfGate": "019e0be4-a886-73f8-8515-51ca6876094e",
+          "selfPin": "in_A",
+          "positions": [
+            {
+              "x": 24.75,
+              "y": 0,
+              "z": -12.5
+            },
+            {
+              "x": 24.75,
+              "y": -0.075,
+              "z": -12.5
+            },
+            {
+              "x": 25.5,
+              "y": -0.075,
+              "z": -12.5
+            },
+            {
+              "x": 25.5,
+              "y": 0,
+              "z": -12.5
+            }
+          ]
+        }
+      },
+      "outputs": {
+        "out_Q": {
+          "status": true,
+          "destGate": []
+        }
+      },
+      "delay": 1
+    },
+    "019e0be4-a9d8-7255-8c36-52703010d581": {
+      "id": "019e0be4-a9d8-7255-8c36-52703010d581",
+      "type": "DISPLAY",
+      "position": [
+        5,
+        0,
+        -2
+      ],
+      "rotation": 0,
+      "selfCall": false,
+      "inputs": {
+        "in_A": {
+          "srcGate": "019e0be4-a304-7623-acfa-748f3628bd68",
+          "srcPin": "out_Q",
+          "selfGate": "019e0be4-a9d8-7255-8c36-52703010d581",
+          "selfPin": "in_A",
+          "positions": [
+            {
+              "x": 24.75,
+              "y": 0,
+              "z": -7.5
+            },
+            {
+              "x": 24.75,
+              "y": -0.075,
+              "z": -7.5
+            },
+            {
+              "x": 25.5,
+              "y": -0.075,
+              "z": -7.5
+            },
+            {
+              "x": 25.5,
+              "y": 0,
+              "z": -7.5
+            }
+          ]
+        }
+      },
+      "outputs": {
+        "out_Q": {
+          "status": false,
+          "destGate": []
+        }
+      },
+      "delay": 1
     }
   },
   EVENTS: [],
+  TIME: 0,
+  updateTime() {
+    set(state => ({ TIME: state.TIME + 1 }))
+  },
   updateGateOutputs(params) {
     const gates = { ...get().GATES }
 
@@ -573,37 +748,37 @@ export const useObjectsSlice = create((set, get) => ({
       case XOR_GATE:
         newGate.inputs[IN_A] = { srcGate: "", srcPin: "", selfGate: "", selfPin: "" }
         newGate.inputs[IN_B] = { srcGate: "", srcPin: "", selfGate: "", selfPin: "" }
-        newGate.outputs[OUT_Q] = { status: false, destGate: [] }
-        newGate.delay = 0.1
+        newGate.outputs[OUT_Q] = { status: GATE_FUNCTIONS[input.type]({}), destGate: [] }
+        newGate.delay = 2
 
         if (input.type == NAND_GATE || input.type == NOR_GATE)
-          newGate.delay = 0.5
+          newGate.delay = 3
         if (input.type == XOR_GATE)
-          newGate.delay = 0.3
+          newGate.delay = 4
         break
       case NOT_GATE:
       case DISPLAY:
         newGate.inputs[IN_A] = { srcGate: "", srcPin: "", selfGate: "", selfPin: "" }
-        newGate.outputs[OUT_Q] = { status: false, destGate: [] }
-        newGate.delay = 0.05
+        newGate.outputs[OUT_Q] = { status: GATE_FUNCTIONS[input.type]({}), destGate: [] }
+        newGate.delay = 1
         break
       case CLOCK:
       case SWITCH:
         newGate.outputs[OUT_Q] = { status: false, destGate: [] }
         if (newGate.type != CLOCK) break
         newGate.selfCall = true
-        newGate.delay = 0.2
+        newGate.delay = 50
         event = { gateId: newGate.id, time: 0 }
         break
     }
     gates[newGate.id] = newGate
-    console.log(newGate)
     set(s => ({
       GATES: gates,
       EVENTS: event != null ? [event, ...s.EVENTS] : s.EVENTS
     }))
   },
   addGateConnection(srcGate, dstGate) {
+    const time = get().TIME
     const gates = { ...get().GATES }
     const srcGateI = gates[srcGate.gateId]
     const dstGateI = gates[dstGate.gateId]
@@ -641,22 +816,27 @@ export const useObjectsSlice = create((set, get) => ({
 
     set(s => ({
       GATES: gates,
-      EVENTS: [{ gateId: dstGate.gateId, time: 0 }, ...s.EVENTS]
+      EVENTS: [{ gateId: dstGate.gateId, time }, ...s.EVENTS]
     }))
   },
   addEvent(event_list = []) {
-    const events = [...get().EVENTS, ...event_list].sort((a, b) => a.time - b.time)
+    const getStateByGateId = get().getStateByGateId
+    const events = [...get().EVENTS, ...event_list.map(i => ({
+      ...i,
+      gateState: getStateByGateId(i.gateId)
+    }))]
     set(state => ({ EVENTS: events }))
   },
-  getEvents(now) {
+  getEvents(remove = true) {
+    const time = get().TIME
     const events = []
     const result = Object.values([...get().EVENTS].reduce((acc, i) => {
-      if (i.time > now) {
+      if (i.time > time) {
         events.push(i)
         return acc
       }
       if (!acc[i.gateId]) acc[i.gateId] = i
-
+      if (!remove) events.push(i)
       return acc
     }, {}))
 
@@ -664,6 +844,7 @@ export const useObjectsSlice = create((set, get) => ({
     return result
   },
   removeGate(id = "") {
+    const time = get().TIME
     const gates = { ...get().GATES }
     const gate = gates[id]
     const { inputs, outputs } = gate
@@ -674,7 +855,7 @@ export const useObjectsSlice = create((set, get) => ({
       if (!src) continue
 
       src.outputs[inputPin.srcPin].destGate = src.outputs[inputPin.srcPin].destGate
-        .filter(i => !(i.gateId == inputPin.selfGate && i.pin == inputPin.selfPin))
+        .filter(i => i.gateId != inputPin.selfGate)
     }
 
     const events = []
@@ -682,7 +863,7 @@ export const useObjectsSlice = create((set, get) => ({
       const outPin = outputs[pin]
       for (const destGate of outPin.destGate) {
         const gate = gates[destGate.gateId]
-        events.push({ gateId: destGate.gateId, time: 0 })
+        events.push({ gateId: destGate.gateId, time })
         gate.inputs[destGate.pin] = { srcGate: "", srcPin: "", selfGate: "", selfPin: "" }
       }
     }
@@ -691,11 +872,12 @@ export const useObjectsSlice = create((set, get) => ({
 
     set(s => ({
       GATES: gates,
-      EVENTS: [...events, s.EVENTS]
+      EVENTS: [...events, ...s.EVENTS]
     }))
   },
   removeWire(obj) {
     const gates = { ...get().GATES }
+    const time = get().TIME
     const fromGate = gates[obj.srcGate]
     const toGate = gates[obj.selfGate]
 
@@ -705,7 +887,7 @@ export const useObjectsSlice = create((set, get) => ({
 
     set(s => ({
       GATES: gates,
-      EVENTS: [{ gateId: toGate.gateId, time: 0 }, ...s.EVENTS]
+      EVENTS: [{ gateId: toGate.gateId, time }, ...s.EVENTS]
     }))
   },
 }))
