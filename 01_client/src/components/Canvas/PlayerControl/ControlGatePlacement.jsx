@@ -21,7 +21,7 @@ function ControlGatePlacement() {
     <>
       {selectBuildGate !== WIRE && <mesh ref={ref} name="placement_reference">
         <boxGeometry args={[x - 1, y, z - 1]} />
-        <meshNormalMaterial transparent opacity={0.2} />
+        <meshNormalMaterial transparent opacity={0.2} depthWrite={false} />
         <Edges threshold={5} color="black" lineWidth={1} />
       </mesh>}
     </>

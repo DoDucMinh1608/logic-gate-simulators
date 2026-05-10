@@ -10,7 +10,7 @@ export const usePlayerSlice = create((set, get) => ({
   mouseLock: true,
   selectPort: null,
   selectBuildPort: null,
-  executeNextStep: true,
+  executeNextStep: false,
   setExecuteNextStep(value) {
     set(s => ({ executeNextStep: value }))
   },
@@ -26,7 +26,6 @@ export const usePlayerSlice = create((set, get) => ({
     if (param == null) {
       return set(state => ({ selectBuildPort: null }))
     }
-
     const { gateId, pin, position } = param
     set(state => ({ selectBuildPort: { gateId, pin, position: position?.clone() } }))
   },

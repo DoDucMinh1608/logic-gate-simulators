@@ -7,12 +7,14 @@ Files: ./models/NOR.glb [28.94KB] > C:\Users\ducmi\projects\logic-gate-simulator
 import { useGLTF } from '@react-three/drei'
 
 import { GATE_COLORS, PORT_COLORS } from '@/utils/colors'
-import { DEFAULT_STATE_A, IN_A, IN_B, OUT_Q } from '@/utils/constants'
+import { IN_A, IN_B, OUT_Q } from '@/utils/constants'
+import GateName from './GateName'
 
-export default function NorGate(props) {
+export default function NorGate({ name, ...props }) {
   const { nodes, materials } = useGLTF('/NOR-transformed.glb')
   return (
     <group {...props} dispose={null}>
+      <GateName name={name} />
       <mesh geometry={nodes['3'].geometry} material={materials.Khoi}>
         <meshStandardMaterial
           color={GATE_COLORS}

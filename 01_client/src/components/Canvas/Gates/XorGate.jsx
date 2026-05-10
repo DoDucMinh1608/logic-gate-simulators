@@ -8,11 +8,13 @@ import { useGLTF } from '@react-three/drei'
 
 import { GATE_COLORS, PORT_COLORS } from '@/utils/colors'
 import { IN_A, IN_B, OUT_Q } from '@/utils/constants'
+import GateName from './GateName'
 
-export default function XorGate(props) {
+export default function XorGate({ name, ...props }) {
   const { nodes, materials } = useGLTF('/XOR-transformed.glb')
   return (
     <group {...props} dispose={null}>
+      <GateName name={name} />
       <mesh geometry={nodes['6'].geometry} material={materials.Khoi}>
         <meshStandardMaterial
           color={GATE_COLORS}

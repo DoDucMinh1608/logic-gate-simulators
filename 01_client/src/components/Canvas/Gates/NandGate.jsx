@@ -6,12 +6,14 @@ Files: ./models/NAND.glb [48.19KB] > C:\Users\ducmi\projects\logic-gate-simulato
 
 import { GATE_COLORS, PORT_COLORS } from '@/utils/colors'
 import { DEFAULT_STATE_A, IN_A, IN_B, OUT_Q } from '@/utils/constants'
-import { useGLTF } from '@react-three/drei'
+import { Billboard, Float, Text, useGLTF } from '@react-three/drei'
+import GateName from './GateName'
 
-export default function NandGate(props) {
+export default function NandGate({ name, ...props }) {
   const { nodes, materials } = useGLTF('/NAND-transformed.glb')
   return (
     <group {...props} dispose={null}>
+      <GateName name={name} />
       <mesh geometry={nodes['2'].geometry} material={materials.Khoi}>
         <meshStandardMaterial
           color={GATE_COLORS}

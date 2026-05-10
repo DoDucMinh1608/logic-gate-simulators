@@ -7,11 +7,13 @@ Files: ./models/AND.glb [27.98KB] > C:\Users\ducmi\projects\logic-gate-simulator
 import { GATE_COLORS, PORT_COLORS } from '@/utils/colors'
 import { IN_A, IN_B, OUT_Q } from '@/utils/constants'
 import { useGLTF } from '@react-three/drei'
+import GateName from './GateName'
 
-export default function AndGate(props) {
+export default function AndGate({ name, ...props }) {
   const { nodes, materials } = useGLTF('/AND-transformed.glb')
   return (
     <group {...props} dispose={null}>
+      <GateName name={name} />
       <mesh geometry={nodes['4'].geometry} material={materials}>
         <meshStandardMaterial
           color={GATE_COLORS}

@@ -1,9 +1,12 @@
 import { GATE_COLORS, PORT_COLORS } from "@/utils/colors"
 import { DEFAULT_STATE_C, OUT_Q } from "@/utils/constants"
+import { Billboard, Float, Text } from "@react-three/drei"
+import GateName from "./GateName"
 
-function ClockGate({ ...props }) {
+function ClockGate({ name, ...props }) {
   return (
     <group {...props} dispose={null} >
+      <GateName name={name} />
       <mesh position={[0, 0.625, 0]}>
         <boxGeometry args={[3, 1.25, 3]} />
         <meshStandardMaterial

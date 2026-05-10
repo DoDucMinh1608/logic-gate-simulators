@@ -1,12 +1,13 @@
-import { PORT_COLORS } from "@/utils/colors"
-import { IN_A, OUT_Q } from "@/utils/constants"
 import { Edges } from "@react-three/drei"
 
-function Display({ id, state, ...props }) {
+import { PORT_COLORS } from "@/utils/colors"
+import { IN_A, OUT_Q } from "@/utils/constants"
+import GateName from "./GateName"
 
-
+function Display({ id, name, state, ...props }) {
   return (
     <group {...props} dispose={null} >
+      <GateName name={name} />
       <mesh position={[0, .625, 0]} rotation={[0, Math.PI / 2, 0]}>
         <boxGeometry args={[3, 1.25, 3]} />
         <meshStandardMaterial

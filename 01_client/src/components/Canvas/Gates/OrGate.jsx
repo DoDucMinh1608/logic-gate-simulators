@@ -4,15 +4,17 @@ Command: npx gltfjsx@6.5.3 ./models/OR.glb -o ./src/components/Canvas/Gates/OrGa
 Files: ./models/OR.glb [3.54KB] > C:\Users\ducmi\projects\logic-gate-simulators\src\components\Canvas\Gates\OR-transformed.glb [1.55KB] (56%)
 */
 
-import { useGLTF } from '@react-three/drei'
+import { Billboard, Float, Text, useGLTF } from '@react-three/drei'
 
 import { GATE_COLORS, PORT_COLORS } from '@/utils/colors'
 import { IN_A, IN_B, OUT_Q } from '@/utils/constants'
+import GateName from './GateName'
 
-export default function OrGate(props) {
+export default function OrGate({ name, ...props }) {
   const { nodes, materials } = useGLTF('/OR-transformed.glb')
   return (
     <group {...props} dispose={null}>
+      <GateName name={name} />
       <mesh geometry={nodes['5'].geometry} material={materials.Khoi}>
         <meshStandardMaterial
           color={GATE_COLORS}

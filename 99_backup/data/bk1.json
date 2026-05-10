@@ -1,148 +1,151 @@
 {
-  "019e0be3-7e13-76ab-9925-148469cec45f": {
-    "id": "019e0be3-7e13-76ab-9925-148469cec45f",
+  "SWITCH_13": {
+    "id": "SWITCH_13",
+    "name": "SWITCH_13",
     "type": "SWITCH",
     "position": [
+      11,
       0,
-      0,
-      -2
+      -4
     ],
     "rotation": 0,
     "selfCall": false,
     "inputs": {},
     "outputs": {
       "out_Q": {
-        "status": true,
+        "status": false,
         "destGate": [
           {
-            "gateId": "019e0be3-b801-77f9-8701-53b0919b2b22",
+            "gateId": "NOT_14",
             "pin": "in_A"
           },
           {
-            "gateId": "019e0be3-bd7c-754c-9960-03a2b945a0d4",
-            "pin": "in_A"
+            "gateId": "AND_15",
+            "pin": "in_B"
           }
         ]
       }
     }
   },
-  "019e0be3-b801-77f9-8701-53b0919b2b22": {
-    "id": "019e0be3-b801-77f9-8701-53b0919b2b22",
+  "NOT_14": {
+    "id": "NOT_14",
+    "name": "NOT_14",
     "type": "NOT",
     "position": [
-      1,
+      12,
       0,
-      -2
+      -4
     ],
     "rotation": 0,
     "selfCall": false,
     "inputs": {
       "in_A": {
-        "srcGate": "019e0be3-7e13-76ab-9925-148469cec45f",
+        "srcGate": "SWITCH_13",
         "srcPin": "out_Q",
-        "selfGate": "019e0be3-b801-77f9-8701-53b0919b2b22",
+        "selfGate": "NOT_14",
         "selfPin": "in_A",
         "positions": [
           {
-            "x": 4.75,
+            "x": 59.75,
             "y": 0,
-            "z": -7.5
+            "z": -17.5
           },
           {
-            "x": 4.75,
+            "x": 59.75,
             "y": -0.075,
-            "z": -7.5
+            "z": -17.5
           },
           {
-            "x": 5.5,
+            "x": 60.5,
             "y": -0.075,
-            "z": -7.5
+            "z": -17.5
           },
           {
-            "x": 5.5,
+            "x": 60.5,
             "y": 0,
-            "z": -7.5
+            "z": -17.5
           }
         ]
       }
     },
     "outputs": {
       "out_Q": {
-        "status": false,
+        "status": true,
         "destGate": [
           {
-            "gateId": "019e0be3-bd7c-754c-9960-03a2b945a0d4",
-            "pin": "in_B"
+            "gateId": "AND_15",
+            "pin": "in_A"
           }
         ]
       }
     },
     "delay": 1
   },
-  "019e0be3-bd7c-754c-9960-03a2b945a0d4": {
-    "id": "019e0be3-bd7c-754c-9960-03a2b945a0d4",
+  "AND_15": {
+    "id": "AND_15",
+    "name": "AND_15",
     "type": "AND",
     "position": [
-      2,
+      13,
       0,
-      -2
+      -4
     ],
     "rotation": 0,
     "selfCall": false,
     "inputs": {
       "in_A": {
-        "srcGate": "019e0be3-7e13-76ab-9925-148469cec45f",
+        "srcGate": "NOT_14",
         "srcPin": "out_Q",
-        "selfGate": "019e0be3-bd7c-754c-9960-03a2b945a0d4",
+        "selfGate": "AND_15",
         "selfPin": "in_A",
         "positions": [
           {
-            "x": 4.75,
+            "x": 64.75,
             "y": 0,
-            "z": -7.5
+            "z": -17.5
           },
           {
-            "x": 4.75,
+            "x": 64.75,
+            "y": -0.09013878188659973,
+            "z": -17.5
+          },
+          {
+            "x": 65.5,
+            "y": -0.09013878188659973,
+            "z": -18
+          },
+          {
+            "x": 65.5,
+            "y": 0,
+            "z": -18
+          }
+        ]
+      },
+      "in_B": {
+        "srcGate": "SWITCH_13",
+        "srcPin": "out_Q",
+        "selfGate": "AND_15",
+        "selfPin": "in_B",
+        "positions": [
+          {
+            "x": 59.75,
+            "y": 0,
+            "z": -17.5
+          },
+          {
+            "x": 59.75,
             "y": -0.5771698190307598,
-            "z": -7.5
+            "z": -17.5
           },
           {
-            "x": 10.5,
+            "x": 65.5,
             "y": -0.5771698190307598,
-            "z": -8
+            "z": -17
           },
           {
-            "x": 10.5,
+            "x": 65.5,
             "y": 0,
-            "z": -8
-          }
-        ]
-      },
-      "in_B": {
-        "srcGate": "019e0be3-b801-77f9-8701-53b0919b2b22",
-        "srcPin": "out_Q",
-        "selfGate": "019e0be3-bd7c-754c-9960-03a2b945a0d4",
-        "selfPin": "in_B",
-        "positions": [
-          {
-            "x": 9.75,
-            "y": 0,
-            "z": -7.5
-          },
-          {
-            "x": 9.75,
-            "y": -0.09013878188659973,
-            "z": -7.5
-          },
-          {
-            "x": 10.5,
-            "y": -0.09013878188659973,
-            "z": -7
-          },
-          {
-            "x": 10.5,
-            "y": 0,
-            "z": -7
+            "z": -17
           }
         ]
       }
@@ -152,11 +155,7 @@
         "status": false,
         "destGate": [
           {
-            "gateId": "019e0be4-64f5-7713-95d9-2649fdb9a06f",
-            "pin": "in_B"
-          },
-          {
-            "gateId": "019e0be4-6648-747e-af76-29b1188e3997",
+            "gateId": "DISPLAY_16",
             "pin": "in_A"
           }
         ]
@@ -164,420 +163,43 @@
     },
     "delay": 2
   },
-  "019e0be4-64f5-7713-95d9-2649fdb9a06f": {
-    "id": "019e0be4-64f5-7713-95d9-2649fdb9a06f",
-    "type": "AND",
-    "position": [
-      3,
-      0,
-      -3
-    ],
-    "rotation": 0,
-    "selfCall": false,
-    "inputs": {
-      "in_A": {
-        "srcGate": "019e0be4-7d60-76fe-92dd-04264fd3aec3",
-        "srcPin": "out_Q",
-        "selfGate": "019e0be4-64f5-7713-95d9-2649fdb9a06f",
-        "selfPin": "in_A",
-        "positions": [
-          {
-            "x": 14.75,
-            "y": 0,
-            "z": -12.5
-          },
-          {
-            "x": 14.75,
-            "y": -0.09013878188659973,
-            "z": -12.5
-          },
-          {
-            "x": 15.5,
-            "y": -0.09013878188659973,
-            "z": -13
-          },
-          {
-            "x": 15.5,
-            "y": 0,
-            "z": -13
-          }
-        ]
-      },
-      "in_B": {
-        "srcGate": "019e0be3-bd7c-754c-9960-03a2b945a0d4",
-        "srcPin": "out_Q",
-        "selfGate": "019e0be4-64f5-7713-95d9-2649fdb9a06f",
-        "selfPin": "in_B",
-        "positions": [
-          {
-            "x": 14.75,
-            "y": 0,
-            "z": -7.5
-          },
-          {
-            "x": 14.75,
-            "y": -0.45620718977236646,
-            "z": -7.5
-          },
-          {
-            "x": 15.5,
-            "y": -0.45620718977236646,
-            "z": -12
-          },
-          {
-            "x": 15.5,
-            "y": 0,
-            "z": -12
-          }
-        ]
-      }
-    },
-    "outputs": {
-      "out_Q": {
-        "status": false,
-        "destGate": [
-          {
-            "gateId": "019e0be4-a14f-75ad-8216-313d036c3ff1",
-            "pin": "in_A"
-          }
-        ]
-      }
-    },
-    "delay": 2
-  },
-  "019e0be4-6648-747e-af76-29b1188e3997": {
-    "id": "019e0be4-6648-747e-af76-29b1188e3997",
-    "type": "AND",
-    "position": [
-      3,
-      0,
-      -2
-    ],
-    "rotation": 0,
-    "selfCall": false,
-    "inputs": {
-      "in_A": {
-        "srcGate": "019e0be3-bd7c-754c-9960-03a2b945a0d4",
-        "srcPin": "out_Q",
-        "selfGate": "019e0be4-6648-747e-af76-29b1188e3997",
-        "selfPin": "in_A",
-        "positions": [
-          {
-            "x": 14.75,
-            "y": 0,
-            "z": -7.5
-          },
-          {
-            "x": 14.75,
-            "y": -0.09013878188659973,
-            "z": -7.5
-          },
-          {
-            "x": 15.5,
-            "y": -0.09013878188659973,
-            "z": -8
-          },
-          {
-            "x": 15.5,
-            "y": 0,
-            "z": -8
-          }
-        ]
-      },
-      "in_B": {
-        "srcGate": "019e0be4-882f-701d-bdc0-63d3aff23077",
-        "srcPin": "out_Q",
-        "selfGate": "019e0be4-6648-747e-af76-29b1188e3997",
-        "selfPin": "in_B",
-        "positions": [
-          {
-            "x": 14.75,
-            "y": 0,
-            "z": -2.5
-          },
-          {
-            "x": 14.75,
-            "y": -0.45620718977236646,
-            "z": -2.5
-          },
-          {
-            "x": 15.5,
-            "y": -0.45620718977236646,
-            "z": -7
-          },
-          {
-            "x": 15.5,
-            "y": 0,
-            "z": -7
-          }
-        ]
-      }
-    },
-    "outputs": {
-      "out_Q": {
-        "status": false,
-        "destGate": [
-          {
-            "gateId": "019e0be4-a304-7623-acfa-748f3628bd68",
-            "pin": "in_B"
-          }
-        ]
-      }
-    },
-    "delay": 2
-  },
-  "019e0be4-7d60-76fe-92dd-04264fd3aec3": {
-    "id": "019e0be4-7d60-76fe-92dd-04264fd3aec3",
-    "type": "SWITCH",
-    "position": [
-      2,
-      0,
-      -3
-    ],
-    "rotation": 0,
-    "selfCall": false,
-    "inputs": {},
-    "outputs": {
-      "out_Q": {
-        "status": false,
-        "destGate": [
-          {
-            "gateId": "019e0be4-64f5-7713-95d9-2649fdb9a06f",
-            "pin": "in_A"
-          }
-        ]
-      }
-    }
-  },
-  "019e0be4-882f-701d-bdc0-63d3aff23077": {
-    "id": "019e0be4-882f-701d-bdc0-63d3aff23077",
-    "type": "SWITCH",
-    "position": [
-      2,
-      0,
-      -1
-    ],
-    "rotation": 0,
-    "selfCall": false,
-    "inputs": {},
-    "outputs": {
-      "out_Q": {
-        "status": true,
-        "destGate": [
-          {
-            "gateId": "019e0be4-6648-747e-af76-29b1188e3997",
-            "pin": "in_B"
-          }
-        ]
-      }
-    }
-  },
-  "019e0be4-a14f-75ad-8216-313d036c3ff1": {
-    "id": "019e0be4-a14f-75ad-8216-313d036c3ff1",
-    "type": "NOR",
-    "position": [
-      4,
-      0,
-      -3
-    ],
-    "rotation": 0,
-    "selfCall": false,
-    "inputs": {
-      "in_A": {
-        "srcGate": "019e0be4-64f5-7713-95d9-2649fdb9a06f",
-        "srcPin": "out_Q",
-        "selfGate": "019e0be4-a14f-75ad-8216-313d036c3ff1",
-        "selfPin": "in_A",
-        "positions": [
-          {
-            "x": 19.75,
-            "y": 0,
-            "z": -12.5
-          },
-          {
-            "x": 19.75,
-            "y": -0.09013878188659973,
-            "z": -12.5
-          },
-          {
-            "x": 20.5,
-            "y": -0.09013878188659973,
-            "z": -13
-          },
-          {
-            "x": 20.5,
-            "y": 0,
-            "z": -13
-          }
-        ]
-      },
-      "in_B": {
-        "srcGate": "019e0be4-a304-7623-acfa-748f3628bd68",
-        "srcPin": "out_Q",
-        "selfGate": "019e0be4-a14f-75ad-8216-313d036c3ff1",
-        "selfPin": "in_B",
-        "positions": [
-          {
-            "x": 24.75,
-            "y": 0,
-            "z": -7.5
-          },
-          {
-            "x": 24.75,
-            "y": -0.6189709201569974,
-            "z": -7.5
-          },
-          {
-            "x": 20.5,
-            "y": -0.6189709201569974,
-            "z": -12
-          },
-          {
-            "x": 20.5,
-            "y": 0,
-            "z": -12
-          }
-        ]
-      }
-    },
-    "outputs": {
-      "out_Q": {
-        "status": true,
-        "destGate": [
-          {
-            "gateId": "019e0be4-a886-73f8-8515-51ca6876094e",
-            "pin": "in_A"
-          },
-          {
-            "gateId": "019e0be4-a304-7623-acfa-748f3628bd68",
-            "pin": "in_A"
-          }
-        ]
-      }
-    },
-    "delay": 3
-  },
-  "019e0be4-a304-7623-acfa-748f3628bd68": {
-    "id": "019e0be4-a304-7623-acfa-748f3628bd68",
-    "type": "NOR",
-    "position": [
-      4,
-      0,
-      -2
-    ],
-    "rotation": 0,
-    "selfCall": false,
-    "inputs": {
-      "in_A": {
-        "srcGate": "019e0be4-a14f-75ad-8216-313d036c3ff1",
-        "srcPin": "out_Q",
-        "selfGate": "019e0be4-a304-7623-acfa-748f3628bd68",
-        "selfPin": "in_A",
-        "positions": [
-          {
-            "x": 24.75,
-            "y": 0,
-            "z": -12.5
-          },
-          {
-            "x": 24.75,
-            "y": -0.6189709201569974,
-            "z": -12.5
-          },
-          {
-            "x": 20.5,
-            "y": -0.6189709201569974,
-            "z": -8
-          },
-          {
-            "x": 20.5,
-            "y": 0,
-            "z": -8
-          }
-        ]
-      },
-      "in_B": {
-        "srcGate": "019e0be4-6648-747e-af76-29b1188e3997",
-        "srcPin": "out_Q",
-        "selfGate": "019e0be4-a304-7623-acfa-748f3628bd68",
-        "selfPin": "in_B",
-        "positions": [
-          {
-            "x": 19.75,
-            "y": 0,
-            "z": -7.5
-          },
-          {
-            "x": 19.75,
-            "y": -0.09013878188659973,
-            "z": -7.5
-          },
-          {
-            "x": 20.5,
-            "y": -0.09013878188659973,
-            "z": -7
-          },
-          {
-            "x": 20.5,
-            "y": 0,
-            "z": -7
-          }
-        ]
-      }
-    },
-    "outputs": {
-      "out_Q": {
-        "status": false,
-        "destGate": [
-          {
-            "gateId": "019e0be4-a9d8-7255-8c36-52703010d581",
-            "pin": "in_A"
-          },
-          {
-            "gateId": "019e0be4-a14f-75ad-8216-313d036c3ff1",
-            "pin": "in_B"
-          }
-        ]
-      }
-    },
-    "delay": 3
-  },
-  "019e0be4-a886-73f8-8515-51ca6876094e": {
-    "id": "019e0be4-a886-73f8-8515-51ca6876094e",
+  "DISPLAY_16": {
+    "id": "DISPLAY_16",
+    "name": "DISPLAY_16",
     "type": "DISPLAY",
     "position": [
-      5,
+      14,
       0,
-      -3
+      -4
     ],
     "rotation": 0,
     "selfCall": false,
     "inputs": {
       "in_A": {
-        "srcGate": "019e0be4-a14f-75ad-8216-313d036c3ff1",
+        "srcGate": "AND_15",
         "srcPin": "out_Q",
-        "selfGate": "019e0be4-a886-73f8-8515-51ca6876094e",
+        "selfGate": "DISPLAY_16",
         "selfPin": "in_A",
         "positions": [
           {
-            "x": 24.75,
+            "x": 69.75,
             "y": 0,
-            "z": -12.5
+            "z": -17.5
           },
           {
-            "x": 24.75,
+            "x": 69.75,
             "y": -0.075,
-            "z": -12.5
+            "z": -17.5
           },
           {
-            "x": 25.5,
+            "x": 70.5,
             "y": -0.075,
-            "z": -12.5
+            "z": -17.5
           },
           {
-            "x": 25.5,
+            "x": 70.5,
             "y": 0,
-            "z": -12.5
+            "z": -17.5
           }
         ]
       }
@@ -590,42 +212,119 @@
     },
     "delay": 1
   },
-  "019e0be4-a9d8-7255-8c36-52703010d581": {
-    "id": "019e0be4-a9d8-7255-8c36-52703010d581",
-    "type": "DISPLAY",
+  "SWITCH_17": {
+    "id": "SWITCH_17",
+    "name": "SWITCH_17",
+    "type": "SWITCH",
     "position": [
-      5,
+      11,
       0,
-      -2
+      -1
+    ],
+    "rotation": 0,
+    "selfCall": false,
+    "inputs": {},
+    "outputs": {
+      "out_Q": {
+        "status": false,
+        "destGate": [
+          {
+            "gateId": "AND_23",
+            "pin": "in_B"
+          }
+        ]
+      }
+    }
+  },
+  "SWITCH_18": {
+    "id": "SWITCH_18",
+    "name": "SWITCH_18",
+    "type": "SWITCH",
+    "position": [
+      11,
+      0,
+      0
+    ],
+    "rotation": 0,
+    "selfCall": false,
+    "inputs": {},
+    "outputs": {
+      "out_Q": {
+        "status": true,
+        "destGate": [
+          {
+            "gateId": "NOT_20",
+            "pin": "in_A"
+          },
+          {
+            "gateId": "AND_21",
+            "pin": "in_B"
+          }
+        ]
+      }
+    }
+  },
+  "SWITCH_19": {
+    "id": "SWITCH_19",
+    "name": "SWITCH_19",
+    "type": "SWITCH",
+    "position": [
+      11,
+      0,
+      1
+    ],
+    "rotation": 0,
+    "selfCall": false,
+    "inputs": {},
+    "outputs": {
+      "out_Q": {
+        "status": false,
+        "destGate": [
+          {
+            "gateId": "AND_22",
+            "pin": "in_A"
+          }
+        ]
+      }
+    }
+  },
+  "NOT_20": {
+    "id": "NOT_20",
+    "name": "NOT_20",
+    "type": "NOT",
+    "position": [
+      12,
+      0,
+      0
     ],
     "rotation": 0,
     "selfCall": false,
     "inputs": {
       "in_A": {
-        "srcGate": "019e0be4-a304-7623-acfa-748f3628bd68",
+        "srcGate": "SWITCH_18",
         "srcPin": "out_Q",
-        "selfGate": "019e0be4-a9d8-7255-8c36-52703010d581",
+        "selfGate": "NOT_20",
         "selfPin": "in_A",
         "positions": [
           {
-            "x": 24.75,
+            "x": 59.75,
             "y": 0,
-            "z": -7.5
+            "z": 2.5
           },
           {
-            "x": 24.75,
+            "x": 59.75,
             "y": -0.075,
-            "z": -7.5
+            "z": 2.5
           },
           {
-            "x": 25.5,
+            "x": 60.5,
             "y": -0.075,
-            "z": -7.5
+            "z": 2.5
           },
           {
-            "x": 25.5,
+            "x": 60.5,
             "y": 0,
-            "z": -7.5
+            "z": 2.5
           }
         ]
       }
@@ -633,6 +332,531 @@
     "outputs": {
       "out_Q": {
         "status": false,
+        "destGate": [
+          {
+            "gateId": "AND_21",
+            "pin": "in_A"
+          }
+        ]
+      }
+    },
+    "delay": 1
+  },
+  "AND_21": {
+    "id": "AND_21",
+    "name": "AND_21",
+    "type": "AND",
+    "position": [
+      13,
+      0,
+      0
+    ],
+    "rotation": 0,
+    "selfCall": false,
+    "inputs": {
+      "in_A": {
+        "srcGate": "NOT_20",
+        "srcPin": "out_Q",
+        "selfGate": "AND_21",
+        "selfPin": "in_A",
+        "positions": [
+          {
+            "x": 64.75,
+            "y": 0,
+            "z": 2.5
+          },
+          {
+            "x": 64.75,
+            "y": -0.09013878188659973,
+            "z": 2.5
+          },
+          {
+            "x": 65.5,
+            "y": -0.09013878188659973,
+            "z": 2
+          },
+          {
+            "x": 65.5,
+            "y": 0,
+            "z": 2
+          }
+        ]
+      },
+      "in_B": {
+        "srcGate": "SWITCH_18",
+        "srcPin": "out_Q",
+        "selfGate": "AND_21",
+        "selfPin": "in_B",
+        "positions": [
+          {
+            "x": 59.75,
+            "y": 0,
+            "z": 2.5
+          },
+          {
+            "x": 59.75,
+            "y": -0.5771698190307598,
+            "z": 2.5
+          },
+          {
+            "x": 65.5,
+            "y": -0.5771698190307598,
+            "z": 3
+          },
+          {
+            "x": 65.5,
+            "y": 0,
+            "z": 3
+          }
+        ]
+      }
+    },
+    "outputs": {
+      "out_Q": {
+        "status": false,
+        "destGate": [
+          {
+            "gateId": "AND_23",
+            "pin": "in_A"
+          },
+          {
+            "gateId": "AND_22",
+            "pin": "in_B"
+          }
+        ]
+      }
+    },
+    "delay": 2
+  },
+  "AND_22": {
+    "id": "AND_22",
+    "name": "AND_22",
+    "type": "AND",
+    "position": [
+      14,
+      0,
+      -1
+    ],
+    "rotation": 0,
+    "selfCall": false,
+    "inputs": {
+      "in_A": {
+        "srcGate": "SWITCH_19",
+        "srcPin": "out_Q",
+        "selfGate": "AND_22",
+        "selfPin": "in_A",
+        "positions": [
+          {
+            "x": 59.75,
+            "y": 0,
+            "z": 7.5
+          },
+          {
+            "x": 59.75,
+            "y": -1.502705892714872,
+            "z": 7.5
+          },
+          {
+            "x": 70.5,
+            "y": -1.502705892714872,
+            "z": -3
+          },
+          {
+            "x": 70.5,
+            "y": 0,
+            "z": -3
+          }
+        ]
+      },
+      "in_B": {
+        "srcGate": "AND_21",
+        "srcPin": "out_Q",
+        "selfGate": "AND_22",
+        "selfPin": "in_B",
+        "positions": [
+          {
+            "x": 69.75,
+            "y": 0,
+            "z": 2.5
+          },
+          {
+            "x": 69.75,
+            "y": -0.45620718977236646,
+            "z": 2.5
+          },
+          {
+            "x": 70.5,
+            "y": -0.45620718977236646,
+            "z": -2
+          },
+          {
+            "x": 70.5,
+            "y": 0,
+            "z": -2
+          }
+        ]
+      }
+    },
+    "outputs": {
+      "out_Q": {
+        "status": false,
+        "destGate": [
+          {
+            "gateId": "NOR_24",
+            "pin": "in_A"
+          }
+        ]
+      }
+    },
+    "delay": 2
+  },
+  "AND_23": {
+    "id": "AND_23",
+    "name": "AND_23",
+    "type": "AND",
+    "position": [
+      14,
+      0,
+      0
+    ],
+    "rotation": 0,
+    "selfCall": false,
+    "inputs": {
+      "in_A": {
+        "srcGate": "AND_21",
+        "srcPin": "out_Q",
+        "selfGate": "AND_23",
+        "selfPin": "in_A",
+        "positions": [
+          {
+            "x": 69.75,
+            "y": 0,
+            "z": 2.5
+          },
+          {
+            "x": 69.75,
+            "y": -0.09013878188659973,
+            "z": 2.5
+          },
+          {
+            "x": 70.5,
+            "y": -0.09013878188659973,
+            "z": 2
+          },
+          {
+            "x": 70.5,
+            "y": 0,
+            "z": 2
+          }
+        ]
+      },
+      "in_B": {
+        "srcGate": "SWITCH_17",
+        "srcPin": "out_Q",
+        "selfGate": "AND_23",
+        "selfPin": "in_B",
+        "positions": [
+          {
+            "x": 59.75,
+            "y": 0,
+            "z": -2.5
+          },
+          {
+            "x": 59.75,
+            "y": -1.2075284675733322,
+            "z": -2.5
+          },
+          {
+            "x": 70.5,
+            "y": -1.2075284675733322,
+            "z": 3
+          },
+          {
+            "x": 70.5,
+            "y": 0,
+            "z": 3
+          }
+        ]
+      }
+    },
+    "outputs": {
+      "out_Q": {
+        "status": false,
+        "destGate": [
+          {
+            "gateId": "NOR_25",
+            "pin": "in_B"
+          }
+        ]
+      }
+    },
+    "delay": 2
+  },
+  "NOR_24": {
+    "id": "NOR_24",
+    "name": "NOR_24",
+    "type": "NOR",
+    "position": [
+      15,
+      0,
+      -1
+    ],
+    "rotation": 0,
+    "selfCall": false,
+    "inputs": {
+      "in_A": {
+        "srcGate": "AND_22",
+        "srcPin": "out_Q",
+        "selfGate": "NOR_24",
+        "selfPin": "in_A",
+        "positions": [
+          {
+            "x": 74.75,
+            "y": 0,
+            "z": -2.5
+          },
+          {
+            "x": 74.75,
+            "y": -0.09013878188659973,
+            "z": -2.5
+          },
+          {
+            "x": 75.5,
+            "y": -0.09013878188659973,
+            "z": -3
+          },
+          {
+            "x": 75.5,
+            "y": 0,
+            "z": -3
+          }
+        ]
+      },
+      "in_B": {
+        "srcGate": "NOR_25",
+        "srcPin": "out_Q",
+        "selfGate": "NOR_24",
+        "selfPin": "in_B",
+        "positions": [
+          {
+            "x": 79.75,
+            "y": 0,
+            "z": 2.5
+          },
+          {
+            "x": 79.75,
+            "y": -0.6189709201569974,
+            "z": 2.5
+          },
+          {
+            "x": 75.5,
+            "y": -0.6189709201569974,
+            "z": -2
+          },
+          {
+            "x": 75.5,
+            "y": 0,
+            "z": -2
+          }
+        ]
+      }
+    },
+    "outputs": {
+      "out_Q": {
+        "status": false,
+        "destGate": [
+          {
+            "gateId": "DISPLAY_26",
+            "pin": "in_A"
+          },
+          {
+            "gateId": "NOR_25",
+            "pin": "in_A"
+          }
+        ]
+      }
+    },
+    "delay": 3
+  },
+  "NOR_25": {
+    "id": "NOR_25",
+    "name": "NOR_25",
+    "type": "NOR",
+    "position": [
+      15,
+      0,
+      0
+    ],
+    "rotation": 0,
+    "selfCall": false,
+    "inputs": {
+      "in_A": {
+        "srcGate": "NOR_24",
+        "srcPin": "out_Q",
+        "selfGate": "NOR_25",
+        "selfPin": "in_A",
+        "positions": [
+          {
+            "x": 79.75,
+            "y": 0,
+            "z": -2.5
+          },
+          {
+            "x": 79.75,
+            "y": -0.6189709201569974,
+            "z": -2.5
+          },
+          {
+            "x": 75.5,
+            "y": -0.6189709201569974,
+            "z": 2
+          },
+          {
+            "x": 75.5,
+            "y": 0,
+            "z": 2
+          }
+        ]
+      },
+      "in_B": {
+        "srcGate": "AND_23",
+        "srcPin": "out_Q",
+        "selfGate": "NOR_25",
+        "selfPin": "in_B",
+        "positions": [
+          {
+            "x": 74.75,
+            "y": 0,
+            "z": 2.5
+          },
+          {
+            "x": 74.75,
+            "y": -0.09013878188659973,
+            "z": 2.5
+          },
+          {
+            "x": 75.5,
+            "y": -0.09013878188659973,
+            "z": 3
+          },
+          {
+            "x": 75.5,
+            "y": 0,
+            "z": 3
+          }
+        ]
+      }
+    },
+    "outputs": {
+      "out_Q": {
+        "status": true,
+        "destGate": [
+          {
+            "gateId": "DISPLAY_27",
+            "pin": "in_A"
+          },
+          {
+            "gateId": "NOR_24",
+            "pin": "in_B"
+          }
+        ]
+      }
+    },
+    "delay": 3
+  },
+  "DISPLAY_26": {
+    "id": "DISPLAY_26",
+    "name": "DISPLAY_26",
+    "type": "DISPLAY",
+    "position": [
+      16,
+      0,
+      -1
+    ],
+    "rotation": 0,
+    "selfCall": false,
+    "inputs": {
+      "in_A": {
+        "srcGate": "NOR_24",
+        "srcPin": "out_Q",
+        "selfGate": "DISPLAY_26",
+        "selfPin": "in_A",
+        "positions": [
+          {
+            "x": 79.75,
+            "y": 0,
+            "z": -2.5
+          },
+          {
+            "x": 79.75,
+            "y": -0.075,
+            "z": -2.5
+          },
+          {
+            "x": 80.5,
+            "y": -0.075,
+            "z": -2.5
+          },
+          {
+            "x": 80.5,
+            "y": 0,
+            "z": -2.5
+          }
+        ]
+      }
+    },
+    "outputs": {
+      "out_Q": {
+        "status": false,
+        "destGate": []
+      }
+    },
+    "delay": 1
+  },
+  "DISPLAY_27": {
+    "id": "DISPLAY_27",
+    "name": "DISPLAY_27",
+    "type": "DISPLAY",
+    "position": [
+      16,
+      0,
+      0
+    ],
+    "rotation": 0,
+    "selfCall": false,
+    "inputs": {
+      "in_A": {
+        "srcGate": "NOR_25",
+        "srcPin": "out_Q",
+        "selfGate": "DISPLAY_27",
+        "selfPin": "in_A",
+        "positions": [
+          {
+            "x": 79.75,
+            "y": 0,
+            "z": 2.5
+          },
+          {
+            "x": 79.75,
+            "y": -0.075,
+            "z": 2.5
+          },
+          {
+            "x": 80.5,
+            "y": -0.075,
+            "z": 2.5
+          },
+          {
+            "x": 80.5,
+            "y": 0,
+            "z": 2.5
+          }
+        ]
+      }
+    },
+    "outputs": {
+      "out_Q": {
+        "status": true,
         "destGate": []
       }
     },

@@ -31,12 +31,19 @@ function renderGate(obj) {
   const StandardGate = GATE_COMPONENTS[obj.type];
 
   if (StandardGate) {
-    return <StandardGate key={obj.id} position={position} rotation={rotation} />;
+    return (
+      <StandardGate
+        name={obj.name}
+        key={obj.id}
+        position={position}
+        rotation={rotation} />
+    );
   }
 
   if (obj.type === CLOCK) {
     return (
       <ClockGate
+        name={obj.name}
         key={obj.id}
         position={position}
         rotation={rotation}
@@ -47,6 +54,7 @@ function renderGate(obj) {
   if (obj.type === SWITCH) {
     return (
       <SwitchGate
+        name={obj.name}
         key={obj.id}
         id={obj.id}
         position={position}
@@ -57,8 +65,10 @@ function renderGate(obj) {
   }
 
   if (obj.type === DISPLAY) {
+    // if (obj.name === "DISPLAY_16") console.log(obj)
     return (
       <Display
+        name={obj.name}
         key={obj.id}
         position={position}
         rotation={rotation}
@@ -70,6 +80,7 @@ function renderGate(obj) {
 
 function RenderObject() {
   const gates = useObjectsSlice(state => state.GATES);
+  // console.log(gates)
   const data = useMemo(() => Object.values(gates), [gates])
   const wires = useMemo(() => data
     .map(i => Object.values(i.inputs))

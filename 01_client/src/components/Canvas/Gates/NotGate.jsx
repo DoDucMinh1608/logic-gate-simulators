@@ -4,15 +4,17 @@ Command: npx gltfjsx@6.5.3 ./models/NOT.glb -o ./src/components/Canvas/Gates/Not
 Files: ./models/NOT.glb [26.64KB] > C:\Users\ducmi\projects\logic-gate-simulators\src\components\Canvas\Gates\NOT-transformed.glb [5.07KB] (81%)
 */
 
-import { useGLTF } from '@react-three/drei'
+import { Billboard, Float, Text, useGLTF } from '@react-three/drei'
 
 import { GATE_COLORS, PORT_COLORS } from '@/utils/colors'
 import { IN_A, OUT_Q } from '@/utils/constants'
+import GateName from './GateName'
 
-export default function NotGate(props) {
+export default function NotGate({ name, ...props }) {
   const { nodes, materials } = useGLTF('/NOT-transformed.glb')
   return (
     <group {...props} dispose={null}>
+      <GateName name={name} />
       <mesh geometry={nodes['1'].geometry} material={materials.Khoi}>
         <meshStandardMaterial
           color={GATE_COLORS}

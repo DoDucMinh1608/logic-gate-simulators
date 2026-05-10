@@ -1,7 +1,8 @@
-import { useThrottledFrame } from "@/hooks/useThrottledFrame";
+import { useFrame } from "@react-three/fiber";
+
 import { GATE_FUNCTIONS, useObjectsSlice } from "@/store/objectsSlice";
 import { usePlayerSlice } from "@/store/playerSlice";
-import { useFrame } from "@react-three/fiber";
+import { DISPLAY } from "@/utils/constants";
 
 function UpdateLogicGateState() {
   // const gates = useObjectsSlice(s => s.GATES)
@@ -16,19 +17,18 @@ function UpdateLogicGateState() {
 
   useFrame(function (state, delta) {
     // useThrottledFrame(function (state, delta) {
+    // console.log('te')
     if (!executeNextStep) return
-    // setExecuteNextStep(false)
+    // console.log('ted')
+    setExecuteNextStep(false)
 
     const gates = { ...useObjectsSlice.getState().GATES }
-    const time = useObjectsSlice.getState().TIME
     const events = getEvents()
 
+    if (events.length === 0) return
 
-    if (events.length > 0) {
-      setExecuteNextStep(false)
-      console.log('______________________________________________')
-    }
-
+    console.log('______________________________________________')
+    // console.log(events)
     const needUpdates = []
     const dispatchEvents = []
     for (const event of events) {
@@ -36,20 +36,23 @@ function UpdateLogicGateState() {
       if (targetGate == null) continue
 
       const gateState = event.gateState
+      // for (const outPin in targetGate.outputs) {
+      //   gateState[outPin] = targetGate.outputs[outPin].status
+      // }
       const nextState = GATE_FUNCTIONS[targetGate.type](gateState)
-      const needUpdate = { gateId: targetGate.id, pins: [], time: time }
+      const needUpdate = { gateId: targetGate.id, pins: [] }
 
       for (let pin in nextState) {
         if (!targetGate.outputs[pin]) continue
-        if (nextState[pin] === targetGate.outputs[pin]?.status) continue
-
         needUpdate.pins.push({ pin, status: nextState[pin] })
+
+        if (nextState[pin] == gateState?.[pin] && targetGate.type != DISPLAY) continue
         for (const gate of targetGate.outputs[pin].destGate) {
           const nextGate = gates[gate.gateId]
           dispatchEvents.push({
             gateId: nextGate.id,
-            time: event.time + (targetGate.delay ?? 2),
-            gate: gates[nextGate.id]
+            time: event.time + targetGate.delay,
+            gate: `${targetGate.name}-${nextGate.name}`
           })
         }
       }
@@ -57,15 +60,21 @@ function UpdateLogicGateState() {
         dispatchEvents.push({
           gateId: targetGate.id,
           time: event.time + targetGate.delay,
-          gate: gates[targetGate.id]
+          gate: gates[targetGate.id].name
         })
       }
       if (needUpdate.pins.length > 0) needUpdates.push(needUpdate)
+      console.log({ event, gateState, nextState })
     }
-    if (dispatchEvents.length > 0) console.log('dispatchEvents: ', dispatchEvents)
 
-    if (needUpdates.length > 0) updateGateOutputs(needUpdates)
-    if (dispatchEvents.length > 0) addEvent(dispatchEvents)
+    if (needUpdates.length > 0) {
+      console.log('needUpdates: ', needUpdates)
+      updateGateOutputs(needUpdates)
+    }
+    if (dispatchEvents.length > 0) {
+      addEvent(dispatchEvents)
+      console.log('dispatchEvents: ', dispatchEvents)
+    }
     updateTime()
   }, 0)
 }
