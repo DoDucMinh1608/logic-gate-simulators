@@ -5,7 +5,6 @@ import { usePlayerSlice } from "@/store/playerSlice";
 import { DISPLAY } from "@/utils/constants";
 
 function UpdateLogicGateState() {
-  // const gates = useObjectsSlice(s => s.GATES)
   const getEvents = useObjectsSlice(s => s.getEvents)
   const getStateByGateId = useObjectsSlice(s => s.getStateByGateId)
   const updateGateOutputs = useObjectsSlice(s => s.updateGateOutputs)
@@ -17,11 +16,11 @@ function UpdateLogicGateState() {
 
   useFrame(function (state, delta) {
     // useThrottledFrame(function (state, delta) {
-    // console.log('te')
     if (!executeNextStep) return
-    // console.log('ted')
     setExecuteNextStep(false)
 
+    updateTime()
+    const time = useObjectsSlice.getState().TIME
     const gates = { ...useObjectsSlice.getState().GATES }
     const events = getEvents()
 
@@ -44,14 +43,14 @@ function UpdateLogicGateState() {
 
       for (let pin in nextState) {
         if (!targetGate.outputs[pin]) continue
-        needUpdate.pins.push({ pin, status: nextState[pin] })
-
         if (nextState[pin] == gateState?.[pin] && targetGate.type != DISPLAY) continue
+
+        needUpdate.pins.push({ pin, status: nextState[pin] })
         for (const gate of targetGate.outputs[pin].destGate) {
           const nextGate = gates[gate.gateId]
           dispatchEvents.push({
             gateId: nextGate.id,
-            time: event.time + targetGate.delay,
+            time: time + targetGate.delay,
             gate: `${targetGate.name}-${nextGate.name}`
           })
         }
@@ -59,23 +58,22 @@ function UpdateLogicGateState() {
       if (targetGate.selfCall) {
         dispatchEvents.push({
           gateId: targetGate.id,
-          time: event.time + targetGate.delay,
+          time: time + targetGate.delay,
           gate: gates[targetGate.id].name
         })
       }
       if (needUpdate.pins.length > 0) needUpdates.push(needUpdate)
-      console.log({ event, gateState, nextState })
+      // console.log({ event, gateState, nextState })
     }
 
     if (needUpdates.length > 0) {
-      console.log('needUpdates: ', needUpdates)
+      // console.log('needUpdates: ', needUpdates)
       updateGateOutputs(needUpdates)
     }
     if (dispatchEvents.length > 0) {
       addEvent(dispatchEvents)
       console.log('dispatchEvents: ', dispatchEvents)
     }
-    updateTime()
   }, 0)
 }
 
