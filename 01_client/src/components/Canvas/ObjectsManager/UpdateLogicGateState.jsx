@@ -6,18 +6,20 @@ import { DISPLAY } from "@/utils/constants";
 
 function UpdateLogicGateState() {
   const getEvents = useObjectsSlice(s => s.getEvents)
-  const getStateByGateId = useObjectsSlice(s => s.getStateByGateId)
   const updateGateOutputs = useObjectsSlice(s => s.updateGateOutputs)
   const addEvent = useObjectsSlice(s => s.addEvent)
   const updateTime = useObjectsSlice(s => s.updateTime)
 
   const executeNextStep = usePlayerSlice(s => s.executeNextStep)
   const setExecuteNextStep = usePlayerSlice(s => s.setExecuteNextStep)
+  const isDebugMode = usePlayerSlice(state => state.isDebugMode)
 
   useFrame(function (state, delta) {
     // useThrottledFrame(function (state, delta) {
-    if (!executeNextStep) return
-    setExecuteNextStep(false)
+    if (isDebugMode) {
+      if (!executeNextStep) return
+      setExecuteNextStep(false)
+    }
 
     updateTime()
     const time = useObjectsSlice.getState().TIME

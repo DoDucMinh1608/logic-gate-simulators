@@ -11,6 +11,10 @@ export const usePlayerSlice = create((set, get) => ({
   selectPort: null,
   selectBuildPort: null,
   executeNextStep: false,
+  isDebugMode: true,
+  setDebugMode(mode) {
+    set(s => ({ isDebugMode: mode }))
+  },
   setExecuteNextStep(value) {
     set(s => ({ executeNextStep: value }))
   },
