@@ -34,6 +34,7 @@ function renderGate(obj) {
     return (
       <StandardGate
         name={obj.name}
+        state={obj.outputs}
         key={obj.id}
         position={position}
         rotation={rotation} />

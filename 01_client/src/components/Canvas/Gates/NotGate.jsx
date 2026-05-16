@@ -10,7 +10,7 @@ import { GATE_COLORS, PORT_COLORS } from '@/utils/colors'
 import { IN_A, OUT_Q } from '@/utils/constants'
 import GateName from './GateName'
 
-export default function NotGate({ name, ...props }) {
+export default function NotGate({ name, state, ...props }) {
   const { nodes, materials } = useGLTF('/NOT-transformed.glb')
   return (
     <group {...props} dispose={null}>
@@ -23,6 +23,15 @@ export default function NotGate({ name, ...props }) {
           envMapIntensity={1.5}
           flatShading={true}
         />
+      </mesh>
+      <mesh position={[.8, 1, 0]}>
+        <boxGeometry args={[.4, .4, .4]} />
+        <meshStandardMaterial
+          color={state?.[OUT_Q].status ? 0xff0000 : 0x0000ff}
+          metalness={1}
+          roughness={0.4}
+          envMapIntensity={1.5}
+          flatShading={true} />
       </mesh>
       <mesh geometry={nodes.Cot1.geometry} material={nodes.Cot1.material}>
         <meshStandardMaterial

@@ -213,6 +213,7 @@ export const useObjectsSlice = create((set, get) => ({
     set(s => ({ EVENTS: events }))
   },
   getEvents(remove = true) {
+    const gates = get().GATES
     const time = get().TIME
     const events = []
     const result = Object.values([...get().EVENTS].reduce((acc, i) => {
@@ -221,6 +222,7 @@ export const useObjectsSlice = create((set, get) => ({
         return acc
       }
       if (!acc[i.gateId]) acc[i.gateId] = i
+      if (gates[i.gateId] == null) delete acc[i.gateId]
       if (!remove) events.push(i)
       return acc
     }, {}))

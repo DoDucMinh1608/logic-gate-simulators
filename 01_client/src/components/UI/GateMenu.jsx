@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 
 import { usePlayerSlice } from "@/store/playerSlice";
 import { AND_GATE, CLOCK, DISPLAY, NAND_GATE, NOR_GATE, NOT_GATE, OR_GATE, SWITCH, WIRE, XOR_GATE } from "@/utils/constants";
-// import { GATE_TYPES } from "@/utils/constants";
+
 const NORMAL_GATE_TYPES = [
   WIRE,
   CLOCK,
@@ -10,10 +10,7 @@ const NORMAL_GATE_TYPES = [
   DISPLAY,
   AND_GATE,
   OR_GATE,
-  // XOR_GATE,
   NOT_GATE,
-  // NAND_GATE,
-  // NOR_GATE,
 ];
 const NOT_GATE_TYPES = [
   WIRE,
@@ -22,9 +19,6 @@ const NOT_GATE_TYPES = [
   DISPLAY,
   NAND_GATE,
   NOR_GATE,
-  // AND_GATE,
-  // OR_GATE,
-  // XOR_GATE,
   NOT_GATE,
 ];
 

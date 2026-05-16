@@ -10,14 +10,11 @@ function CurrentCameraState() {
 
   useEffect(function () {
     const handleKeyDown = (event) => {
-      console.log((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === 's')
       if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === 's') {
         // Prevent the browser's default "Save Page As..." dialog
         event.preventDefault();
-
         console.log(JSON.stringify(useObjectsSlice.getState().GATES))
       }
-
     };
 
     window.addEventListener('keydown', handleKeyDown);
@@ -26,11 +23,7 @@ function CurrentCameraState() {
     }
   }, [])
   return (
-    <div className="font-mono absolute  right-0 top-0 translate-x-2 flex bg-[rgba(255,255,255,0.5)] p-3 gap-5 z-10"
-      onClick={(e) => {
-        // console.log(JSON.stringify(useObjectsSlice.getState().GATES))
-        // console.log(JSON.stringify(useObjectsSlice.getState().EVENTS))
-      }}>
+    <div className="font-mono absolute  right-0 top-0 translate-x-2 flex bg-[rgba(255,255,255,0.5)] p-3 gap-5 z-10">
       <div>
         Position:<br />
         <p className="pl-5 grid grid-cols-2 gapx-5">
@@ -46,12 +39,7 @@ function CurrentCameraState() {
           <span>pitch:</span><span>{angles.pitch.toFixed(2).padStart(5, '\u00A0')}°</span>
         </div>
       </div>
-      {/* <button onClick={e => {
-
-        console.log(JSON.stringify(useObjectsSlice.getState().GATES))
-        console.log(JSON.stringify(useObjectsSlice.getState().EVENTS))
-      }}>Export</button> */}
-    </div>
+    </div >
   )
 }
 

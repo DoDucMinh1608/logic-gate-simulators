@@ -10,7 +10,7 @@ import { GATE_COLORS, PORT_COLORS } from '@/utils/colors'
 import { IN_A, IN_B, OUT_Q } from '@/utils/constants'
 import GateName from './GateName'
 
-export default function OrGate({ name, ...props }) {
+export default function OrGate({ name, state, ...props }) {
   const { nodes, materials } = useGLTF('/OR-transformed.glb')
   return (
     <group {...props} dispose={null}>
@@ -27,6 +27,15 @@ export default function OrGate({ name, ...props }) {
         <boxGeometry args={[.4, .3, .3]} />
         <meshStandardMaterial
           color={PORT_COLORS}
+          metalness={1}
+          roughness={0.4}
+          envMapIntensity={1.5}
+          flatShading={true} />
+      </mesh>
+      <mesh position={[.8, 1, 0]}>
+        <boxGeometry args={[.4, .4, .4]} />
+        <meshStandardMaterial
+          color={state?.[OUT_Q].status ? 0xff0000 : 0x0000ff}
           metalness={1}
           roughness={0.4}
           envMapIntensity={1.5}
