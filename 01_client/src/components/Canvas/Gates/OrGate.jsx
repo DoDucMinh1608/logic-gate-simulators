@@ -4,7 +4,7 @@ Command: npx gltfjsx@6.5.3 ./models/OR.glb -o ./src/components/Canvas/Gates/OrGa
 Files: ./models/OR.glb [3.54KB] > C:\Users\ducmi\projects\logic-gate-simulators\src\components\Canvas\Gates\OR-transformed.glb [1.55KB] (56%)
 */
 
-import { Billboard, Float, Text, useGLTF } from '@react-three/drei'
+import { useGLTF } from '@react-three/drei'
 
 import { GATE_COLORS, PORT_COLORS } from '@/utils/colors'
 import { IN_A, IN_B, INPUT_PIN, INVALID_PIN, OR_GATE, OUT_Q, OUTPUT_PIN } from '@/utils/constants'
@@ -79,5 +79,41 @@ OrGate.CheckPinType = (pin) => {
 OrGate.NextStep = (wireState = {}) => {
   return { [OUT_Q]: wireState[IN_A] || wireState[IN_B] }
 }
-
+OrGate.GetPinPositions = function (x, y, z) {
+  return {
+    in_A: [
+      [x * 5 + 0.5, 0, z * 5 + 2],
+      [x * 5 + 1, 0, z * 5 + 2],
+    ],
+    in_B: [
+      [x * 5 + 0.5, y, z * 5 + 3],
+      [x * 5 + 1, y, z * 5 + 3],
+    ],
+    out_Q: [
+      [x * 5 + 4, y, z * 5 + 2.5],
+      [x * 5 + 4.75, y, z * 5 + 2.5],
+    ]
+  }
+}
+OrGate.GetSelectPin = function (contactPoint, gateWorldPos, gatePos) {
+  const pinPos = OrGate.GetPinPositions(gatePos.x, gatePos.y, gatePos.z)
+  if (contactPoint.x > gateWorldPos.x) {
+    return {
+      pin: OUT_Q,
+      position: pinPos[OUT_Q][1]
+    }
+  } else {
+    if (contactPoint.z < gateWorldPos.z) {
+      return {
+        pin: IN_A,
+        position: pinPos[IN_A][0]
+      }
+    } else {
+      return {
+        pin: IN_B,
+        position: pinPos[IN_B][0]
+      }
+    }
+  }
+}
 useGLTF.preload('/OR-transformed.glb')

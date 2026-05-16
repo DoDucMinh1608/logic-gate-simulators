@@ -58,5 +58,30 @@ Display.CheckPinType = (pin) => {
 Display.NextStep = (wireState = {}) => {
   return { [OUT_Q]: wireState[IN_A] ?? false }
 }
-
+Display.GetPinPositions = function (x, y, z) {
+  return {
+    in_A: [
+      [x * 5 + 0.5, y, z * 5 + 2.5],
+      [x * 5 + 1, y, z * 5 + 2.5],
+    ],
+    out_Q: [
+      [x * 5 + 4, y, z * 5 + 2.5],
+      [x * 5 + 4.75, y, z * 5 + 2.5],
+    ]
+  }
+}
+Display.GetSelectPin = function (contactPoint, gateWorldPos, gatePos) {
+  const pinPos = Display.GetPinPositions(gatePos.x, gatePos.y, gatePos.z)
+  if (contactPoint.x > gateWorldPos.x) {
+    return {
+      pin: OUT_Q,
+      position: pinPos[OUT_Q][1]
+    }
+  } else {
+    return {
+      pin: IN_A,
+      position: pinPos[IN_A][0]
+    }
+  }
+}
 export default Display

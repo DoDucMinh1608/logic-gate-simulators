@@ -7,7 +7,6 @@ import { INVALID_PIN, OUT_Q, OUTPUT_PIN, SWITCH } from '@/utils/constants'
 function onClick(id) {
   const addEvent = useObjectsSlice.getState().addEvent
   const time = useObjectsSlice.getState().TIME
-  console.log(id)
   addEvent([{ gateId: id, time: time }])
 }
 
@@ -64,5 +63,20 @@ SwitchGate.CheckPinType = (pin) => {
 }
 SwitchGate.NextStep = (wireState = {}) => {
   return { [OUT_Q]: !wireState[OUT_Q] }
+}
+SwitchGate.GetPinPositions = function (x, y, z) {
+  return {
+    out_Q: [
+      [x * 5 + 4, y, z * 5 + 2.5],
+      [x * 5 + 4.75, y, z * 5 + 2.5],
+    ]
+  }
+}
+SwitchGate.GetSelectPin = function (contactPoint, gateWorldPos, gatePos) {
+  const pinPos = SwitchGate.GetPinPositions(gatePos.x, gatePos.y, gatePos.z)
+  return {
+    pin: OUT_Q,
+    position: pinPos[OUT_Q][1]
+  }
 }
 export default SwitchGate

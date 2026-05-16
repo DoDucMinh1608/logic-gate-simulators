@@ -50,5 +50,19 @@ ClockGate.CheckPinType = (pin) => {
 ClockGate.NextStep = (wireState = {}) => {
   return { [OUT_Q]: !wireState[OUT_Q] }
 }
-
+ClockGate.GetPinPositions = function (x, y, z) {
+  return {
+    [OUT_Q]: [
+      [x * 5 + 4, y, z * 5 + 2.5],
+      [x * 5 + 4.75, y, z * 5 + 2.5],
+    ]
+  }
+}
+ClockGate.GetSelectPin = function (contactPoint, gateWorldPos, gatePos) {
+  const pinPos = ClockGate.GetPinPositions(gatePos.x, gatePos.y, gatePos.z)
+  return {
+    pin: OUT_Q,
+    position: pinPos[OUT_Q][1]
+  }
+}
 export default ClockGate

@@ -71,5 +71,30 @@ NotGate.CheckPinType = (pin) => {
 NotGate.NextStep = (wireState = {}) => {
   return { [OUT_Q]: !wireState[IN_A] }
 }
-
+NotGate.GetPinPositions = function (x, y, z) {
+  return {
+    in_A: [
+      [x * 5 + 0.5, y, z * 5 + 2.5],
+      [x * 5 + 1, y, z * 5 + 2.5],
+    ],
+    out_Q: [
+      [x * 5 + 4, y, z * 5 + 2.5],
+      [x * 5 + 4.75, y, z * 5 + 2.5],
+    ]
+  }
+}
+NotGate.GetSelectPin = function (contactPoint, gateWorldPos, gatePos) {
+  const pinPos = NotGate.GetPinPositions(gatePos.x, gatePos.y, gatePos.z)
+  if (contactPoint.x > gateWorldPos.x) {
+    return {
+      pin: OUT_Q,
+      position: pinPos[OUT_Q][1]
+    }
+  } else {
+    return {
+      pin: IN_A,
+      position: pinPos[IN_A][0]
+    }
+  }
+}
 useGLTF.preload('/NOT-transformed.glb')

@@ -81,4 +81,41 @@ NandGate.CheckPinType = (pin) => {
 NandGate.NextStep = (wireState = {}) => {
   return { [OUT_Q]: !(wireState[IN_A] && wireState[IN_B]) }
 }
+NandGate.GetPinPositions = function (x, y, z) {
+  return {
+    in_A: [
+      [x * 5 + 0.5, 0, z * 5 + 2],
+      [x * 5 + 1, 0, z * 5 + 2],
+    ],
+    in_B: [
+      [x * 5 + 0.5, y, z * 5 + 3],
+      [x * 5 + 1, y, z * 5 + 3],
+    ],
+    out_Q: [
+      [x * 5 + 4, y, z * 5 + 2.5],
+      [x * 5 + 4.75, y, z * 5 + 2.5],
+    ]
+  }
+}
+NandGate.GetSelectPin = function (contactPoint, gateWorldPos, gatePos) {
+  const pinPos = NandGate.GetPinPositions(gatePos.x, gatePos.y, gatePos.z)
+  if (contactPoint.x > gateWorldPos.x) {
+    return {
+      pin: OUT_Q,
+      position: pinPos[OUT_Q][1]
+    }
+  } else {
+    if (contactPoint.z < gateWorldPos.z) {
+      return {
+        pin: IN_A,
+        position: pinPos[IN_A][0]
+      }
+    } else {
+      return {
+        pin: IN_B,
+        position: pinPos[IN_B][0]
+      }
+    }
+  }
+}
 useGLTF.preload('/NAND-transformed.glb')
