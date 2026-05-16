@@ -2,20 +2,23 @@ import { useObjectsSlice } from '@/store/objectsSlice'
 import { GATE_COLORS, PORT_COLORS } from '@/utils/colors'
 
 import GateName from './GateName'
+import { INVALID_PIN, OUT_Q, OUTPUT_PIN, SWITCH } from '@/utils/constants'
 
 function onClick(id) {
   const addEvent = useObjectsSlice.getState().addEvent
   const time = useObjectsSlice.getState().TIME
+  console.log(id)
   addEvent([{ gateId: id, time: time }])
 }
 
-function SwitchGate({ id, name, state, ...props }) {
+function SwitchGate({ gate_id, name, state, ...props }) {
+  console.log(state)
   return (
     <group {...props} dispose={null}
       onClick={e => {
         e.stopPropagation()
         if (e.button == 2) {
-          onClick(id)
+          onClick(gate_id)
         }
       }}>
       <GateName name={name} />
@@ -31,7 +34,7 @@ function SwitchGate({ id, name, state, ...props }) {
       <mesh position={[0, 1, 0]} rotation={[0, Math.PI / 2, 0]}>
         <cylinderGeometry args={[1, 1, 1.2, 10]} />
         <meshStandardMaterial
-          color={state ? 0xff0000 : 0x0000ff}
+          color={state?.[OUT_Q].status ? 0xff0000 : 0x0000ff}
           metalness={1}
           roughness={0.4}
           envMapIntensity={1.5}
@@ -49,5 +52,17 @@ function SwitchGate({ id, name, state, ...props }) {
     </group>
   )
 }
-
+SwitchGate.gate_name = SWITCH
+SwitchGate.delay = 1
+SwitchGate.defaultInputs = JSON.stringify({})
+SwitchGate.defaultOutputs = JSON.stringify({
+  [OUT_Q]: { status: false, destGate: [] }
+})
+SwitchGate.CheckPinType = (pin) => {
+  if (pin === OUT_Q) return OUTPUT_PIN
+  return INVALID_PIN
+}
+SwitchGate.NextStep = (wireState = {}) => {
+  return { [OUT_Q]: !wireState[OUT_Q] }
+}
 export default SwitchGate

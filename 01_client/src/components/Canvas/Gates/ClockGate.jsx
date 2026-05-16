@@ -1,6 +1,5 @@
 import { GATE_COLORS, PORT_COLORS } from "@/utils/colors"
-import { DEFAULT_STATE_C, OUT_Q } from "@/utils/constants"
-import { Billboard, Float, Text } from "@react-three/drei"
+import { CLOCK, INVALID_PIN, OUT_Q, OUTPUT_PIN } from "@/utils/constants"
 import GateName from "./GateName"
 
 function ClockGate({ name, ...props }) {
@@ -37,12 +36,19 @@ function ClockGate({ name, ...props }) {
     </group>
   )
 }
-
-function NextState(wireState) {
+ClockGate.gate_name = CLOCK
+ClockGate.delay = 5
+ClockGate.selfCall = true
+ClockGate.defaultInputs = JSON.stringify({})
+ClockGate.defaultOutputs = JSON.stringify({
+  [OUT_Q]: { status: false, destGate: [] }
+})
+ClockGate.CheckPinType = (pin) => {
+  if (pin === OUT_Q) return OUTPUT_PIN
+  return INVALID_PIN
+}
+ClockGate.NextStep = (wireState = {}) => {
   return { [OUT_Q]: !wireState[OUT_Q] }
 }
-
-ClockGate.NextState = NextState
-ClockGate.Init = function () { }
 
 export default ClockGate

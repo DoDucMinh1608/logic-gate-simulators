@@ -4,6 +4,30 @@ import { useObjectsSlice } from "@/store/objectsSlice";
 import { usePlayerSlice } from "@/store/playerSlice";
 import { useUtilitySlice } from "@/store/utilitiesSlice";
 import { CheckPinType, convertWorldCoorToGatePos, setSnapGridPosition } from "@/utils";
+import { AND_GATE, CLOCK, DISPLAY, INPUT_PIN, LEFT_CLICK, NAND_GATE, NOR_GATE, NOT_GATE, OR_GATE, OUTPUT_PIN, RIGHT_CLICK, SWITCH, TRANSISTOR_SIZE, WIRE, XOR_GATE } from "@/utils/constants";
+
+import OrGate from "../Gates/OrGate";
+import AndGate from "../Gates/AndGate";
+import NotGate from "../Gates/NotGate";
+import NandGate from "../Gates/NandGate";
+import NorGate from "../Gates/NorGate";
+
+import ClockGate from "../Gates/ClockGate";
+import SwitchGate from "../Gates/SwitchGate";
+import Display from "../Gates/Display";
+import XorGate from "../Gates/XorGate";
+
+const GATE_COMPONENTS = {
+  [AND_GATE]: AndGate,
+  [OR_GATE]: OrGate,
+  [NOT_GATE]: NotGate,
+  [NAND_GATE]: NandGate,
+  [NOR_GATE]: NorGate,
+  [XOR_GATE]: XorGate,
+  [CLOCK]: ClockGate,
+  [SWITCH]: SwitchGate,
+  [DISPLAY]: Display
+};
 
 function placeGate(button, gatePosition) {
   const addGate = useObjectsSlice.getState().addGate;
@@ -21,10 +45,10 @@ function placeGate(button, gatePosition) {
       }
       break;
     case RIGHT_CLICK:
-
       if (!existingGate) {
         addGate({
           type: selectBuildGate,
+          model: GATE_COMPONENTS[selectBuildGate],
           position: [gatePosition[0], 0, gatePosition[2]],
           rotation: 0,
           custom: {}
@@ -37,6 +61,7 @@ function placeGate(button, gatePosition) {
 }
 
 function placeWire(button, gatePosition) {
+  const gates = useObjectsSlice.getState().GATES
   const selectPort = usePlayerSlice.getState().selectPort
   const selectBuildPort = usePlayerSlice.getState().selectBuildPort
   const setSelectPort = usePlayerSlice.getState().setSelectPort
@@ -69,8 +94,8 @@ function placeWire(button, gatePosition) {
         return
       }
 
-      let port1Type = CheckPinType(selectPort.gateId, selectPort.pin)
-      let port2Type = CheckPinType(selectBuildPort.gateId, selectBuildPort.pin)
+      let port1Type = gates[selectPort.gateId].model.CheckPinType(selectPort.pin)
+      let port2Type = gates[selectBuildPort.gateId].model.CheckPinType(selectBuildPort.pin)
       if (port1Type == port2Type) {
         return
       }

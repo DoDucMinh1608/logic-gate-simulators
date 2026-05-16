@@ -7,7 +7,7 @@ Files: ./models/XOR.glb [7KB] > C:\Users\ducmi\projects\logic-gate-simulators\sr
 import { useGLTF } from '@react-three/drei'
 
 import { GATE_COLORS, PORT_COLORS } from '@/utils/colors'
-import { IN_A, IN_B, OUT_Q } from '@/utils/constants'
+import { IN_A, IN_B, INPUT_PIN, INVALID_PIN, OUT_Q, OUTPUT_PIN, XOR_GATE } from '@/utils/constants'
 import GateName from './GateName'
 
 export default function XorGate({ name, ...props }) {
@@ -53,17 +53,22 @@ export default function XorGate({ name, ...props }) {
     </group>
   )
 }
-
-function NextState(wireState) {
-  return {
-    [IN_A]: wireState[IN_A],
-    [IN_B]: wireState[IN_B],
-    [OUT_Q]: wireState[IN_A] != wireState[IN_B]
-  }
+XorGate.gate_name = XOR_GATE
+XorGate.delay = 4
+XorGate.defaultInputs = JSON.stringify({
+  [IN_A]: { srcGate: "", srcPin: "", selfGate: "", selfPin: "" },
+  [IN_B]: { srcGate: "", srcPin: "", selfGate: "", selfPin: "" }
+})
+XorGate.defaultOutputs = JSON.stringify({
+  [OUT_Q]: { status: false, destGate: [] }
+})
+XorGate.CheckPinType = (pin) => {
+  if (pin === IN_A || pin === IN_B) return INPUT_PIN
+  if (pin === OUT_Q) return OUTPUT_PIN
+  return INVALID_PIN
 }
-
-XorGate.NextState = NextState
-XorGate.Init = function () {
+XorGate.NextStep = (wireState = {}) => {
+  return { [OUT_Q]: wireState[IN_A] != wireState[IN_B] }
 }
 
 useGLTF.preload('/XOR-transformed.glb')

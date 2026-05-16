@@ -7,7 +7,7 @@ Files: ./models/NOR.glb [28.94KB] > C:\Users\ducmi\projects\logic-gate-simulator
 import { useGLTF } from '@react-three/drei'
 
 import { GATE_COLORS, PORT_COLORS } from '@/utils/colors'
-import { IN_A, IN_B, OUT_Q } from '@/utils/constants'
+import { IN_A, IN_B, INPUT_PIN, INVALID_PIN, NOR_GATE, OUT_Q, OUTPUT_PIN } from '@/utils/constants'
 import GateName from './GateName'
 
 export default function NorGate({ name, state, ...props }) {
@@ -61,16 +61,21 @@ export default function NorGate({ name, state, ...props }) {
     </group>
   )
 }
-
-function NextState(wireState) {
-  return {
-    [IN_A]: wireState[IN_A],
-    [IN_B]: wireState[IN_B],
-    [OUT_Q]: !(wireState[IN_A] || wireState[IN_B])
-  }
+NorGate.gate_name = NOR_GATE
+NorGate.delay = 2
+NorGate.defaultInputs = JSON.stringify({
+  [IN_A]: { srcGate: "", srcPin: "", selfGate: "", selfPin: "" },
+  [IN_B]: { srcGate: "", srcPin: "", selfGate: "", selfPin: "" }
+})
+NorGate.defaultOutputs = JSON.stringify({
+  [OUT_Q]: { status: true, destGate: [] }
+})
+NorGate.CheckPinType = (pin) => {
+  if (pin === IN_A || pin === IN_B) return INPUT_PIN
+  if (pin === OUT_Q) return OUTPUT_PIN
+  return INVALID_PIN
 }
-
-NorGate.NextState = NextState
-NorGate.Init = function () { }
-
+NorGate.NextStep = (wireState = {}) => {
+  return { [OUT_Q]: !(wireState[IN_A] || wireState[IN_B]) }
+}
 useGLTF.preload('/NOR-transformed.glb')

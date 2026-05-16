@@ -4,10 +4,10 @@ Command: npx gltfjsx@6.5.3 ./models/NOT.glb -o ./src/components/Canvas/Gates/Not
 Files: ./models/NOT.glb [26.64KB] > C:\Users\ducmi\projects\logic-gate-simulators\src\components\Canvas\Gates\NOT-transformed.glb [5.07KB] (81%)
 */
 
-import { Billboard, Float, Text, useGLTF } from '@react-three/drei'
+import { useGLTF } from '@react-three/drei'
 
 import { GATE_COLORS, PORT_COLORS } from '@/utils/colors'
-import { IN_A, OUT_Q } from '@/utils/constants'
+import { IN_A, INPUT_PIN, INVALID_PIN, NOT_GATE, OUT_Q, OUTPUT_PIN } from '@/utils/constants'
 import GateName from './GateName'
 
 export default function NotGate({ name, state, ...props }) {
@@ -27,7 +27,7 @@ export default function NotGate({ name, state, ...props }) {
       <mesh position={[.8, 1, 0]}>
         <boxGeometry args={[.4, .4, .4]} />
         <meshStandardMaterial
-          color={state?.[OUT_Q].status ? 0xff0000 : 0x0000ff}
+          color={state?.[OUT_Q]?.status ? 0xff0000 : 0x0000ff}
           metalness={1}
           roughness={0.4}
           envMapIntensity={1.5}
@@ -55,15 +55,21 @@ export default function NotGate({ name, state, ...props }) {
     </group>
   )
 }
-
-function NextState(wireState) {
-  return {
-    [IN_A]: wireState[IN_A],
-    [OUT_Q]: !wireState[IN_A]
-  }
+NotGate.gate_name = NOT_GATE
+NotGate.delay = 1
+NotGate.defaultInputs = JSON.stringify({
+  [IN_A]: { srcGate: "", srcPin: "", selfGate: "", selfPin: "" }
+})
+NotGate.defaultOutputs = JSON.stringify({
+  [OUT_Q]: { status: true, destGate: [] }
+})
+NotGate.CheckPinType = (pin) => {
+  if (pin === IN_A) return INPUT_PIN
+  if (pin === OUT_Q) return OUTPUT_PIN
+  return INVALID_PIN
 }
-
-NotGate.NextState = NextState
-NotGate.Init = function () { }
+NotGate.NextStep = (wireState = {}) => {
+  return { [OUT_Q]: !wireState[IN_A] }
+}
 
 useGLTF.preload('/NOT-transformed.glb')

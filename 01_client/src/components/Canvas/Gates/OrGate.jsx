@@ -7,7 +7,7 @@ Files: ./models/OR.glb [3.54KB] > C:\Users\ducmi\projects\logic-gate-simulators\
 import { Billboard, Float, Text, useGLTF } from '@react-three/drei'
 
 import { GATE_COLORS, PORT_COLORS } from '@/utils/colors'
-import { IN_A, IN_B, OUT_Q } from '@/utils/constants'
+import { IN_A, IN_B, INPUT_PIN, INVALID_PIN, OR_GATE, OUT_Q, OUTPUT_PIN } from '@/utils/constants'
 import GateName from './GateName'
 
 export default function OrGate({ name, state, ...props }) {
@@ -62,16 +62,22 @@ export default function OrGate({ name, state, ...props }) {
     </group>
   )
 }
-
-function NextState(wireState, gateState) {
-  return {
-    [IN_A]: wireState[IN_A],
-    [IN_B]: wireState[IN_B],
-    [OUT_Q]: wireState[IN_A] || wireState[IN_B]
-  }
+OrGate.gate_name = OR_GATE
+OrGate.delay = 3
+OrGate.defaultInputs = JSON.stringify({
+  [IN_A]: { srcGate: "", srcPin: "", selfGate: "", selfPin: "" },
+  [IN_B]: { srcGate: "", srcPin: "", selfGate: "", selfPin: "" }
+})
+OrGate.defaultOutputs = JSON.stringify({
+  [OUT_Q]: { status: false, destGate: [] }
+})
+OrGate.CheckPinType = (pin) => {
+  if (pin === IN_A || pin === IN_B) return INPUT_PIN
+  if (pin === OUT_Q) return OUTPUT_PIN
+  return INVALID_PIN
 }
-
-OrGate.NextState = NextState
-OrGate.Init = function () { }
+OrGate.NextStep = (wireState = {}) => {
+  return { [OUT_Q]: wireState[IN_A] || wireState[IN_B] }
+}
 
 useGLTF.preload('/OR-transformed.glb')

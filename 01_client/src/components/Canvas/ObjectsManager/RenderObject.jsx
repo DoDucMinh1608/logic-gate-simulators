@@ -3,85 +3,28 @@ import { Vector3 } from "three";
 
 import { useObjectsSlice } from "@/store/objectsSlice";
 import { convertGatePosToWorldCoor } from "@/utils";
-import { AND_GATE, CLOCK, DISPLAY, NAND_GATE, NOR_GATE, NOT_GATE, OR_GATE, OUT_Q, SWITCH, XOR_GATE } from "@/utils/constants";
 
-import AndGate from "../Gates/AndGate";
-import ClockGate from "../Gates/ClockGate";
 import ConnectWire from "../Gates/ConnectWire";
-import Display from "../Gates/Display";
-import NandGate from "../Gates/NandGate";
-import NorGate from "../Gates/NorGate";
-import NotGate from "../Gates/NotGate";
-import OrGate from "../Gates/OrGate";
-import SwitchGate from "../Gates/SwitchGate";
-import XorGate from "../Gates/XorGate";
-
-const GATE_COMPONENTS = {
-  [AND_GATE]: AndGate,
-  [OR_GATE]: OrGate,
-  [NOT_GATE]: NotGate,
-  [NAND_GATE]: NandGate,
-  [NOR_GATE]: NorGate,
-  [XOR_GATE]: XorGate,
-};
 
 function renderGate(obj) {
   const position = convertGatePosToWorldCoor(...obj.position);
   const rotation = [0, obj.rotation * Math.PI / 2, 0];
-  const StandardGate = GATE_COMPONENTS[obj.type];
+  const StandardGate = obj.model;
 
-  if (StandardGate) {
-    return (
-      <StandardGate
-        name={obj.name}
-        state={obj.outputs}
-        key={obj.id}
-        position={position}
-        rotation={rotation} />
-    );
-  }
-
-  if (obj.type === CLOCK) {
-    return (
-      <ClockGate
-        name={obj.name}
-        key={obj.id}
-        position={position}
-        rotation={rotation}
-      />
-    );
-  }
-
-  if (obj.type === SWITCH) {
-    return (
-      <SwitchGate
-        name={obj.name}
-        key={obj.id}
-        id={obj.id}
-        position={position}
-        rotation={rotation}
-        state={obj.outputs[OUT_Q].status}
-      />
-    );
-  }
-
-  if (obj.type === DISPLAY) {
-    // if (obj.name === "DISPLAY_16") console.log(obj)
-    return (
-      <Display
-        name={obj.name}
-        key={obj.id}
-        position={position}
-        rotation={rotation}
-        state={obj.outputs[OUT_Q].status} />
-    );
-  }
-  return null;
+  return (
+    <StandardGate
+      key={obj.id}
+      name={obj.name}
+      gate_id={obj.id}
+      inputs={obj.inputs}
+      state={obj.outputs}
+      position={position}
+      rotation={rotation} />
+  );
 }
 
 function RenderObject() {
   const gates = useObjectsSlice(state => state.GATES);
-  // console.log(gates)
   const data = useMemo(() => Object.values(gates), [gates])
   const wires = useMemo(() => data
     .map(i => Object.values(i.inputs))

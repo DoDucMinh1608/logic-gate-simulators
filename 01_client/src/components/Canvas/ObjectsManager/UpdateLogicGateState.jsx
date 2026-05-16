@@ -1,8 +1,7 @@
 import { useFrame } from "@react-three/fiber";
 
-import { GATE_FUNCTIONS, useObjectsSlice } from "@/store/objectsSlice";
+import { useObjectsSlice } from "@/store/objectsSlice";
 import { usePlayerSlice } from "@/store/playerSlice";
-import { DISPLAY } from "@/utils/constants";
 
 function UpdateLogicGateState() {
   const getEvents = useObjectsSlice(s => s.getEvents)
@@ -37,15 +36,12 @@ function UpdateLogicGateState() {
       if (targetGate == null) continue
 
       const gateState = event.gateState
-      // for (const outPin in targetGate.outputs) {
-      //   gateState[outPin] = targetGate.outputs[outPin].status
-      // }
-      const nextState = GATE_FUNCTIONS[targetGate.type](gateState)
+      const nextState = targetGate.nextStep(gateState)
       const needUpdate = { gateId: targetGate.id, pins: [] }
 
       for (let pin in nextState) {
         if (!targetGate.outputs[pin]) continue
-        if (nextState[pin] == gateState?.[pin] && targetGate.type != DISPLAY) continue
+        if (nextState[pin] == gateState?.[pin]) continue
 
         needUpdate.pins.push({ pin, status: nextState[pin] })
         for (const gate of targetGate.outputs[pin].destGate) {

@@ -4,9 +4,10 @@ Command: npx gltfjsx@6.5.3 ./models/AND.glb -o ./src/components/Canvas/Gates/And
 Files: ./models/AND.glb [27.98KB] > C:\Users\ducmi\projects\logic-gate-simulators\src\components\Canvas\Gates\AND-transformed.glb [5.4KB] (81%)
 */
 
-import { GATE_COLORS, PORT_COLORS } from '@/utils/colors'
-import { IN_A, IN_B, OUT_Q } from '@/utils/constants'
 import { useGLTF } from '@react-three/drei'
+
+import { GATE_COLORS, PORT_COLORS } from '@/utils/colors'
+import { AND_GATE, IN_A, IN_B, INPUT_PIN, INVALID_PIN, OUT_Q, OUTPUT_PIN } from '@/utils/constants'
 import GateName from './GateName'
 
 export default function AndGate({ name, state, ...props }) {
@@ -61,16 +62,22 @@ export default function AndGate({ name, state, ...props }) {
     </group>
   )
 }
-
-function NextState(wireState) {
-  return {
-    [IN_A]: wireState[IN_A],
-    [IN_B]: wireState[IN_B],
-    [OUT_Q]: wireState[IN_A] && wireState[IN_B]
-  }
+AndGate.gate_name = AND_GATE
+AndGate.delay = 3
+AndGate.defaultInputs = JSON.stringify({
+  [IN_A]: { srcGate: "", srcPin: "", selfGate: "", selfPin: "" },
+  [IN_B]: { srcGate: "", srcPin: "", selfGate: "", selfPin: "" }
+})
+AndGate.defaultOutputs = JSON.stringify({
+  [OUT_Q]: { status: false, destGate: [] }
+})
+AndGate.CheckPinType = (pin) => {
+  if (pin === IN_A || pin === IN_B) return INPUT_PIN
+  if (pin === OUT_Q) return OUTPUT_PIN
+  return INVALID_PIN
 }
-
-AndGate.NextState = NextState
-AndGate.Init = function () { }
+AndGate.NextStep = (wireState = {}) => {
+  return { [OUT_Q]: wireState[IN_A] && wireState[IN_B] }
+}
 
 useGLTF.preload('/AND-transformed.glb')

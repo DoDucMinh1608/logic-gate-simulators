@@ -1,6 +1,6 @@
-import { Vector3 } from "three"
 import { useKeyboardControls } from "@react-three/drei"
 import { useFrame } from "@react-three/fiber"
+import { Vector3 } from "three"
 
 import { KEY_EVENTS } from "@/utils/keyboardMap"
 

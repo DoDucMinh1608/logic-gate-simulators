@@ -6,7 +6,7 @@ Files: ./models/NAND.glb [48.19KB] > C:\Users\ducmi\projects\logic-gate-simulato
 import { useGLTF } from '@react-three/drei'
 
 import { GATE_COLORS, PORT_COLORS } from '@/utils/colors'
-import { IN_A, IN_B, OUT_Q } from '@/utils/constants'
+import { IN_A, IN_B, INPUT_PIN, INVALID_PIN, OUT_Q, OUTPUT_PIN } from '@/utils/constants'
 import GateName from './GateName'
 
 export default function NandGate({ name, state, ...props }) {
@@ -64,16 +64,21 @@ export default function NandGate({ name, state, ...props }) {
     </group>
   )
 }
-
-function NextState(wireState) {
-  return {
-    [IN_A]: wireState[IN_A],
-    [IN_B]: wireState[IN_B],
-    [OUT_Q]: !(wireState[IN_A] && wireState[IN_B])
-  }
+NandGate.gate_name = NandGate
+NandGate.delay = 2
+NandGate.defaultInputs = JSON.stringify({
+  [IN_A]: { srcGate: "", srcPin: "", selfGate: "", selfPin: "" },
+  [IN_B]: { srcGate: "", srcPin: "", selfGate: "", selfPin: "" }
+})
+NandGate.defaultOutputs = JSON.stringify({
+  [OUT_Q]: { status: true, destGate: [] }
+})
+NandGate.CheckPinType = (pin) => {
+  if (pin === IN_A || pin === IN_B) return INPUT_PIN
+  if (pin === OUT_Q) return OUTPUT_PIN
+  return INVALID_PIN
 }
-
-NandGate.NextState = NextState
-NandGate.Init = function () { }
-
+NandGate.NextStep = (wireState = {}) => {
+  return { [OUT_Q]: !(wireState[IN_A] && wireState[IN_B]) }
+}
 useGLTF.preload('/NAND-transformed.glb')
