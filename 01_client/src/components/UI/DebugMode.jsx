@@ -9,7 +9,6 @@ function DebugMode() {
 
   useEffect(function () {
     const handleKeyDown = (event) => {
-      // console.log(event.code)
       if (event.code === "Digit1") {
         setDebugMode(false)
         setExecuteNextStep(false)

@@ -78,6 +78,8 @@ export function GetWirePosFromGatePos1(x, y, z) {
   }
 }
 
+export function GetWirePosFromGatePos(x, y, z) { }
+
 export function GetWirePosFromGatePos2(x, y, z) {
   return {
     in_A: [

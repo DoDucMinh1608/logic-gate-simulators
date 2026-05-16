@@ -4,7 +4,6 @@ import { useObjectsSlice } from "@/store/objectsSlice";
 import { usePlayerSlice } from "@/store/playerSlice";
 import { useUtilitySlice } from "@/store/utilitiesSlice";
 import { CheckPinType, convertWorldCoorToGatePos, setSnapGridPosition } from "@/utils";
-import { INPUT_PIN, LEFT_CLICK, OUTPUT_PIN, RIGHT_CLICK, TRANSISTOR_SIZE, WIRE } from "@/utils/constants";
 
 function placeGate(button, gatePosition) {
   const addGate = useObjectsSlice.getState().addGate;
@@ -22,6 +21,7 @@ function placeGate(button, gatePosition) {
       }
       break;
     case RIGHT_CLICK:
+
       if (!existingGate) {
         addGate({
           type: selectBuildGate,

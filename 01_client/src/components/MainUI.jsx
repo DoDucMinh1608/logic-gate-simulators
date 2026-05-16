@@ -7,7 +7,7 @@ function MainUI() {
   return (
     <>
       <DebugMode />
-      <CurrentCameraState />
+      {/* <CurrentCameraState /> */}
       <CenterCursor />
       <GateMenu />
     </>
