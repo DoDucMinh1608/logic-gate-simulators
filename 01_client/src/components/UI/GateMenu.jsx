@@ -1,25 +1,25 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 
 import { usePlayerSlice } from "@/store/playerSlice";
-import { AND_GATE, CLOCK, DISPLAY, NAND_GATE, NOR_GATE, NOT_GATE, OR_GATE, SWITCH, WIRE, XOR_GATE } from "@/utils/constants";
+import { AND_GATE, CLOCK, DISPLAY, NAND_GATE, NOR_GATE, NOT_GATE, OR_GATE, SWITCH, WIRE } from "@/utils/constants";
 
 const NORMAL_GATE_TYPES = [
   WIRE,
   CLOCK,
   SWITCH,
   DISPLAY,
+  NOT_GATE,
   AND_GATE,
   OR_GATE,
-  NOT_GATE,
 ];
 const NOT_GATE_TYPES = [
   WIRE,
   CLOCK,
   SWITCH,
   DISPLAY,
+  NOT_GATE,
   NAND_GATE,
   NOR_GATE,
-  NOT_GATE,
 ];
 
 function GateMenu(props) {
