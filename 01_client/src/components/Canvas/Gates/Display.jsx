@@ -44,6 +44,7 @@ function Display({ id, name, state, ...props }) {
 }
 Display.gate_name = DISPLAY
 Display.delay = 1
+Display.size_length = 1
 Display.defaultInputs = JSON.stringify({
   [IN_A]: { srcGate: "", srcPin: "", selfGate: "", selfPin: "" }
 })

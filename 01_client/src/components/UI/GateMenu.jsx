@@ -40,7 +40,6 @@ function GateMenu(props) {
       }
     };
 
-
     const handleWheel = (e) => {
       // Use functional state updates to prevent stale index closures
       setIndex((prevIndex) => {

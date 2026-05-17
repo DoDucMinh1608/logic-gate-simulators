@@ -40,10 +40,11 @@ function SetInteractPosition() {
     let { x, y, z } = tempVec
     const gate = getGateByPosition([x, y, z])
 
-    if (!gate) {
+    if (!gate || gate.display) {
       setInteractPosition(null)
       return
     }
+
     const portSelect = gate.model.GetSelectPin(contactPoint, gridPosition, tempVec)
     tempVec.set(...portSelect.position)
 

@@ -6,7 +6,7 @@ Files: ./models/NAND.glb [48.19KB] > C:\Users\ducmi\projects\logic-gate-simulato
 import { useGLTF } from '@react-three/drei'
 
 import { GATE_COLORS, PORT_COLORS } from '@/utils/colors'
-import { IN_A, IN_B, INPUT_PIN, INVALID_PIN, OUT_Q, OUTPUT_PIN } from '@/utils/constants'
+import { IN_A, IN_B, INPUT_PIN, INVALID_PIN, NAND_GATE, OUT_Q, OUTPUT_PIN } from '@/utils/constants'
 import GateName from './GateName'
 
 export default function NandGate({ name, state, ...props }) {
@@ -64,8 +64,9 @@ export default function NandGate({ name, state, ...props }) {
     </group>
   )
 }
-NandGate.gate_name = NandGate
+NandGate.gate_name = NAND_GATE
 NandGate.delay = 2
+NandGate.size_length = 1
 NandGate.defaultInputs = JSON.stringify({
   [IN_A]: { srcGate: "", srcPin: "", selfGate: "", selfPin: "" },
   [IN_B]: { srcGate: "", srcPin: "", selfGate: "", selfPin: "" }

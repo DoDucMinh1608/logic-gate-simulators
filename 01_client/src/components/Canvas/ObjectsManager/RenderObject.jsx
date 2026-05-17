@@ -7,6 +7,8 @@ import { convertGatePosToWorldCoor } from "@/utils";
 import ConnectWire from "../Gates/ConnectWire";
 
 function renderGate(obj) {
+  if (!obj.display) return
+
   const position = convertGatePosToWorldCoor(...obj.position);
   const rotation = [0, obj.rotation * Math.PI / 2, 0];
   const StandardGate = obj.model;
@@ -27,6 +29,7 @@ function RenderObject() {
   const gates = useObjectsSlice(state => state.GATES);
   const data = useMemo(() => Object.values(gates), [gates])
   const wires = useMemo(() => data
+    .filter(i => i.display)
     .map(i => Object.values(i.inputs))
     .flat()
     .filter(i => i.positions?.length > 1)

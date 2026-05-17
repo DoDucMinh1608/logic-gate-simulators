@@ -38,6 +38,7 @@ function ClockGate({ name, ...props }) {
 }
 ClockGate.gate_name = CLOCK
 ClockGate.delay = 5
+ClockGate.size_length = 1
 ClockGate.selfCall = true
 ClockGate.defaultInputs = JSON.stringify({})
 ClockGate.defaultOutputs = JSON.stringify({

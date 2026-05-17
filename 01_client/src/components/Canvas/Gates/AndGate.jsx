@@ -64,6 +64,7 @@ export default function AndGate({ name, state, ...props }) {
 }
 AndGate.gate_name = AND_GATE
 AndGate.delay = 3
+AndGate.size_length = 7
 AndGate.defaultInputs = JSON.stringify({
   [IN_A]: { srcGate: "", srcPin: "", selfGate: "", selfPin: "" },
   [IN_B]: { srcGate: "", srcPin: "", selfGate: "", selfPin: "" }

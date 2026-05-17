@@ -53,6 +53,7 @@ function SwitchGate({ gate_id, name, state, ...props }) {
 }
 SwitchGate.gate_name = SWITCH
 SwitchGate.delay = 1
+SwitchGate.size_length = 1
 SwitchGate.defaultInputs = JSON.stringify({})
 SwitchGate.defaultOutputs = JSON.stringify({
   [OUT_Q]: { status: false, destGate: [] }

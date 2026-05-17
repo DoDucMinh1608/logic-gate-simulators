@@ -55,6 +55,7 @@ export default function XorGate({ name, ...props }) {
 }
 XorGate.gate_name = XOR_GATE
 XorGate.delay = 4
+XorGate.size_length = 1
 XorGate.defaultInputs = JSON.stringify({
   [IN_A]: { srcGate: "", srcPin: "", selfGate: "", selfPin: "" },
   [IN_B]: { srcGate: "", srcPin: "", selfGate: "", selfPin: "" }

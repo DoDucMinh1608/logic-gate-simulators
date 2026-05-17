@@ -57,6 +57,7 @@ export default function NotGate({ name, state, ...props }) {
 }
 NotGate.gate_name = NOT_GATE
 NotGate.delay = 1
+NotGate.size_length = 1
 NotGate.defaultInputs = JSON.stringify({
   [IN_A]: { srcGate: "", srcPin: "", selfGate: "", selfPin: "" }
 })

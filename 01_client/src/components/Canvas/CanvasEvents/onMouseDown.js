@@ -3,19 +3,20 @@ import { Vector3 } from "three";
 import { useObjectsSlice } from "@/store/objectsSlice";
 import { usePlayerSlice } from "@/store/playerSlice";
 import { useUtilitySlice } from "@/store/utilitiesSlice";
-import { CheckPinType, convertWorldCoorToGatePos, setSnapGridPosition } from "@/utils";
+import { convertWorldCoorToGatePos, setSnapGridPosition } from "@/utils";
 import { AND_GATE, CLOCK, DISPLAY, INPUT_PIN, LEFT_CLICK, NAND_GATE, NOR_GATE, NOT_GATE, OR_GATE, OUTPUT_PIN, RIGHT_CLICK, SWITCH, TRANSISTOR_SIZE, WIRE, XOR_GATE } from "@/utils/constants";
 
-import OrGate from "../Gates/OrGate";
 import AndGate from "../Gates/AndGate";
-import NotGate from "../Gates/NotGate";
 import NandGate from "../Gates/NandGate";
 import NorGate from "../Gates/NorGate";
+import NotGate from "../Gates/NotGate";
+import OrGate from "../Gates/OrGate";
 
 import ClockGate from "../Gates/ClockGate";
-import SwitchGate from "../Gates/SwitchGate";
 import Display from "../Gates/Display";
+import SwitchGate from "../Gates/SwitchGate";
 import XorGate from "../Gates/XorGate";
+import { mod } from "three/tsl";
 
 const GATE_COMPONENTS = {
   [AND_GATE]: AndGate,
@@ -29,7 +30,7 @@ const GATE_COMPONENTS = {
   [DISPLAY]: Display
 };
 
-function placeGate(button, gatePosition) {
+function placeGate(button, gatePos) {
   const addGate = useObjectsSlice.getState().addGate;
   const getGateByPosition = useObjectsSlice.getState().getGateByPosition;
   const removeGate = useObjectsSlice.getState().removeGate
@@ -37,7 +38,14 @@ function placeGate(button, gatePosition) {
   const setSelectPort = usePlayerSlice.getState().setSelectPort
   const setSelectBuildPort = usePlayerSlice.getState().setSelectBuildPort
 
-  const existingGate = getGateByPosition(gatePosition)
+  const model = GATE_COMPONENTS[selectBuildGate]
+  const [x, y, z] = gatePos
+
+  let existingGate
+  for (let i = 0; i < model.size_length; i++) {
+    existingGate = getGateByPosition([x, y, z + i])
+    if (existingGate) break
+  }
   switch (button) {
     case LEFT_CLICK:
       if (!!existingGate) {
@@ -47,9 +55,8 @@ function placeGate(button, gatePosition) {
     case RIGHT_CLICK:
       if (!existingGate) {
         addGate({
-          type: selectBuildGate,
-          model: GATE_COMPONENTS[selectBuildGate],
-          position: [gatePosition[0], 0, gatePosition[2]],
+          model,
+          position: [gatePos[0], 0, gatePos[2]],
           rotation: 0,
           custom: {}
         })

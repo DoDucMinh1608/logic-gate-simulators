@@ -63,6 +63,7 @@ export default function NorGate({ name, state, ...props }) {
 }
 NorGate.gate_name = NOR_GATE
 NorGate.delay = 2
+NorGate.size_length = 1
 NorGate.defaultInputs = JSON.stringify({
   [IN_A]: { srcGate: "", srcPin: "", selfGate: "", selfPin: "" },
   [IN_B]: { srcGate: "", srcPin: "", selfGate: "", selfPin: "" }
