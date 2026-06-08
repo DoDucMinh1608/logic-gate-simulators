@@ -77,6 +77,8 @@ function placeWire(button, gatePosition) {
   const getGateByPosition = useObjectsSlice.getState().getGateByPosition
   const addGateConnection = useObjectsSlice.getState().addGateConnection
 
+
+
   const existingGate = getGateByPosition(gatePosition)
   switch (button) {
     case LEFT_CLICK:
@@ -85,7 +87,9 @@ function placeWire(button, gatePosition) {
       }
       break;
     case RIGHT_CLICK:
-      if (selectPort == null) return
+      if (selectPort == null) {
+        return
+      }
 
       if (!selectBuildPort) {
         setSelectBuildPort({
@@ -96,8 +100,7 @@ function placeWire(button, gatePosition) {
         return
       }
 
-      if (selectPort.gateId === selectBuildPort.gateId
-        && selectPort.pin === selectBuildPort.pin) {
+      if (selectPort.gateId === selectBuildPort.gateId && selectPort.pin === selectBuildPort.pin) {
         return
       }
 
@@ -122,7 +125,7 @@ function onMouseDown(event) {
   const camera = usePlayerSlice.getState().camera; // Access the camera from the player slice
   const selectBuildGate = usePlayerSlice.getState().selectBuildGate
   const interactPosition = useUtilitySlice.getState().interactPosition; // Access the interact position from the player slice
-
+  console.log(useUtilitySlice.getState())
   if (!camera) {
     console.warn("Camera not found in player slice.");
     return;

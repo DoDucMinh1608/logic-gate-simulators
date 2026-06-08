@@ -28,13 +28,10 @@ export const useObjectsSlice = create((set, get) => ({
     for (const gateId in gates) {
       const gate = gates[gateId]
       if (!(gate.position[0] == position[0] && gate.position[2] == position[2])) {
-        console.log('skip')
         continue
       }
-      console.log(gate.position, position, gate.position[0] == position[0] && gate.position[2] == position[2])
-      console.log(gate)
-      if (gate.display) return gates[gate.id]
 
+      if (gate.display) return gates[gate.id]
       return gates[gate.name]
     }
   },
