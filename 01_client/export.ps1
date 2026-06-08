@@ -1,5 +1,5 @@
 # 1. Danh sách các cổng
-$gates = "AND", "OR", "NOT", "NAND", "NOR", "XOR"
+$gates = "AND", "OR", "NOT", "NAND", "NOR", "XOR", "NXOR"
 
 foreach ($name in $gates) {
     # Chuyển AND -> And, NAND -> Nand để làm tên Component

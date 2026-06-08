@@ -15,7 +15,7 @@ export default function AndGate({ name, state, ...props }) {
   return (
     <group {...props} dispose={null}>
       <GateName name={name} />
-      <mesh geometry={nodes['4'].geometry} material={materials}>
+      <mesh geometry={nodes['1'].geometry} material={materials}>
         <meshStandardMaterial
           color={GATE_COLORS}
           metalness={1}
@@ -64,7 +64,7 @@ export default function AndGate({ name, state, ...props }) {
 }
 AndGate.gate_name = AND_GATE
 AndGate.delay = 3
-AndGate.size_length = 7
+AndGate.size_length = 1
 AndGate.defaultInputs = JSON.stringify({
   [IN_A]: { srcGate: "", srcPin: "", selfGate: "", selfPin: "" },
   [IN_B]: { srcGate: "", srcPin: "", selfGate: "", selfPin: "" }

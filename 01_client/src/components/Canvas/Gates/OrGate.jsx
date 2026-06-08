@@ -15,7 +15,7 @@ export default function OrGate({ name, state, ...props }) {
   return (
     <group {...props} dispose={null}>
       <GateName name={name} />
-      <mesh geometry={nodes['5'].geometry} material={materials.Khoi}>
+      <mesh geometry={nodes['3'].geometry} material={materials.Khoi}>
         <meshStandardMaterial
           color={GATE_COLORS}
           metalness={1}

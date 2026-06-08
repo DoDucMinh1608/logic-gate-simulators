@@ -32,15 +32,14 @@ function SetInteractPosition() {
     setSnapGridPosition(contactPoint, actualSize, gridPosition)
 
     if (selectBuildGate !== WIRE) {
-      setInteractPosition(gridPosition)
-      return
+      return setInteractPosition(gridPosition)
     }
 
     convertWorldCoorToGatePos(gridPosition.x, gridPosition.y, gridPosition.z, tempVec)
     let { x, y, z } = tempVec
     const gate = getGateByPosition([x, y, z])
 
-    if (!gate || gate.display) {
+    if (!gate || !gate.display) {
       setInteractPosition(null)
       return
     }
