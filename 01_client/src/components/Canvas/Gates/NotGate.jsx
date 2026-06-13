@@ -9,6 +9,11 @@ import { useGLTF } from '@react-three/drei'
 import { GATE_COLORS, PORT_COLORS } from '@/utils/colors'
 import { IN_A, INPUT_PIN, INVALID_PIN, NOT_GATE, OUT_Q, OUTPUT_PIN } from '@/utils/constants'
 import GateName from './GateName'
+import NotIndicator from './NotIndicator'
+
+
+const height = .5
+const radius = .25
 
 export default function NotGate({ name, state, ...props }) {
   const { nodes, materials } = useGLTF('/NOT-transformed.glb')
@@ -33,7 +38,8 @@ export default function NotGate({ name, state, ...props }) {
           envMapIntensity={1.5}
           flatShading={true} />
       </mesh>
-      <mesh geometry={nodes.Cot1.geometry} material={nodes.Cot1.material}>
+      <mesh material={nodes.Cot1.material}>
+        <NotIndicator position={[1.75, .25, 0]} />
         <meshStandardMaterial
           color={GATE_COLORS}
           metalness={1}

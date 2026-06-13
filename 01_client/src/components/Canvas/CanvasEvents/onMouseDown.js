@@ -16,7 +16,6 @@ import ClockGate from "../Gates/ClockGate";
 import Display from "../Gates/Display";
 import SwitchGate from "../Gates/SwitchGate";
 import XorGate from "../Gates/XorGate";
-import { mod } from "three/tsl";
 
 const GATE_COMPONENTS = {
   [AND_GATE]: AndGate,
@@ -77,8 +76,6 @@ function placeWire(button, gatePosition) {
   const getGateByPosition = useObjectsSlice.getState().getGateByPosition
   const addGateConnection = useObjectsSlice.getState().addGateConnection
 
-
-
   const existingGate = getGateByPosition(gatePosition)
   switch (button) {
     case LEFT_CLICK:
@@ -125,7 +122,7 @@ function onMouseDown(event) {
   const camera = usePlayerSlice.getState().camera; // Access the camera from the player slice
   const selectBuildGate = usePlayerSlice.getState().selectBuildGate
   const interactPosition = useUtilitySlice.getState().interactPosition; // Access the interact position from the player slice
-  console.log(useUtilitySlice.getState())
+
   if (!camera) {
     console.warn("Camera not found in player slice.");
     return;

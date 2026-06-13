@@ -15,7 +15,6 @@ import NotGate from "../Gates/NotGate";
 import OrGate from "../Gates/OrGate";
 import SwitchGate from "../Gates/SwitchGate";
 import XorGate from "../Gates/XorGate";
-import { Vector3 } from "three";
 
 const GATE_COMPONENTS = {
   [AND_GATE]: AndGate,

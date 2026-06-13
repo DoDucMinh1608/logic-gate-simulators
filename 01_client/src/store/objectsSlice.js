@@ -1,3 +1,4 @@
+import Gate from "@/objects/Gate";
 import { create } from "zustand";
 
 const testGATES = {}
@@ -69,6 +70,19 @@ export const useObjectsSlice = create((set, get) => ({
       }
       if (count === -1) count = 0
     }
+    // const newGate = new Gate(
+    //   `${input.model.gate_name}_${count + 1}`,
+    //   `${input.model.gate_name}_${count + 1}`,
+    //   true,
+    //   input.model,
+    //   input.position,
+    //   input.rotation,
+    //   input.model.NextStep,
+    //   input.model.delay,
+    //   !!input.model.selfCall,
+    //   JSON.parse(input.model.defaultInputs),
+    //   JSON.parse(input.model.defaultOutputs)
+    // )
 
     const newGate = {
       id: `${input.model.gate_name}_${count + 1}`,
@@ -151,7 +165,8 @@ export const useObjectsSlice = create((set, get) => ({
       GATES: gates,
       EVENTS: [
         { gateId: dstGate.gateId, time, gateState: get().getStateByGateId(dstGate.gateId) },
-        ...s.EVENTS]
+        ...s.EVENTS
+      ]
     }))
   },
   addEvent(event_list = []) {
