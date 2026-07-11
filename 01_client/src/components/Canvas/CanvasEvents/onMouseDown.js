@@ -7,8 +7,8 @@ import { convertWorldCoorToGatePos, setSnapGridPosition } from "@/utils";
 import { AND_GATE, CLOCK, DISPLAY, INPUT_PIN, LEFT_CLICK, NAND_GATE, NOR_GATE, NOT_GATE, OR_GATE, OUTPUT_PIN, RIGHT_CLICK, SWITCH, TRANSISTOR_SIZE, WIRE, XOR_GATE } from "@/utils/constants";
 
 import AndGate from "../Gates/AndGate";
-import NandGate from "../Gates/NandGate";
-import NorGate from "../Gates/NorGate";
+import NandGate from "../Gates/bk/NandGate";
+import NorGate from "../Gates/bk/NorGate";
 import NotGate from "../Gates/NotGate";
 import OrGate from "../Gates/OrGate";
 

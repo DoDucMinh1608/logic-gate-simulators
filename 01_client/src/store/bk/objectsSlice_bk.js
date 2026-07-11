@@ -1,8 +1,12 @@
 import { create } from "zustand";
 
+const testGATES = {}
+
+
+
 export const useObjectsSlice = create((set, get) => ({
-  GATES: {},
-  COUNT: 0,
+  GATES: testGATES,
+  COUNT: -1,
   STATES: {},
   EVENTS: [],
   TIME: 0,
@@ -79,9 +83,17 @@ export const useObjectsSlice = create((set, get) => ({
     return result
   },
   addGate(input) {
-    let { GATES: gates, COUNT: count } = get()
+    const gates = { ...get().GATES }
+    let count = get().COUNT
 
-    if (isNaN(count)) count = 0
+    if (count === -1) {
+      for (const gateId in gates) {
+        const gate = gates[gateId]
+        const index = +gate.name.split('_')[1]
+        if (count < index) count = index
+      }
+      if (count === -1) count = 0
+    }
 
     const newGate = {
       id: `${input.model.gate_name}_${count + 1}`,
@@ -119,7 +131,7 @@ export const useObjectsSlice = create((set, get) => ({
 
     set(s => ({
       COUNT: count + 1,
-      GATES: { ...gates },
+      GATES: gates,
       EVENTS: event != null ? [event, ...s.EVENTS] : s.EVENTS,
     }))
   },
@@ -133,12 +145,8 @@ export const useObjectsSlice = create((set, get) => ({
     const curConnect = dstGateI.inputs[dstGate.pin]
     const oldConnectGate = gates[curConnect.srcGate]
     if (oldConnectGate != null) {
-      oldConnectGate.outputs[curConnect.srcPin].destGate =
-        oldConnectGate.outputs[curConnect.srcPin].destGate
-          .filter(i => !(
-            i.gateId == curConnect.selfGate &&
-            i.pin == curConnect.selfPin
-          ))
+      oldConnectGate.outputs[curConnect.srcPin].destGate = oldConnectGate.outputs[curConnect.srcPin].destGate
+        .filter(i => !(i.gateId == curConnect.selfGate && i.pin == curConnect.selfPin))
     }
 
     // setup inputGate
@@ -149,7 +157,6 @@ export const useObjectsSlice = create((set, get) => ({
         { gateId: dstGate.gateId, pin: dstGate.pin }
       ]
     }
-
     const distance = srcGate.position.distanceTo(dstGate.position) / 10
     // setup outputGate
     dstGateI.inputs[dstGate.pin] = {

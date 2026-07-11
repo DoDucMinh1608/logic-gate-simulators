@@ -46,10 +46,10 @@ Display.gate_name = DISPLAY
 Display.delay = 1
 Display.size_length = 1
 Display.defaultInputs = JSON.stringify({
-  [IN_A]: { srcGate: "", srcPin: "", selfGate: "", selfPin: "" }
+  [IN_A]: { srcGate: "", srcPin: "", selfGate: "", selfPin: "", isNeg: false }
 })
 Display.defaultOutputs = JSON.stringify({
-  [OUT_Q]: { status: false, destGate: [] }
+  [OUT_Q]: { status: false, destGate: [], isNeg: false }
 })
 Display.CheckPinType = (pin) => {
   if (pin === IN_A) return INPUT_PIN

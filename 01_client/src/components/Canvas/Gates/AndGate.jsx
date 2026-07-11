@@ -66,11 +66,11 @@ AndGate.gate_name = AND_GATE
 AndGate.delay = 3
 AndGate.size_length = 1
 AndGate.defaultInputs = JSON.stringify({
-  [IN_A]: { srcGate: "", srcPin: "", selfGate: "", selfPin: "" },
-  [IN_B]: { srcGate: "", srcPin: "", selfGate: "", selfPin: "" }
+  [IN_A]: { srcGate: "", srcPin: "", selfGate: "", selfPin: "", isNeg: false },
+  [IN_B]: { srcGate: "", srcPin: "", selfGate: "", selfPin: "", isNeg: false }
 })
 AndGate.defaultOutputs = JSON.stringify({
-  [OUT_Q]: { status: false, destGate: [] }
+  [OUT_Q]: { status: false, destGate: [], isNeg: false }
 })
 AndGate.CheckPinType = (pin) => {
   if (pin === IN_A || pin === IN_B) return INPUT_PIN

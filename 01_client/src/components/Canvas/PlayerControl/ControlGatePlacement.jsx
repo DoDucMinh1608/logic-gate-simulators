@@ -9,8 +9,8 @@ import { AND_GATE, CLOCK, DISPLAY, NAND_GATE, NOR_GATE, NOT_GATE, OR_GATE, SWITC
 import AndGate from "../Gates/AndGate";
 import ClockGate from "../Gates/ClockGate";
 import Display from "../Gates/Display";
-import NandGate from "../Gates/NandGate";
-import NorGate from "../Gates/NorGate";
+import NandGate from "../Gates/bk/NandGate";
+import NorGate from "../Gates/bk/NorGate";
 import NotGate from "../Gates/NotGate";
 import OrGate from "../Gates/OrGate";
 import SwitchGate from "../Gates/SwitchGate";

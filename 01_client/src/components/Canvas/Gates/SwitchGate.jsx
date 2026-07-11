@@ -56,7 +56,7 @@ SwitchGate.delay = 1
 SwitchGate.size_length = 1
 SwitchGate.defaultInputs = JSON.stringify({})
 SwitchGate.defaultOutputs = JSON.stringify({
-  [OUT_Q]: { status: false, destGate: [] }
+  [OUT_Q]: { status: false, destGate: [], isNeg: false }
 })
 SwitchGate.CheckPinType = (pin) => {
   if (pin === OUT_Q) return OUTPUT_PIN

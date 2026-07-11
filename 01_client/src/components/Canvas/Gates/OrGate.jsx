@@ -66,11 +66,11 @@ OrGate.gate_name = OR_GATE
 OrGate.delay = 3
 OrGate.size_length = 1
 OrGate.defaultInputs = JSON.stringify({
-  [IN_A]: { srcGate: "", srcPin: "", selfGate: "", selfPin: "" },
-  [IN_B]: { srcGate: "", srcPin: "", selfGate: "", selfPin: "" }
+  [IN_A]: { srcGate: "", srcPin: "", selfGate: "", selfPin: "", isNeg: false },
+  [IN_B]: { srcGate: "", srcPin: "", selfGate: "", selfPin: "", isNeg: false }
 })
 OrGate.defaultOutputs = JSON.stringify({
-  [OUT_Q]: { status: false, destGate: [] }
+  [OUT_Q]: { status: false, destGate: [], isNeg: false }
 })
 OrGate.CheckPinType = (pin) => {
   if (pin === IN_A || pin === IN_B) return INPUT_PIN

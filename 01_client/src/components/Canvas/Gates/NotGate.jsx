@@ -11,10 +11,6 @@ import { IN_A, INPUT_PIN, INVALID_PIN, NOT_GATE, OUT_Q, OUTPUT_PIN } from '@/uti
 import GateName from './GateName'
 import NotIndicator from './NotIndicator'
 
-
-const height = .5
-const radius = .25
-
 export default function NotGate({ name, state, ...props }) {
   const { nodes, materials } = useGLTF('/NOT-transformed.glb')
   return (
@@ -65,10 +61,10 @@ NotGate.gate_name = NOT_GATE
 NotGate.delay = 1
 NotGate.size_length = 1
 NotGate.defaultInputs = JSON.stringify({
-  [IN_A]: { srcGate: "", srcPin: "", selfGate: "", selfPin: "" }
+  [IN_A]: { srcGate: "", srcPin: "", selfGate: "", selfPin: "", isNeg: false }
 })
 NotGate.defaultOutputs = JSON.stringify({
-  [OUT_Q]: { status: true, destGate: [] }
+  [OUT_Q]: { status: true, destGate: [], isNeg: false }
 })
 NotGate.CheckPinType = (pin) => {
   if (pin === IN_A) return INPUT_PIN

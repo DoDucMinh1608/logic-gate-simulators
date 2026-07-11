@@ -5,9 +5,7 @@ import { useObjectsSlice } from "@/store/objectsSlice";
 import { convertGatePosToWorldCoor } from "@/utils";
 
 import ConnectWire from "../Gates/ConnectWire";
-
 import DynamicGate from "./DynamicGate";
-
 
 function renderGate(obj) {
   if (!obj.display) return
@@ -16,15 +14,6 @@ function renderGate(obj) {
   const rotation = [0, obj.rotation * Math.PI / 2, 0];
 
   return (
-    // <StandardGate
-    //   key={obj.id}
-    //   name={obj.name}
-    //   gate_id={obj.id}
-    //   inputs={obj.inputs}
-    //   state={obj.outputs}
-    //   position={position}
-    //   rotation={rotation} 
-    // />
     <DynamicGate
       key={obj.id}
       name={obj.name}
@@ -40,6 +29,7 @@ function renderGate(obj) {
 
 function RenderObject() {
   const gates = useObjectsSlice(state => state.GATES);
+
   const data = useMemo(() => Object.values(gates), [gates])
   const wires = useMemo(() => data
     .filter(i => i.display)
@@ -47,11 +37,11 @@ function RenderObject() {
     .flat()
     .filter(i => i.positions?.length > 1)
     .map(i => {
-      if (!(i instanceof Vector3)) {
-        i.positions = i.positions.map(({ x, y, z }) => new Vector3(x, y, z))
-      }
+      if (i instanceof Vector3) return i
+      i.positions = i.positions.map(({ x, y, z }) => new Vector3(x, y, z))
       return i
     }), [data])
+
   return (
     <>
       {data.map(renderGate)}

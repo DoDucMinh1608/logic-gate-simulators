@@ -57,11 +57,11 @@ XorGate.gate_name = XOR_GATE
 XorGate.delay = 4
 XorGate.size_length = 1
 XorGate.defaultInputs = JSON.stringify({
-  [IN_A]: { srcGate: "", srcPin: "", selfGate: "", selfPin: "" },
-  [IN_B]: { srcGate: "", srcPin: "", selfGate: "", selfPin: "" }
+  [IN_A]: { srcGate: "", srcPin: "", selfGate: "", selfPin: "", isNeg: false },
+  [IN_B]: { srcGate: "", srcPin: "", selfGate: "", selfPin: "", isNeg: false }
 })
 XorGate.defaultOutputs = JSON.stringify({
-  [OUT_Q]: { status: false, destGate: [] }
+  [OUT_Q]: { status: false, destGate: [], isNeg: false }
 })
 XorGate.CheckPinType = (pin) => {
   if (pin === IN_A || pin === IN_B) return INPUT_PIN
