@@ -1,27 +1,25 @@
 import { KeyboardControls } from '@react-three/drei'
 import { Canvas } from '@react-three/fiber'
+import { useEffect } from 'react'
 
 import onMouseDown from './Canvas/CanvasEvents/onMouseDown'
+import AndGate from './Canvas/Gates/AndGate'
+import NandGate from './Canvas/Gates/bk/NandGate'
+import NorGate from './Canvas/Gates/bk/NorGate'
+import ClockGate from './Canvas/Gates/ClockGate'
+import Display from './Canvas/Gates/Display'
+import NotGate from './Canvas/Gates/NotGate'
+import OrGate from './Canvas/Gates/OrGate'
+import SwitchGate from './Canvas/Gates/SwitchGate'
+import XorGate from './Canvas/Gates/XorGate'
 import ObjectsManager from "./Canvas/ObjectsManager"
 import PlayerControl from "./Canvas/PlayerControl"
 import PublicCanvasState from "./Canvas/PublicCanvasState"
 import WorldObjects from "./Canvas/WorldObjects"
 
-import { keyMap } from '@/utils/keyboardMap'
-import { useEffect } from 'react'
-import { useObjectsSlice } from '@/store/objectsSlice'
 import { useModelsSlice } from '@/store/modelStore'
-
-import OrGate from './Canvas/Gates/OrGate'
-import AndGate from './Canvas/Gates/AndGate'
-import NotGate from './Canvas/Gates/NotGate'
-import Display from './Canvas/Gates/Display'
-import SwitchGate from './Canvas/Gates/SwitchGate'
-import ClockGate from './Canvas/Gates/ClockGate'
-import NandGate from './Canvas/Gates/bk/NandGate'
-import NorGate from './Canvas/Gates/bk/NorGate'
-import XorGate from './Canvas/Gates/XorGate'
-
+import { useObjectsSlice } from '@/store/objectsSlice'
+import { keyMap } from '@/utils/keyboardMap'
 
 
 function Experience() {
@@ -37,14 +35,19 @@ function Experience() {
     addModel(NorGate.gate_name, NorGate)
     addModel(XorGate.gate_name, XorGate)
     addModel(SwitchGate.gate_name, SwitchGate)
-    // console.log('Models loaded:', useModelsSlice.getState().MODELS)
 
     const savedGates = localStorage.getItem("gates");
-    const result = {}
+    const parsedGates = savedGates ? JSON.parse(savedGates) : {};
     if (savedGates) {
-      const parsedGates = JSON.parse(savedGates);
       useObjectsSlice.setState({ GATES: parsedGates });
     }
+    const events = []
+    for (const gateId in parsedGates) {
+      const gate = parsedGates[gateId]
+      if (!gate.selfCall) continue
+      events.push({ gateId: gate.id })
+    }
+    useObjectsSlice.getState().addEvent(events)
   }, [])
   return (
     <>

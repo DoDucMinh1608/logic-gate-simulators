@@ -60,7 +60,7 @@ function ClockGate({ name, state, ...props }) {
         <boxGeometry args={[0.3, 0.3, 0.3]} />
         <meshStandardMaterial
           color={isActive ? "#ffaa00" : "#ff3366"}
-          emissive={isActive ? "#ffaa00" : "#550011"}
+          emissive={isActive ? "#00ff66" : "#000011"}
           emissiveIntensity={isActive ? 1.5 : 0.2}
           metalness={0.8}
           roughness={0.2}

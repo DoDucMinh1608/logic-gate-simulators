@@ -78,8 +78,8 @@ function SwitchGate({ gate_id, name, state, ...props }) {
       <mesh position={[1.5, 0.125, 0]}>
         <boxGeometry args={[0.3, 0.3, 0.3]} />
         <meshStandardMaterial
-          color={isActive ? "#00ff66" : "#ff3366"}
-          emissive={isActive ? "#00ff66" : "#550011"}
+          color={isActive ? "#00ff66" : "#003366"}
+          emissive={isActive ? "#00ff66" : "#000011"}
           emissiveIntensity={isActive ? 1.5 : 0.2}
           metalness={0.8}
           roughness={0.2}

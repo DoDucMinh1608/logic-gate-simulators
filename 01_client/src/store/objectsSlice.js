@@ -72,7 +72,6 @@ export const useObjectsSlice = create((set, get) => ({
     let { GATES: gates, COUNT: count } = get()
 
     if (isNaN(count)) count = 0
-    // console.log(input)
 
     const newGate = {
       id: `${input.model.gate_name}_${count + 1}`,
