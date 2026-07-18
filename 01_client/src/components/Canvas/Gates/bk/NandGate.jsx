@@ -67,13 +67,8 @@ export default function NandGate({ name, state, ...props }) {
 NandGate.gate_name = NAND_GATE
 NandGate.delay = 2
 NandGate.size_length = 1
-NandGate.defaultInputs = JSON.stringify({
-  [IN_A]: { srcGate: "", srcPin: "", selfGate: "", selfPin: "", isNeg: false },
-  [IN_B]: { srcGate: "", srcPin: "", selfGate: "", selfPin: "", isNeg: false }
-})
-NandGate.defaultOutputs = JSON.stringify({
-  [OUT_Q]: { status: true, destGate: [], isNeg: false }
-})
+NandGate.defaultInputs = [IN_A, IN_B]
+NandGate.defaultOutputs = [OUT_Q]
 NandGate.CheckPinType = (pin) => {
   if (pin === IN_A || pin === IN_B) return INPUT_PIN
   if (pin === OUT_Q) return OUTPUT_PIN

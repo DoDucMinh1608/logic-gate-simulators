@@ -16,6 +16,7 @@ import ClockGate from "../Gates/ClockGate";
 import Display from "../Gates/Display";
 import SwitchGate from "../Gates/SwitchGate";
 import XorGate from "../Gates/XorGate";
+import { useModelsSlice } from "@/store/modelStore";
 
 const GATE_COMPONENTS = {
   [AND_GATE]: AndGate,
@@ -36,6 +37,7 @@ function placeGate(button, gatePos) {
   const selectBuildGate = usePlayerSlice.getState().selectBuildGate
   const setSelectPort = usePlayerSlice.getState().setSelectPort
   const setSelectBuildPort = usePlayerSlice.getState().setSelectBuildPort
+
 
   const model = GATE_COMPONENTS[selectBuildGate]
   const [x, y, z] = gatePos
@@ -101,8 +103,10 @@ function placeWire(button, gatePosition) {
         return
       }
 
-      let port1Type = gates[selectPort.gateId].model.CheckPinType(selectPort.pin)
-      let port2Type = gates[selectBuildPort.gateId].model.CheckPinType(selectBuildPort.pin)
+      let port1Model = useModelsSlice.getState().getModelById(gates[selectPort.gateId].model_name)
+      let port2Model = useModelsSlice.getState().getModelById(gates[selectBuildPort.gateId].model_name)
+      let port1Type = port1Model.CheckPinType(selectPort.pin)
+      let port2Type = port2Model.CheckPinType(selectBuildPort.pin)
       if (port1Type == port2Type) {
         return
       }
@@ -133,11 +137,12 @@ function onMouseDown(event) {
 
   if (selectBuildGate != WIRE) {
     placeGate(event.button, [x, y, z])
-    return
-  }
+    localStorage.setItem("gates", JSON.stringify(useObjectsSlice.getState().GATES));
 
-  if (selectBuildGate == WIRE) {
+  } else if (selectBuildGate == WIRE) {
     placeWire(event.button, [x, y, z])
+    localStorage.setItem("gates", JSON.stringify(useObjectsSlice.getState().GATES));
+    return
   }
 }
 

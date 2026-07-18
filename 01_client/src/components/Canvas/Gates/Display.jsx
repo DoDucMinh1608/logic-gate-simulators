@@ -45,12 +45,8 @@ function Display({ id, name, state, ...props }) {
 Display.gate_name = DISPLAY
 Display.delay = 1
 Display.size_length = 1
-Display.defaultInputs = JSON.stringify({
-  [IN_A]: { srcGate: "", srcPin: "", selfGate: "", selfPin: "", isNeg: false }
-})
-Display.defaultOutputs = JSON.stringify({
-  [OUT_Q]: { status: false, destGate: [], isNeg: false }
-})
+Display.defaultInputs = [IN_A]
+Display.defaultOutputs = [OUT_Q]
 Display.CheckPinType = (pin) => {
   if (pin === IN_A) return INPUT_PIN
   if (pin === OUT_Q) return OUTPUT_PIN

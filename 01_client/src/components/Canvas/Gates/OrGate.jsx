@@ -35,7 +35,7 @@ export default function OrGate({ name, state, ...props }) {
       <mesh position={[.8, 1, 0]}>
         <boxGeometry args={[.4, .4, .4]} />
         <meshStandardMaterial
-          color={state?.[OUT_Q].status ? 0xff0000 : 0x0000ff}
+          color={state?.[OUT_Q]?.status ? 0xff0000 : 0x0000ff}
           metalness={1}
           roughness={0.4}
           envMapIntensity={1.5}
@@ -65,13 +65,8 @@ export default function OrGate({ name, state, ...props }) {
 OrGate.gate_name = OR_GATE
 OrGate.delay = 3
 OrGate.size_length = 1
-OrGate.defaultInputs = JSON.stringify({
-  [IN_A]: { srcGate: "", srcPin: "", selfGate: "", selfPin: "", isNeg: false },
-  [IN_B]: { srcGate: "", srcPin: "", selfGate: "", selfPin: "", isNeg: false }
-})
-OrGate.defaultOutputs = JSON.stringify({
-  [OUT_Q]: { status: false, destGate: [], isNeg: false }
-})
+OrGate.defaultInputs = [IN_A, IN_B]
+OrGate.defaultOutputs = [OUT_Q]
 OrGate.CheckPinType = (pin) => {
   if (pin === IN_A || pin === IN_B) return INPUT_PIN
   if (pin === OUT_Q) return OUTPUT_PIN

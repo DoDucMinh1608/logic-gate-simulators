@@ -6,6 +6,7 @@ import { usePlayerSlice } from "@/store/playerSlice";
 import { useUtilitySlice } from "@/store/utilitiesSlice";
 import { convertWorldCoorToGatePos, getLookingPositionOnPlane, setSnapGridPosition } from "@/utils";
 import { TRANSISTOR_SIZE, WIRE } from "@/utils/constants";
+import { useModelsSlice } from "@/store/modelStore";
 
 const actualSize = TRANSISTOR_SIZE
 const activePlane = new Plane(new Vector3(0, 1, 0), 0)
@@ -44,7 +45,12 @@ function SetInteractPosition() {
       return
     }
 
-    const portSelect = gate.model.GetSelectPin(contactPoint, gridPosition, tempVec)
+    const model = useModelsSlice.getState().getModelById(gate.model_name)
+    if (!model) {
+      setInteractPosition(null)
+      return
+    }
+    const portSelect = model.GetSelectPin(contactPoint, gridPosition, tempVec)
     tempVec.set(...portSelect.position)
 
     setInteractPosition(tempVec)

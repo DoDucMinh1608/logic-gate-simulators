@@ -56,13 +56,8 @@ export default function XorGate({ name, ...props }) {
 XorGate.gate_name = XOR_GATE
 XorGate.delay = 4
 XorGate.size_length = 1
-XorGate.defaultInputs = JSON.stringify({
-  [IN_A]: { srcGate: "", srcPin: "", selfGate: "", selfPin: "", isNeg: false },
-  [IN_B]: { srcGate: "", srcPin: "", selfGate: "", selfPin: "", isNeg: false }
-})
-XorGate.defaultOutputs = JSON.stringify({
-  [OUT_Q]: { status: false, destGate: [], isNeg: false }
-})
+XorGate.defaultInputs = [IN_A, IN_B]
+XorGate.defaultOutputs = [OUT_Q]
 XorGate.CheckPinType = (pin) => {
   if (pin === IN_A || pin === IN_B) return INPUT_PIN
   if (pin === OUT_Q) return OUTPUT_PIN

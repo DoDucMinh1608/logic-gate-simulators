@@ -60,12 +60,8 @@ export default function NotGate({ name, state, ...props }) {
 NotGate.gate_name = NOT_GATE
 NotGate.delay = 1
 NotGate.size_length = 1
-NotGate.defaultInputs = JSON.stringify({
-  [IN_A]: { srcGate: "", srcPin: "", selfGate: "", selfPin: "", isNeg: false }
-})
-NotGate.defaultOutputs = JSON.stringify({
-  [OUT_Q]: { status: true, destGate: [], isNeg: false }
-})
+NotGate.defaultInputs = [IN_A]
+NotGate.defaultOutputs = [OUT_Q]
 NotGate.CheckPinType = (pin) => {
   if (pin === IN_A) return INPUT_PIN
   if (pin === OUT_Q) return OUTPUT_PIN

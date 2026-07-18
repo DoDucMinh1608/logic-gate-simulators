@@ -40,10 +40,8 @@ ClockGate.gate_name = CLOCK
 ClockGate.delay = 5
 ClockGate.size_length = 1
 ClockGate.selfCall = true
-ClockGate.defaultInputs = JSON.stringify({})
-ClockGate.defaultOutputs = JSON.stringify({
-  [OUT_Q]: { status: false, destGate: [], isNeg: false }
-})
+ClockGate.defaultInputs = []
+ClockGate.defaultOutputs = [OUT_Q]
 ClockGate.CheckPinType = (pin) => {
   if (pin === OUT_Q) return OUTPUT_PIN
   return INVALID_PIN

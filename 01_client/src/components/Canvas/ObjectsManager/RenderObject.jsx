@@ -1,6 +1,7 @@
 import { useMemo } from "react";
 import { Vector3 } from "three";
 
+import { useModelsSlice } from "@/store/modelStore";
 import { useObjectsSlice } from "@/store/objectsSlice";
 import { convertGatePosToWorldCoor } from "@/utils";
 
@@ -12,13 +13,15 @@ function renderGate(obj) {
 
   const position = convertGatePosToWorldCoor(...obj.position);
   const rotation = [0, obj.rotation * Math.PI / 2, 0];
+  const model = useModelsSlice.getState().getModelById(obj.model_name)
 
+  if (model == null) return
   return (
     <DynamicGate
       key={obj.id}
       name={obj.name}
       gate_id={obj.id}
-      model={obj.model}
+      model={model}
       inputs={obj.inputs}
       state={obj.outputs}
       position={position}

@@ -10,16 +10,6 @@ export const useObjectsSlice = create((set, get) => ({
     set(state => ({ TIME: state.TIME + 1 }))
   },
   updateGateOutputs(params) {
-    // const gates = { ...get().GATES }
-
-    // for (const needUpdate of params) {
-    //   const gate = { ...gates[needUpdate.gateId] }
-    //   for (const updatePin of needUpdate.pins) {
-    //     gate.outputs[updatePin.pin].status = updatePin.status
-    //   }
-    // }
-
-    // set(s => ({ GATES: gates }))
     const { GATES } = get();
     // Deep clone/rebuild only target gates to avoid React reference drops
     const nextGates = { ...GATES };
@@ -82,19 +72,39 @@ export const useObjectsSlice = create((set, get) => ({
     let { GATES: gates, COUNT: count } = get()
 
     if (isNaN(count)) count = 0
+    console.log(input)
 
     const newGate = {
       id: `${input.model.gate_name}_${count + 1}`,
       name: `${input.model.gate_name}_${count + 1}`,
       display: true,
-      model: input.model,
+      // model: input.model,
+      model_name: input.model.gate_name,
       position: input.position,
       rotation: input.rotation,
       nextStep: input.model.NextStep,
       delay: input.model.delay,
       selfCall: !!input.model.selfCall,
-      inputs: JSON.parse(input.model.defaultInputs),
-      outputs: JSON.parse(input.model.defaultOutputs)
+      inputs: new Array(input.model.defaultInputs.length).fill().reduce((acc, _, index) => {
+        const pinName = input.model.defaultInputs[index];
+        acc[pinName] = {
+          srcGate: "",
+          srcPin: "",
+          selfGate: "",
+          selfPin: "",
+          isNeg: false
+        };
+        return acc;
+      }, {}),
+      outputs: new Array(input.model.defaultOutputs.length).fill().reduce((acc, _, index) => {
+        const pinName = input.model.defaultOutputs[index];
+        acc[pinName] = {
+          status: false,
+          destGate: [],
+          isNeg: false
+        };
+        return acc;
+      }, {})
     }
 
     let event

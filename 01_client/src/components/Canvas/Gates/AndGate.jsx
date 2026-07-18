@@ -12,6 +12,7 @@ import GateName from './GateName'
 
 export default function AndGate({ name, state, ...props }) {
   const { nodes, materials } = useGLTF('/AND-transformed.glb')
+  console.log('AndGate state:', state)
   return (
     <group {...props} dispose={null}>
       <GateName name={name} />
@@ -35,7 +36,7 @@ export default function AndGate({ name, state, ...props }) {
       <mesh position={[.8, 1, 0]}>
         <boxGeometry args={[.4, .4, .4]} />
         <meshStandardMaterial
-          color={state?.[OUT_Q].status ? 0xff0000 : 0x0000ff}
+          color={state?.[OUT_Q]?.status ? 0xff0000 : 0x0000ff}
           metalness={1}
           roughness={0.4}
           envMapIntensity={1.5}
@@ -65,13 +66,8 @@ export default function AndGate({ name, state, ...props }) {
 AndGate.gate_name = AND_GATE
 AndGate.delay = 3
 AndGate.size_length = 1
-AndGate.defaultInputs = JSON.stringify({
-  [IN_A]: { srcGate: "", srcPin: "", selfGate: "", selfPin: "", isNeg: false },
-  [IN_B]: { srcGate: "", srcPin: "", selfGate: "", selfPin: "", isNeg: false }
-})
-AndGate.defaultOutputs = JSON.stringify({
-  [OUT_Q]: { status: false, destGate: [], isNeg: false }
-})
+AndGate.defaultInputs = [IN_A, IN_B]
+AndGate.defaultOutputs = [OUT_Q]
 AndGate.CheckPinType = (pin) => {
   if (pin === IN_A || pin === IN_B) return INPUT_PIN
   if (pin === OUT_Q) return OUTPUT_PIN
