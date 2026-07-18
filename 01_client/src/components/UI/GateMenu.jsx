@@ -1,87 +1,3 @@
-// import { useEffect, useState } from "react";
-
-// import { usePlayerSlice } from "@/store/playerSlice";
-// import { AND_GATE, CLOCK, DISPLAY, NAND_GATE, NOR_GATE, NOT_GATE, OR_GATE, SWITCH, WIRE } from "@/utils/constants";
-
-// const NORMAL_GATE_TYPES = [
-//   WIRE,
-//   CLOCK,
-//   SWITCH,
-//   DISPLAY,
-//   NOT_GATE,
-//   AND_GATE,
-//   OR_GATE,
-// ];
-// const NOT_GATE_TYPES = [
-//   WIRE,
-//   CLOCK,
-//   SWITCH,
-//   DISPLAY,
-//   NOT_GATE,
-//   NAND_GATE,
-//   NOR_GATE,
-// ];
-
-// function GateMenu(props) {
-//   const [notSelect, setNotSelect] = useState(false)
-//   const [index, setIndex] = useState(0)
-//   const GATE_TYPES = notSelect ? NOT_GATE_TYPES : NORMAL_GATE_TYPES
-
-//   const setSelectBuildPort = usePlayerSlice(state => state.setSelectBuildPort)
-
-//   useEffect(function () {
-//     usePlayerSlice.getState().setSelectBuildGate(GATE_TYPES[index])
-//   }, [index, GATE_TYPES])
-
-//   useEffect(() => {
-//     const handleKeyDown = (event) => {
-//       if (event.key.toLowerCase() === 'q') {
-//         setNotSelect(s => !s)
-//       }
-//     };
-
-//     const handleWheel = (e) => {
-//       // Use functional state updates to prevent stale index closures
-//       setIndex((prevIndex) => {
-//         let nextIndex;
-//         if (e.deltaY > 0) {
-//           nextIndex = (prevIndex + 1) % GATE_TYPES.length;
-//         } else {
-//           nextIndex = (prevIndex - 1 + GATE_TYPES.length) % GATE_TYPES.length;
-//         }
-//         return nextIndex;
-//       });
-
-//       setSelectBuildPort(null);
-//     };
-
-//     window.addEventListener('keydown', handleKeyDown);
-//     window.addEventListener("wheel", handleWheel);
-//     return () => {
-//       window.removeEventListener("wheel", handleWheel);
-//       window.removeEventListener('keydown', handleKeyDown);
-//     };
-//   }, [setSelectBuildPort, index, GATE_TYPES]);
-
-//   return (
-//     <div className="absolute bottom-5 left-1/2 -translate-x-1/2 gap-2 pointer-events-none z-10 flex">
-//       <div className={[
-//         "p-2 text-center border rounded-lg w-20",
-//         notSelect ? "bg-[#0e0]/50 border-2" : "bg-[#e00]/50 "
-//       ].join(' ')} >NOT (Q)</div>
-//       {GATE_TYPES.map((type, i) => (
-//         <div key={type} className={[
-//           "p-2 bg-white/80 text-center border rounded-lg w-20",
-//           // type === selectBuildGate ? "font-bold bg-[#eee] border-2" : ""
-//           index === i ? "font-bold bg-[#eee] border-2" : ""
-//         ].join(' ')}>{type}</div>
-//       ))}
-//     </div>
-//   );
-// }
-
-// export default GateMenu
-
 import { useEffect, useState } from "react";
 import { usePlayerSlice } from "@/store/playerSlice";
 import { AND_GATE, CLOCK, DISPLAY, NAND_GATE, NOR_GATE, NOT_GATE, OR_GATE, SWITCH, WIRE, XOR_GATE } from "@/utils/constants";
@@ -151,14 +67,14 @@ const GATE_ICONS = {
 };
 
 const NORMAL_GATE_TYPES = [WIRE, CLOCK, SWITCH, DISPLAY, NOT_GATE, AND_GATE, OR_GATE];
-const NOT_GATE_TYPES = [WIRE, CLOCK, SWITCH, DISPLAY, NOT_GATE, NAND_GATE, NOR_GATE];
 
 function GateMenu(props) {
-  const [notSelect, setNotSelect] = useState(false);
+  // const [notSelect, setNotSelect] = useState(false);
   const [index, setIndex] = useState(0);
-  const GATE_TYPES = notSelect ? NOT_GATE_TYPES : NORMAL_GATE_TYPES;
+  const GATE_TYPES = NORMAL_GATE_TYPES;
 
   const setSelectBuildPort = usePlayerSlice((state) => state.setSelectBuildPort);
+  const isNotGate = usePlayerSlice((state) => state.getIsNotGate());
 
   useEffect(function () {
     usePlayerSlice.getState().setSelectBuildGate(GATE_TYPES[index]);
@@ -167,12 +83,14 @@ function GateMenu(props) {
   useEffect(() => {
     const handleKeyDown = (event) => {
       if (event.key.toLowerCase() === "q") {
-        setNotSelect((s) => !s);
+        // setNotSelect((s) => !s);
+        usePlayerSlice.getState().setIsNotGate(!isNotGate);
       }
     };
 
     const handleWheel = (e) => {
       setIndex((prevIndex) => {
+        if (isNotGate) return prevIndex; // Nếu đang ở chế độ NOT, không thay đổi index khi cuộn chuột
         let nextIndex;
         if (e.deltaY > 0) {
           nextIndex = (prevIndex + 1) % GATE_TYPES.length;
@@ -190,7 +108,7 @@ function GateMenu(props) {
       window.removeEventListener("wheel", handleWheel);
       window.removeEventListener("keydown", handleKeyDown);
     };
-  }, [setSelectBuildPort, GATE_TYPES]); // Đã loại bỏ `index` khỏi dependency để tránh re-bind event listener liên tục khi cuộn chuột
+  }, [setSelectBuildPort, isNotGate]); // Đã loại bỏ `index` khỏi dependency để tránh re-bind event listener liên tục khi cuộn chuột
 
   return (
     <div className="absolute bottom-5 left-1/2 -translate-x-1/2 gap-3 pointer-events-none z-10 flex items-end font-sans">
@@ -198,7 +116,7 @@ function GateMenu(props) {
       <div
         className={[
           "px-3 py-2 text-center border rounded-xl text-xs font-bold transition-all duration-200 flex flex-col items-center justify-center h-16 w-16 shadow-lg",
-          notSelect
+          isNotGate
             ? "bg-emerald-500/90 text-white border-emerald-400 scale-105"
             : "bg-neutral-800/80 text-neutral-400 border-neutral-700",
         ].join(" ")}
@@ -216,9 +134,11 @@ function GateMenu(props) {
             key={type}
             className={[
               "p-2 rounded-xl border flex flex-col items-center justify-center h-16 w-16 transition-all duration-150 shadow-md backdrop-blur-sm",
-              isSelected
-                ? "bg-white text-blue-600 border-blue-500 font-bold scale-110 -translate-y-1 shadow-blue-500/20 shadow-xl"
-                : "bg-neutral-900/80 text-neutral-300 border-neutral-700",
+              isNotGate
+                ? "bg-neutral-900/80 text-neutral-300 border-neutral-700"
+                : isSelected
+                  ? "bg-white text-blue-600 border-blue-500 font-bold scale-110 -translate-y-1 shadow-blue-500/20 shadow-xl"
+                  : "bg-neutral-900/80 text-neutral-300 border-neutral-700",
             ].join(" ")}
             title={type} // Hiện tên cổng khi hover chuột
           >

@@ -48,25 +48,52 @@ export const useObjectsSlice = create((set, get) => ({
   },
   getStateByGateId(gateId) {
     const gates = get().GATES
+    // get gate from gate's id
     const gate = gates[gateId]
     const result = {}
 
+    // get input, output from gate
     const { inputs, outputs } = gate
     for (const pin in inputs) {
+      // get input pin object
       const inPin = inputs[pin]
+      // get input src
       const srcGate = gates[inPin.srcGate]
 
+      // if the pin isnt setted, set falst as default
       if (srcGate == null) {
-        result[pin] = false
+        result[pin] = !!inPin.isNeg
         continue
       }
-      result[pin] = srcGate.outputs[inPin.srcPin].status
+
+      result[pin] = (
+        srcGate.outputs[inPin.srcPin].isNeg && inPin.isNeg
+          ? srcGate.outputs[inPin.srcPin].status
+          : !srcGate.outputs[inPin.srcPin].status
+      )
     }
 
     for (const pin in outputs) {
       result[pin] = outputs[pin].status
     }
     return result
+  },
+  togglePortStatus(gateId, pin) {
+    const gates = { ...get().GATES }
+    const gate = gates[gateId]
+    if (!gate) return
+
+    if (gate.outputs[pin]) {
+      gate.outputs[pin] = { ...gate.outputs[pin], isNeg: !gate.outputs[pin].isNeg }
+    } else if (gate.inputs[pin]) {
+      gate.inputs[pin] = { ...gate.inputs[pin], isNeg: !gate.inputs[pin].isNeg }
+    }
+
+    // dispatch event 
+
+    set(s => ({
+      GATES: gates
+    }))
   },
   addGate(input) {
     let { GATES: gates, COUNT: count } = get()
@@ -77,31 +104,19 @@ export const useObjectsSlice = create((set, get) => ({
       id: `${input.model.gate_name}_${count + 1}`,
       name: `${input.model.gate_name}_${count + 1}`,
       display: true,
-      // model: input.model,
       model_name: input.model.gate_name,
       position: input.position,
       rotation: input.rotation,
-      nextStep: input.model.NextStep,
       delay: input.model.delay,
       selfCall: !!input.model.selfCall,
       inputs: new Array(input.model.defaultInputs.length).fill().reduce((acc, _, index) => {
         const pinName = input.model.defaultInputs[index];
-        acc[pinName] = {
-          srcGate: "",
-          srcPin: "",
-          selfGate: "",
-          selfPin: "",
-          isNeg: false
-        };
+        acc[pinName] = { srcGate: "", srcPin: "", selfGate: "", selfPin: "", isNeg: false };
         return acc;
       }, {}),
       outputs: new Array(input.model.defaultOutputs.length).fill().reduce((acc, _, index) => {
         const pinName = input.model.defaultOutputs[index];
-        acc[pinName] = {
-          status: false,
-          destGate: [],
-          isNeg: false
-        };
+        acc[pinName] = { status: false, destGate: [], isNeg: false };
         return acc;
       }, {})
     }

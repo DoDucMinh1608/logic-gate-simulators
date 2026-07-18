@@ -12,11 +12,11 @@ import NorGate from "../Gates/bk/NorGate";
 import NotGate from "../Gates/NotGate";
 import OrGate from "../Gates/OrGate";
 
+import { useModelsSlice } from "@/store/modelStore";
 import ClockGate from "../Gates/ClockGate";
 import Display from "../Gates/Display";
 import SwitchGate from "../Gates/SwitchGate";
 import XorGate from "../Gates/XorGate";
-import { useModelsSlice } from "@/store/modelStore";
 
 const GATE_COMPONENTS = {
   [AND_GATE]: AndGate,
@@ -37,7 +37,6 @@ function placeGate(button, gatePos) {
   const selectBuildGate = usePlayerSlice.getState().selectBuildGate
   const setSelectPort = usePlayerSlice.getState().setSelectPort
   const setSelectBuildPort = usePlayerSlice.getState().setSelectBuildPort
-
 
   const model = GATE_COMPONENTS[selectBuildGate]
   const [x, y, z] = gatePos
@@ -66,6 +65,18 @@ function placeGate(button, gatePos) {
   }
   setSelectBuildPort(null)
   setSelectPort(null)
+}
+
+function setNotIndicatorVisibility(button, gatePosition) {
+  const selectPort = usePlayerSlice.getState().selectPort
+
+  const getGateByPosition = useObjectsSlice.getState().getGateByPosition
+
+  const togglePortStatus = useObjectsSlice.getState().togglePortStatus
+
+  if (selectPort) {
+    togglePortStatus(selectPort.gateId, selectPort.pin)
+  }
 }
 
 function placeWire(button, gatePosition) {
@@ -122,27 +133,36 @@ function placeWire(button, gatePosition) {
 }
 
 const position = new Vector3()
+
 function onMouseDown(event) {
   const camera = usePlayerSlice.getState().camera; // Access the camera from the player slice
   const selectBuildGate = usePlayerSlice.getState().selectBuildGate
   const interactPosition = useUtilitySlice.getState().interactPosition; // Access the interact position from the player slice
-
+  const gateInteractPosition = useUtilitySlice.getState().gateInteractPosition; // Access the interact position from the player slice
+  const isNotGate = usePlayerSlice.getState().getIsNotGate()
   if (!camera) {
     console.warn("Camera not found in player slice.");
     return;
   }
 
-  setSnapGridPosition(interactPosition, TRANSISTOR_SIZE, position)
-  const { x, y, z } = convertWorldCoorToGatePos(position.x, position.y, position.z)
+  if (isNotGate) {
+    setSnapGridPosition(interactPosition, TRANSISTOR_SIZE, position)
+    const { x, y, z } = convertWorldCoorToGatePos(position.x, position.y, position.z)
 
-  if (selectBuildGate != WIRE) {
+    setNotIndicatorVisibility(event.button, [x, y, z])
+    localStorage.setItem("gates", JSON.stringify(useObjectsSlice.getState().GATES));
+  } else if (selectBuildGate != WIRE) {
+    setSnapGridPosition(gateInteractPosition, TRANSISTOR_SIZE, position)
+    const { x, y, z } = convertWorldCoorToGatePos(position.x, position.y, position.z)
+
     placeGate(event.button, [x, y, z])
     localStorage.setItem("gates", JSON.stringify(useObjectsSlice.getState().GATES));
-
   } else if (selectBuildGate == WIRE) {
+    setSnapGridPosition(interactPosition, TRANSISTOR_SIZE, position)
+    const { x, y, z } = convertWorldCoorToGatePos(position.x, position.y, position.z)
+
     placeWire(event.button, [x, y, z])
     localStorage.setItem("gates", JSON.stringify(useObjectsSlice.getState().GATES));
-    return
   }
 }
 

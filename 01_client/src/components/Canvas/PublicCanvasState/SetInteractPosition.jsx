@@ -17,6 +17,7 @@ const tempVec = new Vector3()
 
 function SetInteractPosition() {
   const setInteractPosition = useUtilitySlice(state => state.setInteractPosition)
+  const setGateInteractPosition = useUtilitySlice(state => state.setGateInteractPosition)
   const selectBuildGate = usePlayerSlice(state => state.selectBuildGate)
   const getGateByPosition = useObjectsSlice(state => state.getGateByPosition)
   const setSelectPort = usePlayerSlice(state => state.setSelectPort)
@@ -31,10 +32,7 @@ function SetInteractPosition() {
     getLookingPositionOnPlane(state, activePlane, contactPoint)
     contactPoint.setY(0)
     setSnapGridPosition(contactPoint, actualSize, gridPosition)
-
-    if (selectBuildGate !== WIRE) {
-      return setInteractPosition(gridPosition)
-    }
+    setGateInteractPosition(gridPosition)
 
     convertWorldCoorToGatePos(gridPosition.x, gridPosition.y, gridPosition.z, tempVec)
     let { x, y, z } = tempVec

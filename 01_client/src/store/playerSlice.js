@@ -7,11 +7,18 @@ export const usePlayerSlice = create((set, get) => ({
   custom: {},
   camera: { position: new Vector3(), direction: new Vector3() },
   selectBuildGate: AND_GATE,
+  isNotGate: false,
   mouseLock: true,
   selectPort: null,
   selectBuildPort: null,
   executeNextStep: false,
   isDebugMode: true,
+  setIsNotGate(value) {
+    set(s => ({ isNotGate: value }))
+  },
+  getIsNotGate() {
+    return get().isNotGate
+  },
   setDebugMode(mode) {
     set(s => ({ isDebugMode: mode }))
   },

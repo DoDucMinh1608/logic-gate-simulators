@@ -29,8 +29,6 @@ function UpdateLogicGateState() {
 
     if (events.length === 0) return
 
-    // console.log('______________________________________________')
-    // console.log(events)
     const needUpdates = []
     const dispatchEvents = []
     for (const event of events) {
@@ -39,6 +37,7 @@ function UpdateLogicGateState() {
 
       if (targetGate == null) continue
       const gateState = event.gateState
+
       const nextState = model.NextStep(gateState)
       const needUpdate = { gateId: targetGate.id, pins: [] }
 

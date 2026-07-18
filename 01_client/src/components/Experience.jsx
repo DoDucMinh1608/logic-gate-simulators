@@ -21,7 +21,6 @@ import { useModelsSlice } from '@/store/modelStore'
 import { useObjectsSlice } from '@/store/objectsSlice'
 import { keyMap } from '@/utils/keyboardMap'
 
-
 function Experience() {
   useEffect(() => {
     const addModel = useModelsSlice.getState().addModel

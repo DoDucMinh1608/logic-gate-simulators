@@ -10,8 +10,8 @@ function onClick(id) {
   addEvent([{ gateId: id, time: time }])
 }
 
-function SwitchGate({ gate_id, name, state, ...props }) {
-  const isActive = !!state?.[OUT_Q]?.status;
+function SwitchGate({ gate_id, name, outputs, ...props }) {
+  const isActive = !!outputs?.[OUT_Q]?.status;
 
   return (
     <group

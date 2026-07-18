@@ -32,13 +32,13 @@ const { x, y, z } = TRANSISTOR_SIZE
 function ControlGatePlacement() {
   const ref = useRef()
 
-  const interactPosition = useUtilitySlice(state => state.interactPosition)
+  const gateInteractPosition = useUtilitySlice(state => state.gateInteractPosition)
   const selectBuildGate = usePlayerSlice(state => state.selectBuildGate)
   const length = GATE_COMPONENTS[selectBuildGate]?.size_length ?? 1
 
   useThrottledFrame(state => {
-    if (!ref.current || !interactPosition) return
-    ref.current.position?.copy(interactPosition)
+    if (!ref.current || !gateInteractPosition) return
+    ref.current.position?.copy(gateInteractPosition)
   }, 0, 30)
 
   return (

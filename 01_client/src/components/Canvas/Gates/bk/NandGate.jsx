@@ -9,7 +9,7 @@ import { GATE_COLORS, PORT_COLORS } from '@/utils/colors'
 import { IN_A, IN_B, INPUT_PIN, INVALID_PIN, NAND_GATE, OUT_Q, OUTPUT_PIN } from '@/utils/constants'
 import GateName from '../GateName'
 
-export default function NandGate({ name, state, ...props }) {
+export default function NandGate({ name, outputs, ...props }) {
   const { nodes, materials } = useGLTF('/NAND-transformed.glb')
   return (
     <group {...props} dispose={null}>
@@ -35,7 +35,7 @@ export default function NandGate({ name, state, ...props }) {
       <mesh position={[.8, 1, 0]}>
         <boxGeometry args={[.4, .4, .4]} />
         <meshStandardMaterial
-          color={state?.[OUT_Q].status ? 0xff0000 : 0x0000ff}
+          color={outputs?.[OUT_Q].status ? 0xff0000 : 0x0000ff}
           metalness={1}
           roughness={0.4}
           envMapIntensity={1.5}

@@ -3,9 +3,9 @@ import { CLOCK, INVALID_PIN, OUT_Q, OUTPUT_PIN } from "@/utils/constants"
 import { Edges } from "@react-three/drei"
 import GateName from "./GateName"
 
-function ClockGate({ name, state, ...props }) {
+function ClockGate({ name, outputs, ...props }) {
   // Lấy trạng thái On/Off hiện tại của xung nhịp từ state hệ thống
-  const isActive = !!state?.[OUT_Q]?.status
+  const isActive = !!outputs?.[OUT_Q]?.status
 
   return (
     <group {...props} dispose={null}>

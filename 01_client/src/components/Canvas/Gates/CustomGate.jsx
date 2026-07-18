@@ -6,7 +6,7 @@ const inputs = 15
 const outputs = 7
 
 const outputsPin = []
-function CustomGate({ name, state, position = [0, 0, 0], ...props }) {
+function CustomGate({ name, outputs, position = [0, 0, 0], ...props }) {
   const length = Math.ceil(Math.max(inputs, outputs) / 5) * 5
   return (
     <group position={[0 + position[0], 0 + position[1], length / 2 + position[2]]} {...props} dispose={null}>
@@ -33,7 +33,7 @@ function CustomGate({ name, state, position = [0, 0, 0], ...props }) {
           <mesh position={[.8, 1, i * length / inputs + 0.5 - length / 2]}>
             <boxGeometry args={[.4, .4, .4]} />
             <meshStandardMaterial
-              color={state?.[outputsPin[i]]?.status ? 0xff0000 : 0x0000ff}
+              color={outputs?.[outputsPin[i]]?.status ? 0xff0000 : 0x0000ff}
               metalness={1}
               roughness={0.4}
               envMapIntensity={1.5}
