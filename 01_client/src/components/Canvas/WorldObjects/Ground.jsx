@@ -11,8 +11,8 @@ function Ground() {
         ref={ref}
         cellSize={1}
         sectionSize={5}
-        sectionColor={0x080808}
-        cellColor={0x101010}
+        sectionColor={0x505050}
+        cellColor={0xA0A0A0}
         fadeStrength={.8}
         side={2}
       />
