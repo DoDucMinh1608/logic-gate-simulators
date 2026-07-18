@@ -13,7 +13,7 @@ function CurrentCameraState() {
       if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === 's') {
         // Prevent the browser's default "Save Page As..." dialog
         event.preventDefault();
-        console.log(JSON.stringify(useObjectsSlice.getState().GATES))
+        // console.log(JSON.stringify(useObjectsSlice.getState().GATES))
       }
     };
 

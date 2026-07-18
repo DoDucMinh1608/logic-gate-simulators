@@ -11,7 +11,7 @@ function onClick(id) {
 }
 
 function SwitchGate({ gate_id, name, state, ...props }) {
-  console.log(state)
+  // console.log(state)
   return (
     <group {...props} dispose={null}
       onClick={e => {

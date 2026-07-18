@@ -2,6 +2,7 @@ import { useFrame } from "@react-three/fiber";
 
 import { useObjectsSlice } from "@/store/objectsSlice";
 import { usePlayerSlice } from "@/store/playerSlice";
+import { useModelsSlice } from "@/store/modelStore";
 
 function UpdateLogicGateState() {
   const getEvents = useObjectsSlice(s => s.getEvents)
@@ -13,8 +14,9 @@ function UpdateLogicGateState() {
   const setExecuteNextStep = usePlayerSlice(s => s.setExecuteNextStep)
   const isDebugMode = usePlayerSlice(state => state.isDebugMode)
 
+  const getModelById = useModelsSlice(s => s.getModelById)
+
   useFrame(function (state, delta) {
-    // useThrottledFrame(function (state, delta) {
     if (isDebugMode) {
       if (!executeNextStep) return
       setExecuteNextStep(false)
@@ -27,16 +29,17 @@ function UpdateLogicGateState() {
 
     if (events.length === 0) return
 
-    console.log('______________________________________________')
+    // console.log('______________________________________________')
     // console.log(events)
     const needUpdates = []
     const dispatchEvents = []
     for (const event of events) {
       const targetGate = gates[event.gateId]
-      if (targetGate == null) continue
+      const model = getModelById(targetGate.model_name)
 
+      if (targetGate == null) continue
       const gateState = event.gateState
-      const nextState = targetGate.nextStep(gateState)
+      const nextState = model.NextStep(gateState)
       const needUpdate = { gateId: targetGate.id, pins: [] }
 
       for (let pin in nextState) {
@@ -70,7 +73,7 @@ function UpdateLogicGateState() {
     }
     if (dispatchEvents.length > 0) {
       addEvent(dispatchEvents)
-      console.log('dispatchEvents: ', dispatchEvents)
+      // console.log('dispatchEvents: ', dispatchEvents)
     }
   }, 0)
 }

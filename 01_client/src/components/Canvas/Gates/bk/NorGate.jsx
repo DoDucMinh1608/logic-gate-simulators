@@ -64,13 +64,8 @@ export default function NorGate({ name, state, ...props }) {
 NorGate.gate_name = NOR_GATE
 NorGate.delay = 2
 NorGate.size_length = 1
-NorGate.defaultInputs = JSON.stringify({
-  [IN_A]: { srcGate: "", srcPin: "", selfGate: "", selfPin: "", isNeg: false },
-  [IN_B]: { srcGate: "", srcPin: "", selfGate: "", selfPin: "", isNeg: false }
-})
-NorGate.defaultOutputs = JSON.stringify({
-  [OUT_Q]: { status: true, destGate: [], isNeg: false }
-})
+NorGate.defaultInputs = [IN_A, IN_B]
+NorGate.defaultOutputs = [OUT_Q]
 NorGate.CheckPinType = (pin) => {
   if (pin === IN_A || pin === IN_B) return INPUT_PIN
   if (pin === OUT_Q) return OUTPUT_PIN

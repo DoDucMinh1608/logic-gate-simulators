@@ -12,7 +12,7 @@ import GateName from './GateName'
 
 export default function AndGate({ name, state, ...props }) {
   const { nodes, materials } = useGLTF('/AND-transformed.glb')
-  console.log('AndGate state:', state)
+  // console.log('AndGate state:', state)
   return (
     <group {...props} dispose={null}>
       <GateName name={name} />

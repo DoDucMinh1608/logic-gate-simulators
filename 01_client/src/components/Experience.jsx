@@ -36,7 +36,8 @@ function Experience() {
     addModel(NandGate.gate_name, NandGate)
     addModel(NorGate.gate_name, NorGate)
     addModel(XorGate.gate_name, XorGate)
-    console.log('Models loaded:', useModelsSlice.getState().MODELS)
+    addModel(SwitchGate.gate_name, SwitchGate)
+    // console.log('Models loaded:', useModelsSlice.getState().MODELS)
 
     const savedGates = localStorage.getItem("gates");
     const result = {}
