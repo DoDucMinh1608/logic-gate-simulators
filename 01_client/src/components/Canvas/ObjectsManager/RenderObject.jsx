@@ -20,7 +20,6 @@ function renderGate(obj) {
       key={obj.id}
       name={obj.name}
       gate_id={obj.id}
-      model={Model}
       inputs={obj.inputs}
       outputs={obj.outputs}
       position={position}

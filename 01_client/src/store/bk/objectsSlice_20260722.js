@@ -56,29 +56,20 @@ export const useObjectsSlice = create((set, get) => ({
     for (const pin in inputs) {
       // get input pin object
       const inPin = inputs[pin]
-
-      /* 
-        EXPLANATION: `inPin.srcGate` holds the ID string of the upstream gate feeding this input pin.
-        We grab the entire source gate object from our state map to inspect its real-time outputs.
-      */
+      // get input src
       const srcGate = gates[inPin.srcGate]
 
       // if the pin isnt setted, set falst as default
       if (srcGate == null) {
-        result[pin] = false
+        result[pin] = !!inPin.isNeg
         continue
       }
 
-      /* 
-        EXPLANATION: `inPin.srcPin` is the specific string identifier of the output port on the upstream gate.
-        We read `srcGate.outputs[inPin.srcPin].status` to trace the boolean signal traveling through the wire,
-        then factor in potential bubbles/inversions (`isNeg`) on both ends.
-      */
-      result[pin] =
-        (srcGate.outputs[inPin.srcPin].isNeg && inPin.isNeg)
-          || (!srcGate.outputs[inPin.srcPin].isNeg && !inPin.isNeg)
+      result[pin] = (
+        srcGate.outputs[inPin.srcPin].isNeg && inPin.isNeg
           ? srcGate.outputs[inPin.srcPin].status
           : !srcGate.outputs[inPin.srcPin].status
+      )
     }
 
     for (const pin in outputs) {
@@ -86,32 +77,26 @@ export const useObjectsSlice = create((set, get) => ({
     }
     return result
   },
-  setPortStatus(gateId, pin, value) {
-    if (gateId == null || pin == null) return
-
-    const getStateByGateId = get().getStateByGateId
-
+  togglePortStatus(gateId, pin) {
     const gates = { ...get().GATES }
-    if (!gates?.[gateId]) return
+    const gate = gates[gateId]
+    if (!gate) return
 
-    const gate = { ...gates[gateId] }
-
-    const events = []
     if (gate.outputs[pin]) {
-      gate.outputs[pin] = { ...gate.outputs[pin], isNeg: value }
-      for (const destGate of gate.outputs[pin].destGate) {
-
-        events.push({ gateId: destGate.gateId })
-      }
+      gate.outputs[pin] = { ...gate.outputs[pin], isNeg: !gate.outputs[pin].isNeg }
     } else if (gate.inputs[pin]) {
-      gate.inputs[pin] = { ...gate.inputs[pin], isNeg: value }
-      events.push({ gateId })
+      gate.inputs[pin] = { ...gate.inputs[pin], isNeg: !gate.inputs[pin].isNeg }
     }
-    set(s => ({ GATES: gates, }))
-    // set(s => ({ EVENTS: [...events, ...s.EVENTS] }))
+
+    // dispatch event 
+
+    set(s => ({
+      GATES: gates
+    }))
   },
   addGate(input) {
     let { GATES: gates, COUNT: count } = get()
+
     if (isNaN(count)) count = 0
 
     const newGate = {
@@ -123,10 +108,6 @@ export const useObjectsSlice = create((set, get) => ({
       rotation: input.rotation,
       delay: input.model.delay,
       selfCall: !!input.model.selfCall,
-      /* 
-        EXPLANATION: Initialize input fields. `srcGate` and `srcPin` start as empty strings 
-        until a user bridges a connection from an output port.
-      */
       inputs: new Array(input.model.defaultInputs.length).fill().reduce((acc, _, index) => {
         const pinName = input.model.defaultInputs[index];
         acc[pinName] = { srcGate: "", srcPin: "", selfGate: "", selfPin: "", isNeg: false };
@@ -173,10 +154,6 @@ export const useObjectsSlice = create((set, get) => ({
 
     // remove old gate
     const curConnect = dstGateI.inputs[dstGate.pin]
-    /* 
-      EXPLANATION: Before setting up the new wire, check if the downstream pin already has an existing connection. 
-      `curConnect.srcGate` points us to the old parent gate so we can scrub the downstream reference from its outputs.
-    */
     const oldConnectGate = gates[curConnect.srcGate]
     if (oldConnectGate != null) {
       oldConnectGate.outputs[curConnect.srcPin].destGate =
@@ -198,24 +175,16 @@ export const useObjectsSlice = create((set, get) => ({
 
     const distance = srcGate.position.distanceTo(dstGate.position) / 10
     // setup outputGate
-    /* 
-      EXPLANATION: This acts as the wire registration layout. 
-      We assign `srcGate` and `srcPin` on the destination gate's input configuration, creating the directional link.
-    */
-    const srcPos = { ...srcGate.position }
-    srcPos.x -= 0.5
-    const desPos = { ...dstGate.position }
-    desPos.x += 0.5
     dstGateI.inputs[dstGate.pin] = {
       srcGate: srcGate.gateId,
       srcPin: srcGate.pin,
       selfGate: dstGate.gateId,
       selfPin: dstGate.pin,
       positions: [
-        srcPos,
-        { x: srcPos.x, y: -distance, z: srcPos.z },
-        { x: desPos.x, y: -distance, z: desPos.z },
-        desPos
+        { ...srcGate.position },
+        { x: srcGate.position.x, y: -distance, z: srcGate.position.z },
+        { x: dstGate.position.x, y: -distance, z: dstGate.position.z },
+        { ...dstGate.position }
       ]
     }
 
@@ -239,28 +208,19 @@ export const useObjectsSlice = create((set, get) => ({
       time: i.time ?? time,
       gateState: getStateByGateId(i.gateId)
     }))]
-    console.log(events)
     set(s => ({ EVENTS: events }))
   },
   getEvents(remove = true) {
     const gates = get().GATES
     const time = get().TIME
-
     const events = []
     const result = Object.values([...get().EVENTS].reduce((acc, i) => {
-      // Get event need to execute
       if (i.time > time) {
         events.push(i)
         return acc
       }
-
-      // remove duplicate event
       if (!acc[i.gateId]) acc[i.gateId] = i
-
-      // Remove deleted gate event
       if (gates[i.gateId] == null) delete acc[i.gateId]
-
-      // for debug only
       if (!remove) events.push(i)
       return acc
     }, {}))
@@ -284,10 +244,6 @@ export const useObjectsSlice = create((set, get) => ({
 
     for (const pin in inputs) {
       const inputPin = inputs[pin]
-      /* 
-        EXPLANATION: When deleting this gate, we find any component feeding this gate's inputs 
-        using `inputPin.srcGate`. We then clean out this gate from the source's target list.
-      */
       const src = gates[inputPin.srcGate]
       if (!src) continue
 
@@ -301,10 +257,6 @@ export const useObjectsSlice = create((set, get) => ({
 
       for (const destGate of outPin.destGate) {
         const gate = gates[destGate.gateId]
-        /* 
-          EXPLANATION: Because this gate is going away, its outputs drop. 
-          Any downstream pins that were listening to it have their `srcGate` and `srcPin` links severed and reset.
-        */
         gate.inputs[destGate.pin] = { srcGate: "", srcPin: "", selfGate: "", selfPin: "" }
 
         const state = getStateByGateId(gate.id)
@@ -325,10 +277,6 @@ export const useObjectsSlice = create((set, get) => ({
   },
   removeWire(obj) {
     const gates = { ...get().GATES }
-    /* 
-      EXPLANATION: `obj.srcGate` gives us the origin node of the specific line being severed, 
-      while `obj.srcPin` tells us exactly which output node it was hooked up to.
-    */
     const fromGate = gates[obj.srcGate]
     const toGate = gates[obj.selfGate]
 
@@ -336,20 +284,14 @@ export const useObjectsSlice = create((set, get) => ({
 
     fromGate.outputs[obj.srcPin].destGate = fromGate.outputs[obj.srcPin].destGate
       .filter(i => !(i.gateId === obj.selfGate && i.pin === obj.selfPin))
-
-    /* 
-      EXPLANATION: Completely disconnect the downstream target. 
-      `srcGate` and `srcPin` are set back to blank strings since no electricity source feeds this pin now.
-    */
-    toGate.inputs[obj.selfPin] = {
-      srcGate: "", srcPin: "", selfGate: "", selfPin: "", isNeg: toGate.inputs[obj.selfPin].isNeg
-    }
+    toGate.inputs[obj.selfPin] = { srcGate: "", srcPin: "", selfGate: "", selfPin: "" }
     event.gateState[obj.selfPin] = false
 
-    // gates[obj.srcGate]
     set(s => ({
       GATES: gates,
       EVENTS: [event, ...s.EVENTS]
     }))
   },
 }))
+
+

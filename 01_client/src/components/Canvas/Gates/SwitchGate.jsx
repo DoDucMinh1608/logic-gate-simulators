@@ -1,10 +1,11 @@
 import { useObjectsSlice } from '@/store/objectsSlice'
-import { GATE_COLORS, PORT_COLORS } from '@/utils/colors'
+import { GATE_COLORS } from '@/utils/colors'
+import { INVALID_PIN, OUT_Q, OUTPUT_PIN, SWITCH } from '@/utils/constants'
 import { Edges } from "@react-three/drei"
 import GateName from './GateName'
-import { INVALID_PIN, OUT_Q, OUTPUT_PIN, SWITCH } from '@/utils/constants'
 
 function onClick(id) {
+  console.log(id)
   const addEvent = useObjectsSlice.getState().addEvent
   const time = useObjectsSlice.getState().TIME
   addEvent([{ gateId: id, time: time }])
@@ -12,6 +13,7 @@ function onClick(id) {
 
 function SwitchGate({ gate_id, name, outputs, ...props }) {
   const isActive = !!outputs?.[OUT_Q]?.status;
+  // console.log(out)
 
   return (
     <group

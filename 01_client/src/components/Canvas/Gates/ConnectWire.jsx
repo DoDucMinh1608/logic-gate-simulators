@@ -6,10 +6,10 @@ import { usePlayerSlice } from "@/store/playerSlice"
 import { LEFT_CLICK, WIRE } from "@/utils/constants"
 
 function onConnectWireClick(id) {
-  const selectBuildGate = usePlayerSlice.getState().selectBuildGate
+  const isWireMode = usePlayerSlice.getState().isWireMode
   const removeWire = useObjectsSlice.getState().removeWire
 
-  if (selectBuildGate == WIRE) {
+  if (isWireMode) {
     removeWire(id)
   }
 }

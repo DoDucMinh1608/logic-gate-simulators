@@ -13,7 +13,8 @@ function ControlWirePlacement() {
   const selectPin = useRef()
 
   const interactPosition = useUtilitySlice(state => state.interactPosition)
-  const selectBuildGate = usePlayerSlice(state => state.selectBuildGate)
+  const isWireMode = usePlayerSlice((state) => state.isWireMode)
+  const isNotGate = usePlayerSlice((state) => state.isNotGate);
   const selectBuildPort = usePlayerSlice(state => state.selectBuildPort)
 
   useThrottledFrame(state => {
@@ -38,7 +39,7 @@ function ControlWirePlacement() {
           <Edges threshold={5} color="black" lineWidth={1} />
         </mesh>} */}
 
-      {selectBuildGate === WIRE && selectBuildPort &&
+      {isWireMode && !isNotGate && selectBuildPort &&
         <mesh ref={selectPin}>
           <boxGeometry args={[x + .05, y + .05, z + .05]} />
           <meshNormalMaterial transparent opacity={1} />

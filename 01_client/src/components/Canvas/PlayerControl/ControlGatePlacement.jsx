@@ -34,6 +34,8 @@ function ControlGatePlacement() {
 
   const gateInteractPosition = useUtilitySlice(state => state.gateInteractPosition)
   const selectBuildGate = usePlayerSlice(state => state.selectBuildGate)
+  const isWireMode = usePlayerSlice((state) => state.isWireMode)
+  const isNotGate = usePlayerSlice((state) => state.isNotGate);
   const length = GATE_COMPONENTS[selectBuildGate]?.size_length ?? 1
 
   useThrottledFrame(state => {
@@ -43,7 +45,7 @@ function ControlGatePlacement() {
 
   return (
     <group ref={ref}>
-      {selectBuildGate !== WIRE &&
+      {!isWireMode && !isNotGate &&
         <mesh position={[0, 0, z * (length - 1) / 2]} name="placement_reference">
           <boxGeometry args={[x - 1, y, z * length - 1]} />
           <meshNormalMaterial transparent opacity={0.2} depthWrite={false} />

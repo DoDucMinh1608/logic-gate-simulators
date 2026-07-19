@@ -57,7 +57,7 @@ export default function OrGate({ name, outputs, inputs, ...props }) {
             envMapIntensity={1.5}
             flatShading={true} />
         </mesh>
-        : <NotIndicator position={[-1.75, 0.125, -.5]} />}
+        : <NotIndicator position={[-1.6, 0.125, -.5]} />}
       {inB
         ? <mesh position={[-1.5, 0.125, .5]}>
           <boxGeometry args={[.4, .3, .3]} />
@@ -68,7 +68,7 @@ export default function OrGate({ name, outputs, inputs, ...props }) {
             envMapIntensity={1.5}
             flatShading={true} />
         </mesh>
-        : <NotIndicator position={[-1.75, 0.125, .5]} />}
+        : <NotIndicator position={[-1.6, 0.125, .5]} />}
     </group>
   )
 }

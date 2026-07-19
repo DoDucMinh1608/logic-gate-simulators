@@ -66,7 +66,7 @@ const GATE_ICONS = {
   ),
 };
 
-const NORMAL_GATE_TYPES = [WIRE, CLOCK, SWITCH, DISPLAY, NOT_GATE, AND_GATE, OR_GATE];
+const NORMAL_GATE_TYPES = [CLOCK, SWITCH, DISPLAY, NOT_GATE, AND_GATE, OR_GATE];
 
 function GateMenu(props) {
   // const [notSelect, setNotSelect] = useState(false);
@@ -75,6 +75,7 @@ function GateMenu(props) {
 
   const setSelectBuildPort = usePlayerSlice((state) => state.setSelectBuildPort);
   const isNotGate = usePlayerSlice((state) => state.getIsNotGate());
+  const isWireMode = usePlayerSlice((state) => state.isWireMode);
 
   useEffect(function () {
     usePlayerSlice.getState().setSelectBuildGate(GATE_TYPES[index]);
@@ -82,9 +83,18 @@ function GateMenu(props) {
 
   useEffect(() => {
     const handleKeyDown = (event) => {
+      const state = usePlayerSlice.getState()
+      // Invert input
       if (event.key.toLowerCase() === "q") {
-        // setNotSelect((s) => !s);
-        usePlayerSlice.getState().setIsNotGate(!isNotGate);
+        state.setIsNotGate(!state.isNotGate);
+        state.setIsWireMode(false);
+        setSelectBuildPort(null);
+      }
+      // Wire mode
+      if (event.key.toLowerCase() === "z") {
+        state.setIsNotGate(false);
+        state.setIsWireMode(!state.isWireMode);
+        setSelectBuildPort(null);
       }
     };
 
@@ -125,6 +135,17 @@ function GateMenu(props) {
         <span className="text-sm">NOT</span>
         <span className="text-[9px] bg-black/30 px-1 rounded mt-0.5">Key Q</span>
       </div>
+      <div
+        className={[
+          "px-3 py-2 text-center border rounded-xl text-xs font-bold transition-all duration-200 flex flex-col items-center justify-center h-16 w-16 shadow-lg",
+          isWireMode
+            ? "bg-emerald-500/90 text-white border-emerald-400 scale-105"
+            : "bg-neutral-800/80 text-neutral-400 border-neutral-700",
+        ].join(" ")}>
+        <span className="text-[10px] opacity-70">MODE</span>
+        <span className="text-sm">WIRE</span>
+        <span className="text-[9px] bg-black/30 px-1 rounded mt-0.5">Key Z</span>
+      </div>
 
       {/* Danh sách các Icon linh kiện */}
       {GATE_TYPES.map((type, i) => {
@@ -134,7 +155,7 @@ function GateMenu(props) {
             key={type}
             className={[
               "p-2 rounded-xl border flex flex-col items-center justify-center h-16 w-16 transition-all duration-150 shadow-md backdrop-blur-sm",
-              isNotGate
+              isNotGate || isWireMode
                 ? "bg-neutral-900/80 text-neutral-300 border-neutral-700"
                 : isSelected
                   ? "bg-white text-blue-600 border-blue-500 font-bold scale-110 -translate-y-1 shadow-blue-500/20 shadow-xl"

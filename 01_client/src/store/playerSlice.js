@@ -8,11 +8,15 @@ export const usePlayerSlice = create((set, get) => ({
   camera: { position: new Vector3(), direction: new Vector3() },
   selectBuildGate: AND_GATE,
   isNotGate: false,
+  isWireMode: false,
   mouseLock: true,
   selectPort: null,
   selectBuildPort: null,
   executeNextStep: false,
   isDebugMode: true,
+  setIsWireMode(value) {
+    set(s => ({ isWireMode: value }))
+  },
   setIsNotGate(value) {
     set(s => ({ isNotGate: value }))
   },
