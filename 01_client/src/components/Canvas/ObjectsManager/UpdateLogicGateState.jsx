@@ -37,7 +37,6 @@ function UpdateLogicGateState() {
 
       if (targetGate == null) continue
       const gateState = event.gateState
-
       const nextState = model.NextStep(gateState)
       const needUpdate = { gateId: targetGate.id, pins: [] }
 

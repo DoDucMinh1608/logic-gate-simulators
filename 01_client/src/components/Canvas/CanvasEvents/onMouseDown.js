@@ -4,7 +4,7 @@ import { useObjectsSlice } from "@/store/objectsSlice";
 import { usePlayerSlice } from "@/store/playerSlice";
 import { useUtilitySlice } from "@/store/utilitiesSlice";
 import { convertWorldCoorToGatePos, setSnapGridPosition } from "@/utils";
-import { AND_GATE, CLOCK, DISPLAY, INPUT_PIN, LEFT_CLICK, NAND_GATE, NOR_GATE, NOT_GATE, OR_GATE, OUTPUT_PIN, RIGHT_CLICK, SWITCH, TRANSISTOR_SIZE, WIRE, XOR_GATE } from "@/utils/constants";
+import { AND_GATE, CLOCK, DISPLAY, INPUT_PIN, LEFT_CLICK, NAND_GATE, NOR_GATE, NOT_GATE, OR_GATE, OUTPUT_PIN, RIGHT_CLICK, SWITCH, TRANSISTOR_SIZE, XOR_GATE } from "@/utils/constants";
 
 import AndGate from "../Gates/AndGate";
 import NandGate from "../Gates/bk/NandGate";
@@ -148,6 +148,7 @@ function onMouseDown(event) {
   const selectBuildGate = usePlayerSlice.getState().selectBuildGate
   const interactPosition = useUtilitySlice.getState().interactPosition; // Access the interact position from the player slice
   const gateInteractPosition = useUtilitySlice.getState().gateInteractPosition; // Access the interact position from the player slice
+
   const isNotGate = usePlayerSlice.getState().isNotGate
   const isWireMode = usePlayerSlice.getState().isWireMode
 

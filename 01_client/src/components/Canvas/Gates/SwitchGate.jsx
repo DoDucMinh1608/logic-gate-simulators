@@ -5,13 +5,14 @@ import { Edges } from "@react-three/drei"
 import GateName from './GateName'
 
 function onClick(id) {
-  console.log(id)
+  // console.log(id)
   const addEvent = useObjectsSlice.getState().addEvent
   const time = useObjectsSlice.getState().TIME
   addEvent([{ gateId: id, time: time }])
 }
 
 function SwitchGate({ gate_id, name, outputs, ...props }) {
+  // console.log(outputs)
   const isActive = !!outputs?.[OUT_Q]?.status;
   // console.log(out)
 

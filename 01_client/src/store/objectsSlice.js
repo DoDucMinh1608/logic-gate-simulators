@@ -17,7 +17,10 @@ export const useObjectsSlice = create((set, get) => ({
       const { gateId, pins } = params[i];
       if (!nextGates[gateId]) continue;
 
-      const gate = { ...nextGates[gateId], outputs: { ...nextGates[gateId].outputs } };
+      const gate = {
+        ...nextGates[gateId],
+        outputs: { ...nextGates[gateId].outputs }
+      };
 
       for (let j = 0; j < pins.length; j++) {
         const updatePin = pins[j];
@@ -56,7 +59,7 @@ export const useObjectsSlice = create((set, get) => ({
     for (const pin in inputs) {
       // get input pin object
       const inPin = inputs[pin]
-
+      console.log(inPin)
       /* 
         EXPLANATION: `inPin.srcGate` holds the ID string of the upstream gate feeding this input pin.
         We grab the entire source gate object from our state map to inspect its real-time outputs.
@@ -65,7 +68,7 @@ export const useObjectsSlice = create((set, get) => ({
 
       // if the pin isnt setted, set falst as default
       if (srcGate == null) {
-        result[pin] = false
+        result[pin] = inPin.isNeg ? true : false
         continue
       }
 
@@ -74,15 +77,11 @@ export const useObjectsSlice = create((set, get) => ({
         We read `srcGate.outputs[inPin.srcPin].status` to trace the boolean signal traveling through the wire,
         then factor in potential bubbles/inversions (`isNeg`) on both ends.
       */
-      result[pin] =
-        (srcGate.outputs[inPin.srcPin].isNeg && inPin.isNeg)
-          || (!srcGate.outputs[inPin.srcPin].isNeg && !inPin.isNeg)
-          ? srcGate.outputs[inPin.srcPin].status
-          : !srcGate.outputs[inPin.srcPin].status
+      result[pin] = srcGate.outputs[inPin.srcPin].isNeg ? !srcGate.outputs[inPin.srcPin].status : srcGate.outputs[inPin.srcPin].status
     }
 
     for (const pin in outputs) {
-      result[pin] = outputs[pin].status
+      result[pin] = outputs[pin].isNeg ? !outputs[pin].status : outputs[pin].status
     }
     return result
   },
@@ -90,7 +89,7 @@ export const useObjectsSlice = create((set, get) => ({
     if (gateId == null || pin == null) return
 
     const getStateByGateId = get().getStateByGateId
-
+    const time = get().TIME
     const gates = { ...get().GATES }
     if (!gates?.[gateId]) return
 
@@ -100,15 +99,40 @@ export const useObjectsSlice = create((set, get) => ({
     if (gate.outputs[pin]) {
       gate.outputs[pin] = { ...gate.outputs[pin], isNeg: value }
       for (const destGate of gate.outputs[pin].destGate) {
-
-        events.push({ gateId: destGate.gateId })
+        events.push({
+          gateId: destGate.gateId,
+          gateState: getStateByGateId(destGate.gateId),
+          time
+        })
       }
     } else if (gate.inputs[pin]) {
       gate.inputs[pin] = { ...gate.inputs[pin], isNeg: value }
-      events.push({ gateId })
+      events.push({
+        gateId,
+        gateState: getStateByGateId(gateId),
+        time
+      })
     }
-    set(s => ({ GATES: gates, }))
+    set(s => ({ GATES: gates }))
     // set(s => ({ EVENTS: [...events, ...s.EVENTS] }))
+
+    // update state
+    if (gate.outputs[pin]) {
+      for (const destGate of gate.outputs[pin].destGate) {
+        events.push({
+          gateId: destGate.gateId,
+          gateState: getStateByGateId(destGate.gateId),
+          time
+        })
+      }
+    } else if (gate.inputs[pin]) {
+      events.push({
+        gateId,
+        gateState: getStateByGateId(gateId),
+        time
+      })
+    }
+    set(s => ({ EVENTS: [...events, ...s.EVENTS] }))
   },
   addGate(input) {
     let { GATES: gates, COUNT: count } = get()
@@ -239,7 +263,6 @@ export const useObjectsSlice = create((set, get) => ({
       time: i.time ?? time,
       gateState: getStateByGateId(i.gateId)
     }))]
-    console.log(events)
     set(s => ({ EVENTS: events }))
   },
   getEvents(remove = true) {
