@@ -73,7 +73,7 @@ export default function AndGate({ name, outputs, inputs, ...props }) {
   )
 }
 AndGate.gate_name = AND_GATE
-AndGate.delay = 3
+AndGate.delay = 1
 AndGate.size_length = 1
 AndGate.defaultInputs = [IN_A, IN_B]
 AndGate.defaultOutputs = [OUT_Q]

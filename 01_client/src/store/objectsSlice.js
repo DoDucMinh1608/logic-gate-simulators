@@ -1,9 +1,199 @@
 import { create } from "zustand";
 
 export const useObjectsSlice = create((set, get) => ({
-  GATES: {},
-  COUNT: 0,
+  GATES: {
+    "AND_1": {
+      "id": "AND_1",
+      "name": "AND_1",
+      "display": true,
+      "model_name": "AND",
+      "position": [
+        -4,
+        0,
+        -1
+      ],
+      "rotation": 0,
+      "delay": 3,
+      "selfCall": false,
+      "inputs": {
+        "in_A": {
+          "srcGate": "SWITCH_3",
+          "srcPin": "out_Q",
+          "selfGate": "AND_1",
+          "selfPin": "in_A",
+          "positions": [
+            {
+              "x": -25.75,
+              "y": 0,
+              "z": -2.5
+            },
+            {
+              "x": -25.75,
+              "y": -0.5771698190307598,
+              "z": -2.5
+            },
+            {
+              "x": -19,
+              "y": -0.5771698190307598,
+              "z": -3
+            },
+            {
+              "x": -19,
+              "y": 0,
+              "z": -3
+            }
+          ]
+        },
+        "in_B": {
+          "srcGate": "SWITCH_4",
+          "srcPin": "out_Q",
+          "selfGate": "AND_1",
+          "selfPin": "in_B",
+          "positions": [
+            {
+              "x": -25.75,
+              "y": 0,
+              "z": 2.5
+            },
+            {
+              "x": -25.75,
+              "y": -0.7301540933255117,
+              "z": 2.5
+            },
+            {
+              "x": -19,
+              "y": -0.7301540933255117,
+              "z": -2
+            },
+            {
+              "x": -19,
+              "y": 0,
+              "z": -2
+            }
+          ]
+        }
+      },
+      "outputs": {
+        "out_Q": {
+          "status": false,
+          "destGate": [
+            {
+              "gateId": "DISPLAY_2",
+              "pin": "in_A"
+            }
+          ],
+          "isNeg": false
+        }
+      }
+    },
+    "DISPLAY_2": {
+      "id": "DISPLAY_2",
+      "name": "DISPLAY_2",
+      "display": true,
+      "model_name": "DISPLAY",
+      "position": [
+        -2,
+        0,
+        -1
+      ],
+      "rotation": 0,
+      "delay": 1,
+      "selfCall": false,
+      "inputs": {
+        "in_A": {
+          "srcGate": "AND_1",
+          "srcPin": "out_Q",
+          "selfGate": "DISPLAY_2",
+          "selfPin": "in_A",
+          "positions": [
+            {
+              "x": -15.75,
+              "y": 0,
+              "z": -2.5
+            },
+            {
+              "x": -15.75,
+              "y": -0.575,
+              "z": -2.5
+            },
+            {
+              "x": -9,
+              "y": -0.575,
+              "z": -2.5
+            },
+            {
+              "x": -9,
+              "y": 0,
+              "z": -2.5
+            }
+          ]
+        }
+      },
+      "outputs": {
+        "out_Q": {
+          "status": false,
+          "destGate": [],
+          "isNeg": false
+        }
+      }
+    },
+    "SWITCH_3": {
+      "id": "SWITCH_3",
+      "name": "SWITCH_3",
+      "display": true,
+      "model_name": "SWITCH",
+      "position": [
+        -6,
+        0,
+        -1
+      ],
+      "rotation": 0,
+      "delay": 1,
+      "selfCall": false,
+      "inputs": {},
+      "outputs": {
+        "out_Q": {
+          "status": false,
+          "destGate": [
+            {
+              "gateId": "AND_1",
+              "pin": "in_A"
+            }
+          ],
+          "isNeg": false
+        }
+      }
+    },
+    "SWITCH_4": {
+      "id": "SWITCH_4",
+      "name": "SWITCH_4",
+      "display": true,
+      "model_name": "SWITCH",
+      "position": [
+        -6,
+        0,
+        0
+      ],
+      "rotation": 0,
+      "delay": 1,
+      "selfCall": false,
+      "inputs": {},
+      "outputs": {
+        "out_Q": {
+          "status": false,
+          "destGate": [
+            {
+              "gateId": "AND_1",
+              "pin": "in_B"
+            }
+          ],
+          "isNeg": false
+        }
+      }
+    }
+  },
   EVENTS: [],
+  COUNT: 0,
   TIME: 0,
   updateTime() {
     set(state => ({ TIME: state.TIME + 1 }))
@@ -52,6 +242,8 @@ export const useObjectsSlice = create((set, get) => ({
     const gates = get().GATES
     // get gate from gate's id
     const gate = gates[gateId]
+    if (!gate) return
+
     const result = {}
 
     // get input, output from gate
@@ -64,11 +256,12 @@ export const useObjectsSlice = create((set, get) => ({
         EXPLANATION: `inPin.srcGate` holds the ID string of the upstream gate feeding this input pin.
         We grab the entire source gate object from our state map to inspect its real-time outputs.
       */
+      const selfGate = gates[inPin.selfGate]
       const srcGate = gates[inPin.srcGate]
-
+      // console.log(selfGate)
       // if the pin isnt setted, set falst as default
       if (srcGate == null) {
-        result[pin] = inPin.isNeg ? true : false
+        result[pin] = !!inPin.isNeg
         continue
       }
 
@@ -77,11 +270,14 @@ export const useObjectsSlice = create((set, get) => ({
         We read `srcGate.outputs[inPin.srcPin].status` to trace the boolean signal traveling through the wire,
         then factor in potential bubbles/inversions (`isNeg`) on both ends.
       */
-      result[pin] = srcGate.outputs[inPin.srcPin].isNeg ? !srcGate.outputs[inPin.srcPin].status : srcGate.outputs[inPin.srcPin].status
+      result[pin] = (srcGate.outputs[inPin.srcPin].isNeg && !inPin.isNeg)
+        || (!srcGate.outputs[inPin.srcPin].isNeg && inPin.isNeg)
+        ? !srcGate.outputs[inPin.srcPin].status
+        : srcGate.outputs[inPin.srcPin].status
     }
 
     for (const pin in outputs) {
-      result[pin] = outputs[pin].isNeg ? !outputs[pin].status : outputs[pin].status
+      result[pin] = outputs[pin].status
     }
     return result
   },
@@ -263,6 +459,7 @@ export const useObjectsSlice = create((set, get) => ({
       time: i.time ?? time,
       gateState: getStateByGateId(i.gateId)
     }))]
+    console.log(getStateByGateId(event_list[0]?.gateId))
     set(s => ({ EVENTS: events }))
   },
   getEvents(remove = true) {

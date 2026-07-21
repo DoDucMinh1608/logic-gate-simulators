@@ -73,7 +73,7 @@ export default function OrGate({ name, outputs, inputs, ...props }) {
   )
 }
 OrGate.gate_name = OR_GATE
-OrGate.delay = 3
+OrGate.delay = 1
 OrGate.size_length = 1
 OrGate.defaultInputs = [IN_A, IN_B]
 OrGate.defaultOutputs = [OUT_Q]

@@ -54,7 +54,7 @@ export default function XorGate({ name, ...props }) {
   )
 }
 XorGate.gate_name = XOR_GATE
-XorGate.delay = 4
+XorGate.delay = 1
 XorGate.size_length = 1
 XorGate.defaultInputs = [IN_A, IN_B]
 XorGate.defaultOutputs = [OUT_Q]

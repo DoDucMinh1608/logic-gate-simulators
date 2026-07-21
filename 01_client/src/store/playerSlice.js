@@ -13,7 +13,7 @@ export const usePlayerSlice = create((set, get) => ({
   selectPort: null,
   selectBuildPort: null,
   executeNextStep: false,
-  isDebugMode: true,
+  isDebugMode: false,
   setIsWireMode(value) {
     set(s => ({ isWireMode: value }))
   },
