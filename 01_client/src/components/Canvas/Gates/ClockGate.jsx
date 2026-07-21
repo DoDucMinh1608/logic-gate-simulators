@@ -33,7 +33,6 @@ function ClockGate({ name, outputs, ...props }) {
           flatShading={true}
         />
       </mesh>
-
       {/* 3. LÕI THẠCH ANH PHÁT XUNG (Oscillator Core - Nhấp nháy theo tần số) */}
       {/* Giữ nguyên geometry dạng khối 3 cạnh (args: [rTop, rBottom, height, segments]) độc đáo của bạn */}
       <mesh position={[0, 1, 0]} rotation={[0, Math.PI / 4, 0]}>

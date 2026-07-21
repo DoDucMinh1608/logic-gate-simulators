@@ -1,16 +1,16 @@
 import { Edges } from "@react-three/drei";
 import { useRef } from "react";
 
-import { useThrottledFrame } from "@/hooks/useThrottledFrame";
 import { usePlayerSlice } from "@/store/playerSlice";
 import { useUtilitySlice } from "@/store/utilitiesSlice";
-import { AND_GATE, CLOCK, DISPLAY, NAND_GATE, NOR_GATE, NOT_GATE, OR_GATE, SWITCH, TRANSISTOR_SIZE, WIRE, XOR_GATE } from "@/utils/constants";
+import { AND_GATE, CLOCK, DISPLAY, NAND_GATE, NOR_GATE, NOT_GATE, OR_GATE, SWITCH, TRANSISTOR_SIZE, XOR_GATE } from "@/utils/constants";
 
+import { useFrame } from "@react-three/fiber";
 import AndGate from "../Gates/AndGate";
-import ClockGate from "../Gates/ClockGate";
-import Display from "../Gates/Display";
 import NandGate from "../Gates/bk/NandGate";
 import NorGate from "../Gates/bk/NorGate";
+import ClockGate from "../Gates/ClockGate";
+import Display from "../Gates/Display";
 import NotGate from "../Gates/NotGate";
 import OrGate from "../Gates/OrGate";
 import SwitchGate from "../Gates/SwitchGate";
@@ -38,10 +38,10 @@ function ControlGatePlacement() {
   const isNotGate = usePlayerSlice((state) => state.isNotGate);
   const length = GATE_COMPONENTS[selectBuildGate]?.size_length ?? 1
 
-  useThrottledFrame(state => {
+  useFrame(state => {
     if (!ref.current || !gateInteractPosition) return
     ref.current.position?.copy(gateInteractPosition)
-  }, 0, 30)
+  }, -1)
 
   return (
     <group ref={ref}>

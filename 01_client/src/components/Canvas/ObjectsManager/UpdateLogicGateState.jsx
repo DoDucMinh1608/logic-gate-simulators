@@ -1,8 +1,8 @@
 import { useFrame } from "@react-three/fiber";
 
+import { useModelsSlice } from "@/store/modelStore";
 import { useObjectsSlice } from "@/store/objectsSlice";
 import { usePlayerSlice } from "@/store/playerSlice";
-import { useModelsSlice } from "@/store/modelStore";
 
 function UpdateLogicGateState() {
   const getEvents = useObjectsSlice(s => s.getEvents)
@@ -37,6 +37,7 @@ function UpdateLogicGateState() {
 
       if (targetGate == null) continue
       const gateState = event.gateState
+
       const nextState = model.NextStep(gateState)
       const needUpdate = { gateId: targetGate.id, pins: [] }
 

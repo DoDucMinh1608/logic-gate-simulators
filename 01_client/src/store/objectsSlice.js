@@ -459,7 +459,6 @@ export const useObjectsSlice = create((set, get) => ({
       time: i.time ?? time,
       gateState: getStateByGateId(i.gateId)
     }))]
-    console.log(getStateByGateId(event_list[0]?.gateId))
     set(s => ({ EVENTS: events }))
   },
   getEvents(remove = true) {

@@ -7,6 +7,7 @@ import { useUtilitySlice } from "@/store/utilitiesSlice";
 import { convertWorldCoorToGatePos, getLookingPositionOnPlane, setSnapGridPosition } from "@/utils";
 import { TRANSISTOR_SIZE, WIRE } from "@/utils/constants";
 import { useModelsSlice } from "@/store/modelStore";
+import { useFrame } from "@react-three/fiber";
 
 const actualSize = TRANSISTOR_SIZE
 const activePlane = new Plane(new Vector3(0, 1, 0), 0)
@@ -22,7 +23,7 @@ function SetInteractPosition() {
   const getGateByPosition = useObjectsSlice(state => state.getGateByPosition)
   const setSelectPort = usePlayerSlice(state => state.setSelectPort)
 
-  useThrottledFrame(state => {
+  useFrame(state => {
     const raycaster = state.raycaster
     const camera = state.camera
 
@@ -53,7 +54,7 @@ function SetInteractPosition() {
 
     setInteractPosition(tempVec)
     setSelectPort({ gateId: gate.id, pin: portSelect.pin, position: tempVec })
-  }, -1, 30)
+  }, -1)
 
   return null;
 }

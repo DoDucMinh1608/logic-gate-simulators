@@ -57,8 +57,7 @@ function placeGate(button, gatePos) {
         addGate({
           model,
           position: [gatePos[0], 0, gatePos[2]],
-          rotation: 0,
-          custom: {}
+          rotation: 0
         })
       }
       break
@@ -67,7 +66,7 @@ function placeGate(button, gatePos) {
   setSelectPort(null)
 }
 
-function setNotIndicatorVisibility(button, gatePosition) {
+function setNotIndicatorVisibility(button) {
   const selectPort = usePlayerSlice.getState().selectPort
   const setPortStatus = useObjectsSlice.getState().setPortStatus
   const setSelectPort = usePlayerSlice.getState().setSelectPort
@@ -106,10 +105,12 @@ function placeWire(button, gatePosition) {
       }
       break;
     case RIGHT_CLICK:
+      // if user hasnt select a pin, do nothing
       if (selectPort == null) {
         return
       }
 
+      // if user have selected a pin, save it as 1st pin
       if (!selectBuildPort) {
         setSelectBuildPort({
           gateId: selectPort?.gateId,
@@ -119,12 +120,15 @@ function placeWire(button, gatePosition) {
         return
       }
 
+      // 
       if (selectPort.gateId === selectBuildPort.gateId && selectPort.pin === selectBuildPort.pin) {
         return
       }
 
-      let port1Model = useModelsSlice.getState().getModelById(gates[selectPort.gateId].model_name)
-      let port2Model = useModelsSlice.getState().getModelById(gates[selectBuildPort.gateId].model_name)
+      const getModelById = useModelsSlice.getState().getModelById
+      let port1Model = getModelById(gates[selectPort.gateId].model_name)
+      let port2Model = getModelById(gates[selectBuildPort.gateId].model_name)
+
       let port1Type = port1Model.CheckPinType(selectPort.pin)
       let port2Type = port2Model.CheckPinType(selectBuildPort.pin)
       if (port1Type == port2Type) {

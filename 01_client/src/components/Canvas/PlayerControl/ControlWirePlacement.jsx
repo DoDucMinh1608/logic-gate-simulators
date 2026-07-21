@@ -1,13 +1,12 @@
 import { Edges } from "@react-three/drei";
 import { useRef } from "react";
-import { Vector3 } from "three";
 
-import { useThrottledFrame } from "@/hooks/useThrottledFrame";
 import { usePlayerSlice } from "@/store/playerSlice";
 import { useUtilitySlice } from "@/store/utilitiesSlice";
-import { WIRE } from "@/utils/constants";
+import { useFrame } from "@react-three/fiber";
+import { Vector3 } from "three";
 
-const { x, y, z } = new Vector3(.5, .5, .5)
+const [x, y, z] = [.5, .5, .5]
 function ControlWirePlacement() {
   const ref = useRef()
   const selectPin = useRef()
@@ -17,18 +16,17 @@ function ControlWirePlacement() {
   const isNotGate = usePlayerSlice((state) => state.isNotGate);
   const selectBuildPort = usePlayerSlice(state => state.selectBuildPort)
 
-  useThrottledFrame(state => {
+  useFrame(state => {
     if (ref.current && interactPosition) {
       ref.current.position.copy(interactPosition)
       ref.current.position.setY(y / 2)
     }
 
-    // console.log(selectPin, selectBuildPort)
     if (selectPin.current && selectBuildPort) {
       selectPin.current.position.copy?.(selectBuildPort.position)
       selectPin.current.position.setY(y / 2)
     }
-  }, 0, 30)
+  }, 0)
 
   return (
     <>
