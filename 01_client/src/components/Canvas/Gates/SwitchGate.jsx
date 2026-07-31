@@ -3,31 +3,29 @@ import { GATE_COLORS } from '@/utils/colors'
 import { INVALID_PIN, OUT_Q, OUTPUT_PIN, SWITCH } from '@/utils/constants'
 import { Edges } from "@react-three/drei"
 import GateName from './GateName'
+import NotIndicator from './NotIndicator'
 
 function onClick(id) {
-  // console.log(id)
   const addEvent = useObjectsSlice.getState().addEvent
   const time = useObjectsSlice.getState().TIME
   addEvent([{ gateId: id, time: time }])
 }
 
-function SwitchGate({ gate_id, name, outputs, ...props }) {
+function SwitchGate({ gate_id, name, outputs, inputs, ...props }) {
   // console.log(outputs)
   const isActive = !!outputs?.[OUT_Q]?.status;
+  const outQ = !outputs?.[OUT_Q]?.isNeg
   // console.log(out)
 
   return (
-    <group
-      {...props}
-      dispose={null}
+    <group {...props} dispose={null}
       onClick={e => {
         e.stopPropagation()
         // Chuột phải (button == 2) để tương tác gạt công tắc
         if (e.button === 2) {
           onClick(gate_id)
         }
-      }}
-    >
+      }}>
       <GateName name={name} />
 
       {/* 1. ĐẾ CÔNG TẮC (Khối hộp kim loại công nghệ cao) */}
@@ -63,32 +61,20 @@ function SwitchGate({ gate_id, name, outputs, ...props }) {
             roughness={isActive ? 0.1 : 0.5}
           />
         </mesh>
-
-        {/* Núm bọc đầu công tắc - Phát sáng Neon cực đẹp trong Night Mode */}
-        {/* <mesh position={[0, 1.05, 0]}>
-          <boxGeometry args={[0.5, 0.4, 0.5]} />
-          <meshStandardMaterial
-            color={isActive ? "#00ff66" : "#3b4252"}
-            emissive={isActive ? "#00ff66" : "#000000"}
-            emissiveIntensity={isActive ? 3.0 : 0}
-            roughness={isActive ? 0.1 : 0.5}
-          />
-          <Edges threshold={15} color={isActive ? "#a3ffc2" : "#4c566a"} lineWidth={3} />
-        </mesh> */}
       </group>
-
-      {/* 4. CHÂN PIN ĐẦU RA (OUT_Q) */}
-      <mesh position={[1.5, 0.125, 0]}>
-        <boxGeometry args={[0.3, 0.3, 0.3]} />
-        <meshStandardMaterial
-          color={isActive ? "#00ff66" : "#003366"}
-          emissive={isActive ? "#00ff66" : "#000011"}
-          emissiveIntensity={isActive ? 1.5 : 0.2}
-          metalness={0.8}
-          roughness={0.2}
-          envMapIntensity={1.5}
-        />
-      </mesh>
+      {outQ
+        ? <mesh position={[1.5, 0.125, 0]}>
+          <boxGeometry args={[0.3, 0.3, 0.3]} />
+          <meshStandardMaterial
+            color={isActive ? "#00ff66" : "#003366"}
+            emissive={isActive ? "#00ff66" : "#000011"}
+            emissiveIntensity={isActive ? 1.5 : 0.2}
+            metalness={0.8}
+            roughness={0.2}
+            envMapIntensity={1.5}
+          />
+        </mesh>
+        : <NotIndicator position={[1.75, 0.125, 0]} />}
     </group>
   )
 }

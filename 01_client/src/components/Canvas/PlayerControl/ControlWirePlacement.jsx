@@ -5,6 +5,8 @@ import { usePlayerSlice } from "@/store/playerSlice";
 import { useUtilitySlice } from "@/store/utilitiesSlice";
 import { useFrame } from "@react-three/fiber";
 import { Vector3 } from "three";
+import { useUIStore } from "@/store/uiStore";
+import { WIRE } from "@/utils/constants";
 
 const [x, y, z] = [.5, .5, .5]
 function ControlWirePlacement() {
@@ -12,8 +14,7 @@ function ControlWirePlacement() {
   const selectPin = useRef()
 
   const interactPosition = useUtilitySlice(state => state.interactPosition)
-  const isWireMode = usePlayerSlice((state) => state.isWireMode)
-  const isNotGate = usePlayerSlice((state) => state.isNotGate);
+  const selectBuildGate = useUIStore(state => state.selectBuildGate)
   const selectBuildPort = usePlayerSlice(state => state.selectBuildPort)
 
   useFrame(state => {
@@ -37,7 +38,7 @@ function ControlWirePlacement() {
           <Edges threshold={5} color="black" lineWidth={1} />
         </mesh>} */}
 
-      {isWireMode && !isNotGate && selectBuildPort &&
+      {selectBuildGate == WIRE && selectBuildPort &&
         <mesh ref={selectPin}>
           <boxGeometry args={[x + .05, y + .05, z + .05]} />
           <meshNormalMaterial transparent opacity={1} />

@@ -4,12 +4,13 @@ import { useState } from "react"
 import { useObjectsSlice } from "@/store/objectsSlice"
 import { usePlayerSlice } from "@/store/playerSlice"
 import { LEFT_CLICK, WIRE } from "@/utils/constants"
+import { useUIStore } from "@/store/uiStore"
 
 function onConnectWireClick(id) {
-  const isWireMode = usePlayerSlice.getState().isWireMode
+  const selectBuildGate = useUIStore.getState().selectBuildGate
   const removeWire = useObjectsSlice.getState().removeWire
 
-  if (isWireMode) {
+  if (selectBuildGate == WIRE) {
     removeWire(id)
   }
 }

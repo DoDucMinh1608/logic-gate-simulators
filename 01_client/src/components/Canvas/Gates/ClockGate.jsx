@@ -2,11 +2,12 @@ import { GATE_COLORS, PORT_COLORS } from "@/utils/colors"
 import { CLOCK, INVALID_PIN, OUT_Q, OUTPUT_PIN } from "@/utils/constants"
 import { Edges } from "@react-three/drei"
 import GateName from "./GateName"
+import NotIndicator from "./NotIndicator"
 
 function ClockGate({ name, outputs, ...props }) {
   // Lấy trạng thái On/Off hiện tại của xung nhịp từ state hệ thống
   const isActive = !!outputs?.[OUT_Q]?.status
-
+  const outQ = !outputs?.[OUT_Q]?.isNeg
   return (
     <group {...props} dispose={null}>
       <GateName name={name} />
@@ -55,17 +56,19 @@ function ClockGate({ name, outputs, ...props }) {
       </mesh>
 
       {/* 4. CHÂN PIN ĐẦU RA (OUT_Q) - Tự động đổi màu đồng bộ với lõi xung */}
-      <mesh position={[1.5, 0.125, 0]}>
-        <boxGeometry args={[0.3, 0.3, 0.3]} />
-        <meshStandardMaterial
-          color={isActive ? "#ffaa00" : "#ff3366"}
-          emissive={isActive ? "#00ff66" : "#000011"}
-          emissiveIntensity={isActive ? 1.5 : 0.2}
-          metalness={0.8}
-          roughness={0.2}
-          envMapIntensity={1.5}
-        />
-      </mesh>
+      {outQ
+        ? <mesh position={[1.5, 0.125, 0]}>
+          <boxGeometry args={[0.3, 0.3, 0.3]} />
+          <meshStandardMaterial
+            color={isActive ? "#ffaa00" : "#ff3366"}
+            emissive={isActive ? "#00ff66" : "#000011"}
+            emissiveIntensity={isActive ? 1.5 : 0.2}
+            metalness={0.8}
+            roughness={0.2}
+            envMapIntensity={1.5}
+          />
+        </mesh>
+        : <NotIndicator position={[1.75, 0.125, 0]} />}
     </group>
   )
 }

@@ -1,34 +1,14 @@
 import { Vector3 } from "three"
 import { create } from "zustand"
 
-import { AND_GATE } from "@/utils/constants"
 
 export const usePlayerSlice = create((set, get) => ({
   custom: {},
   camera: { position: new Vector3(), direction: new Vector3() },
-  selectBuildGate: AND_GATE,
-  isNotGate: false,
-  isWireMode: false,
-  mouseLock: true,
+
   selectPort: null,
   selectBuildPort: null,
-  executeNextStep: false,
-  isDebugMode: false,
-  setIsWireMode(value) {
-    set(s => ({ isWireMode: value }))
-  },
-  setIsNotGate(value) {
-    set(s => ({ isNotGate: value }))
-  },
-  getIsNotGate() {
-    return get().isNotGate
-  },
-  setDebugMode(mode) {
-    set(s => ({ isDebugMode: mode }))
-  },
-  setExecuteNextStep(value) {
-    set(s => ({ executeNextStep: value }))
-  },
+  mouseLock: true,
   setSelectPort(param) {
     if (param == null) {
       return set(state => ({ selectPort: null }))
@@ -43,9 +23,6 @@ export const usePlayerSlice = create((set, get) => ({
     }
     const { gateId, pin, position } = param
     set(state => ({ selectBuildPort: { gateId, pin, position: position?.clone() } }))
-  },
-  setSelectBuildGate(gate) {
-    set(state => ({ selectBuildGate: gate }))
   },
   setCustom(key, value) {
     set(state => ({

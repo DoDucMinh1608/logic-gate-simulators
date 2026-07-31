@@ -1,138 +1,102 @@
-// import { useEffect } from "react";
-
-// import { usePlayerSlice } from "@/store/playerSlice";
-
-// function DebugMode() {
-//   const setExecuteNextStep = usePlayerSlice(state => state.setExecuteNextStep)
-//   const setDebugMode = usePlayerSlice(state => state.setDebugMode)
-//   const isDebugMode = usePlayerSlice(state => state.isDebugMode)
-
-//   useEffect(function () {
-//     const handleKeyDown = (event) => {
-//       if (event.code === "Digit1") {
-//         setDebugMode(false)
-//         setExecuteNextStep(false)
-//       }
-//       if (event.code === "Digit2") {
-//         setDebugMode(true)
-//         setExecuteNextStep(false)
-//       }
-//       if (event.code === "KeyE" && isDebugMode) {
-//         setExecuteNextStep(true)
-//       }
-//     };
-
-//     window.addEventListener('keydown', handleKeyDown);
-//     return () => {
-//       window.removeEventListener('keydown', handleKeyDown);
-//     }
-//   }, [])
-//   return (
-//     <div className="pointer-events-none absolute top-0 left-1/2 -translate-x-1/2 z-10 grid gap-x-5 grid-cols-2 p-2 text-center mt-2 rounded-2xl">
-//       <div className={["p-2 border font-bold rounded-lg", !isDebugMode ? "bg-black text-white" : "bg-gray-50 text-black"].join(" ")}>
-//         NORMAL (1)
-//       </div>
-//       <div className={["p-2 border font-bold rounded-lg", isDebugMode ? "bg-black text-white" : "bg-gray-50 text-black"].join(" ")}>
-//         DEBUG (2)
-//       </div>
-//       {isDebugMode && (
-//         <div className="col-span-2 my-1">
-//           Press E to go to the next state
-//         </div>
-//       )}
-//     </div>
-//   )
-// }
-
-// export default DebugMode
-
-import { useEffect } from "react";
-import { usePlayerSlice } from "@/store/playerSlice";
+import { Bug, Pause, Play, SkipForward } from 'lucide-react';
+import { useEffect, useState } from 'react';
 
 function DebugMode() {
-  const setExecuteNextStep = usePlayerSlice(state => state.setExecuteNextStep);
-  const setDebugMode = usePlayerSlice(state => state.setDebugMode);
-  const isDebugMode = usePlayerSlice(state => state.isDebugMode);
+  const [isPlaying, setIsPlaying] = useState(true);
+  const [stepCount, setStepCount] = useState(0);
 
+  // Toggle Play / Pause (Pause = Debug Mode)
+  const handleTogglePlay = () => {
+    setIsPlaying((prev) => !prev);
+  };
+
+  // Step Forward (Only works when Paused)
+  const handleStepForward = () => {
+    if (isPlaying) return;
+    setStepCount((prev) => prev + 1);
+  };
+
+  // Keybindings: 'k' or 'Space' for Play/Pause, 'l' or 'RightArrow' for Step Forward (YouTube defaults)
   useEffect(() => {
-    const handleKeyDown = (event) => {
-      if (event.code === "Digit1") {
-        setDebugMode(false);
-        setExecuteNextStep(false);
-      }
-      if (event.code === "Digit2") {
-        setDebugMode(true);
-        setExecuteNextStep(false);
-      }
-      // QUAN TRỌNG: Lấy giá trị mới nhất từ Zustand store để tránh lỗi stale closure
-      const currentDebugMode = usePlayerSlice.getState().isDebugMode;
-      if (event.code === "KeyE" && currentDebugMode) {
-        setExecuteNextStep(true);
+    const handleKeyDown = (e) => {
+      if (['INPUT', 'TEXTAREA'].includes(document.activeElement?.tagName)) return;
+
+      if (e.code === 'Space' || e.key === 'k') {
+        e.preventDefault();
+        handleTogglePlay();
+      } else if ((e.key === 'l' || e.key === 'ArrowRight') && !isPlaying) {
+        e.preventDefault();
+        handleStepForward();
       }
     };
 
     window.addEventListener('keydown', handleKeyDown);
-    return () => {
-      window.removeEventListener('keydown', handleKeyDown);
-    };
-  }, [setDebugMode, setExecuteNextStep]); // Không cần truyền isDebugMode vào đây nữa nhờ check trực tiếp từ store
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [isPlaying]);
 
   return (
-    <div className="absolute top-4 left-1/2 -translate-x-1/2 z-20 pointer-events-auto flex flex-col items-center gap-2 font-sans select-none">
-      {/* Khung điều khiển chính */}
-      <div className="flex p-1.5 bg-neutral-900/90 border border-neutral-700/60 rounded-xl shadow-2xl backdrop-blur-md">
+    <div className=" absolute z-10 font-sans select-none left-1/2 -translate-x-1/2 top-1">
 
-        {/* Chế độ NORMAL */}
+      {/* YouTube-style Control Bar */}
+      <div className="inline-flex items-center gap-1 bg-[#212121] rounded shadow-2xl border-neutral-800">
+
+        {/* Play / Pause Button */}
         <button
-          onClick={() => { setDebugMode(false); setExecuteNextStep(false); }}
-          className={[
-            "flex items-center gap-2 px-4 py-1.5 text-xs font-semibold rounded-lg transition-all duration-200 cursor-pointer",
-            !isDebugMode
-              ? "bg-emerald-600 text-white shadow-md shadow-emerald-600/20"
-              : "text-neutral-400 hover:text-neutral-200 hover:bg-neutral-800"
-          ].join(" ")}
+          onClick={handleTogglePlay}
+          className="relative group p-2.5 rounded-lg text-white hover:bg-white/10 transition-colors duration-150 active:scale-95"
+          aria-label={isPlaying ? 'Pause' : 'Play'}
         >
-          <svg viewBox="0 0 24 24" className="w-3.5 h-3.5 fill-current">
-            <path d="M8 5v14l11-7z" />
-          </svg>
-          <span>NORMAL</span>
-          <kbd className={`text-[10px] px-1 rounded ${!isDebugMode ? 'bg-emerald-700/50 text-emerald-200' : 'bg-neutral-800 text-neutral-500'}`}>1</kbd>
+          {isPlaying ? (
+            <Pause className="w-5 h-5 fill-current" />
+          ) : (
+            <Play className="w-5 h-5 fill-current" />
+          )}
+
+          {/* YouTube Tooltip */}
+          <div className="absolute -top-10 left-1/2 -translate-x-1/2 hidden group-hover:flex items-center gap-1.5 px-2.5 py-1 bg-black/90 text-white text-[11px] font-medium rounded-md whitespace-nowrap shadow-md pointer-events-none border border-neutral-700">
+            <span>{isPlaying ? 'Pause' : 'Play (Debug)'}</span>
+            <span className="text-neutral-400 font-mono text-[10px]">(k)</span>
+          </div>
         </button>
 
-        {/* Chế độ DEBUG */}
+        {/* Next Step / Forward Button */}
         <button
-          onClick={() => { setDebugMode(true); setExecuteNextStep(false); }}
-          className={[
-            "flex items-center gap-2 px-4 py-1.5 text-xs font-semibold rounded-lg transition-all duration-200 cursor-pointer",
-            isDebugMode
-              ? "bg-amber-600 text-white shadow-md shadow-amber-600/20"
-              : "text-neutral-400 hover:text-neutral-200 hover:bg-neutral-800"
-          ].join(" ")}
+          onClick={handleStepForward}
+          disabled={isPlaying}
+          className={`relative group p-2.5 rounded-lg transition-all duration-150 ${!isPlaying
+            ? 'text-white hover:bg-white/10 active:scale-95 cursor-pointer'
+            : 'text-neutral-600 cursor-not-allowed opacity-40'
+            }`}
+          aria-label="Next Step"
         >
-          <svg viewBox="0 0 24 24" className="w-3.5 h-3.5 stroke-current fill-none" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-            <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41" />
-            <circle cx="12" cy="12" r="4" />
-          </svg>
-          <span>DEBUG</span>
-          <kbd className={`text-[10px] px-1 rounded ${isDebugMode ? 'bg-amber-700/50 text-amber-200' : 'bg-neutral-800 text-neutral-500'}`}>2</kbd>
+          <SkipForward className="w-5 h-5 fill-current" />
+
+          {/* YouTube Tooltip */}
+          <div className="absolute -top-10 left-1/2 -translate-x-1/2 hidden group-hover:flex items-center gap-1.5 px-2.5 py-1 bg-black/90 text-white text-[11px] font-medium rounded-md whitespace-nowrap shadow-md pointer-events-none border border-neutral-700">
+            <span>{!isPlaying ? 'Next Step' : 'Pause to step forward'}</span>
+            {!isPlaying && <span className="text-neutral-400 font-mono text-[10px]">(l)</span>}
+          </div>
         </button>
+
+
+        {/* Mode Label */}
+        <div className="px-2.5 py-1 text-[11px] font-bold tracking-wider rounded-md flex items-center gap-1.5">
+          <span className={`w-2 h-2 rounded-full ${isPlaying ? 'bg-emerald-500 animate-pulse' : 'bg-amber-500'}`} />
+          <span className={isPlaying ? 'text-neutral-300' : 'text-amber-400'}>
+            {isPlaying ? 'RUNNING' : 'DEBUG'}
+          </span>
+        </div>
+
       </div>
 
-      {/* Panel hướng dẫn / Trigger bước tiếp theo khi ở chế độ Debug */}
-      {isDebugMode && (
-        <div
-          onClick={() => setExecuteNextStep(true)}
-          className="flex items-center gap-2 px-3 py-1 bg-amber-500/10 border border-amber-500/30 rounded-lg text-amber-800 text-[11px] font-medium animate-pulse cursor-pointer hover:bg-amber-500/20 active:scale-95 transition-all shadow-md pointer-events-auto"
-        >
-          <svg viewBox="0 0 24 24" className="w-3.5 h-3.5 fill-current">
-            <path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z" />
-          </svg>
-          <span>
-            Nhấn
-            <kbd className="bg-amber-500/20 px-1 border border-amber-500/30 rounded text-amber-950 font-bold mx-0.5">E</kbd>
-            hoặc click để nhảy bước (Next State)</span>
+      {/* Debug Info */}
+      {!isPlaying && (
+        <div className="flex items-center gap-2 text-xs font-mono text-amber-600 bg-amber-500/10 border border-amber-500/20 px-3.5 py-1.5 rounded-lg">
+          <Bug className="w-3.5 h-3.5" />
+          <span>Paused at Step: <strong>{stepCount}</strong></span>
         </div>
       )}
+
     </div>
   );
 }

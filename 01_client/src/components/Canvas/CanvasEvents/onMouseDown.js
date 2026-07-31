@@ -4,7 +4,7 @@ import { useObjectsSlice } from "@/store/objectsSlice";
 import { usePlayerSlice } from "@/store/playerSlice";
 import { useUtilitySlice } from "@/store/utilitiesSlice";
 import { convertWorldCoorToGatePos, setSnapGridPosition } from "@/utils";
-import { AND_GATE, CLOCK, DISPLAY, INPUT_PIN, LEFT_CLICK, NAND_GATE, NOR_GATE, NOT_GATE, OR_GATE, OUTPUT_PIN, RIGHT_CLICK, SWITCH, TRANSISTOR_SIZE, XOR_GATE } from "@/utils/constants";
+import { AND_GATE, CLOCK, DISPLAY, INPUT_PIN, LEFT_CLICK, NAND_GATE, NOR_GATE, NOT_GATE, OR_GATE, OUTPUT_PIN, REVERSE, RIGHT_CLICK, SWITCH, TRANSISTOR_SIZE, WIRE, XOR_GATE } from "@/utils/constants";
 
 import AndGate from "../Gates/AndGate";
 import NandGate from "../Gates/bk/NandGate";
@@ -13,6 +13,7 @@ import NotGate from "../Gates/NotGate";
 import OrGate from "../Gates/OrGate";
 
 import { useModelsSlice } from "@/store/modelStore";
+import { useUIStore } from "@/store/uiStore";
 import ClockGate from "../Gates/ClockGate";
 import Display from "../Gates/Display";
 import SwitchGate from "../Gates/SwitchGate";
@@ -34,7 +35,7 @@ function placeGate(button, gatePos) {
   const addGate = useObjectsSlice.getState().addGate;
   const getGateByPosition = useObjectsSlice.getState().getGateByPosition;
   const removeGate = useObjectsSlice.getState().removeGate
-  const selectBuildGate = usePlayerSlice.getState().selectBuildGate
+  const selectBuildGate = useUIStore.getState().selectBuildGate
   const setSelectPort = usePlayerSlice.getState().setSelectPort
   const setSelectBuildPort = usePlayerSlice.getState().setSelectBuildPort
 
@@ -76,13 +77,16 @@ function setNotIndicatorVisibility(button) {
     return
   }
 
-  switch (button) {
-    case LEFT_CLICK:
-      setPortStatus(selectPort.gateId, selectPort.pin, false)
-      break
-    case RIGHT_CLICK:
-      setPortStatus(selectPort.gateId, selectPort.pin, true)
-      break
+  const gate = useObjectsSlice.getState().GATES[selectPort.gateId]
+  if (gate.model_name !== NOT_GATE) {
+    switch (button) {
+      case LEFT_CLICK:
+        setPortStatus(selectPort.gateId, selectPort.pin, false)
+        break
+      case RIGHT_CLICK:
+        setPortStatus(selectPort.gateId, selectPort.pin, true)
+        break
+    }
   }
   setSelectPort(null)
 }
@@ -149,37 +153,35 @@ const position = new Vector3()
 
 function onMouseDown(event) {
   const camera = usePlayerSlice.getState().camera; // Access the camera from the player slice
-  const selectBuildGate = usePlayerSlice.getState().selectBuildGate
+  const selectBuildGate = useUIStore.getState().selectBuildGate
   const interactPosition = useUtilitySlice.getState().interactPosition; // Access the interact position from the player slice
   const gateInteractPosition = useUtilitySlice.getState().gateInteractPosition; // Access the interact position from the player slice
-
-  const isNotGate = usePlayerSlice.getState().isNotGate
-  const isWireMode = usePlayerSlice.getState().isWireMode
 
   if (!camera) {
     console.warn("Camera not found in player slice.");
     return;
   }
 
-  if (isNotGate) {
-    setSnapGridPosition(interactPosition, TRANSISTOR_SIZE, position)
-    const { x, y, z } = convertWorldCoorToGatePos(position.x, position.y, position.z)
-
-    setNotIndicatorVisibility(event.button, [x, y, z])
-    localStorage.setItem("gates", JSON.stringify(useObjectsSlice.getState().GATES));
-  } else if (isWireMode) {
-    setSnapGridPosition(interactPosition, TRANSISTOR_SIZE, position)
-    const { x, y, z } = convertWorldCoorToGatePos(position.x, position.y, position.z)
-
-    placeWire(event.button, [x, y, z])
-    localStorage.setItem("gates", JSON.stringify(useObjectsSlice.getState().GATES));
-  } else {
-    setSnapGridPosition(gateInteractPosition, TRANSISTOR_SIZE, position)
-    const { x, y, z } = convertWorldCoorToGatePos(position.x, position.y, position.z)
-
-    placeGate(event.button, [x, y, z])
-    localStorage.setItem("gates", JSON.stringify(useObjectsSlice.getState().GATES));
+  let vector
+  switch (selectBuildGate) {
+    case REVERSE:
+      setSnapGridPosition(interactPosition, TRANSISTOR_SIZE, position);
+      vector = convertWorldCoorToGatePos(position.x, position.y, position.z)
+      setNotIndicatorVisibility(event.button, [vector.x, vector.y, vector.z])
+      break;
+    case WIRE:
+      setSnapGridPosition(interactPosition, TRANSISTOR_SIZE, position);
+      vector = convertWorldCoorToGatePos(position.x, position.y, position.z)
+      placeWire(event.button, [vector.x, vector.y, vector.z])
+      break
+    default:
+      setSnapGridPosition(gateInteractPosition, TRANSISTOR_SIZE, position)
+      vector = convertWorldCoorToGatePos(position.x, position.y, position.z)
+      placeGate(event.button, [vector.x, vector.y, vector.z])
+      break;
   }
+  localStorage.setItem("gates", JSON.stringify(useObjectsSlice.getState().GATES));
+
 }
 
 export default onMouseDown;

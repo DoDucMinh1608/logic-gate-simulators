@@ -11,7 +11,7 @@ import { IN_A, INPUT_PIN, INVALID_PIN, NOT_GATE, OUT_Q, OUTPUT_PIN } from '@/uti
 import GateName from './GateName'
 import NotIndicator from './NotIndicator'
 
-export default function NotGate({ name, outputs, ...props }) {
+export default function NotGate({ name, outputs, inputs, ...props }) {
   const { nodes, materials } = useGLTF('/NOT-transformed.glb')
   return (
     <group {...props} dispose={null}>
@@ -22,8 +22,7 @@ export default function NotGate({ name, outputs, ...props }) {
           metalness={1}
           roughness={0.4}
           envMapIntensity={1.5}
-          flatShading={true}
-        />
+          flatShading={true} />
       </mesh>
       <mesh position={[.8, 1, 0]}>
         <boxGeometry args={[.4, .4, .4]} />
@@ -41,8 +40,7 @@ export default function NotGate({ name, outputs, ...props }) {
           metalness={1}
           roughness={0.4}
           envMapIntensity={1.5}
-          flatShading={true}
-        />
+          flatShading={true} />
       </mesh>
       <mesh position={[-1.5, 0.125, 0]}>
         <boxGeometry args={[.4, .3, .3]} />
@@ -51,8 +49,7 @@ export default function NotGate({ name, outputs, ...props }) {
           metalness={1}
           roughness={0.4}
           envMapIntensity={1.5}
-          flatShading={true}
-        />
+          flatShading={true} />
       </mesh>
     </group>
   )

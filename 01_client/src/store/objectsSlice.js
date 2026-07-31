@@ -251,7 +251,6 @@ export const useObjectsSlice = create((set, get) => ({
     for (const pin in inputs) {
       // get input pin object
       const inPin = inputs[pin]
-      console.log(inPin)
       /* 
         EXPLANATION: `inPin.srcGate` holds the ID string of the upstream gate feeding this input pin.
         We grab the entire source gate object from our state map to inspect its real-time outputs.

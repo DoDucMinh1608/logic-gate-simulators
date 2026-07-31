@@ -12,6 +12,7 @@ export const OUTPUT_PIN = 'output_pin'
 export const INVALID_PIN = 'invalid_pin'
 
 export const WIRE = 'WIRE'
+export const REVERSE = 'REVERSE'
 export const AND_GATE = 'AND'
 export const OR_GATE = 'OR'
 export const NOT_GATE = 'NOT'

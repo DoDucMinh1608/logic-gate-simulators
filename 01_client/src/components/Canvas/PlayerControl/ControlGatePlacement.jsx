@@ -3,7 +3,7 @@ import { useRef } from "react";
 
 import { usePlayerSlice } from "@/store/playerSlice";
 import { useUtilitySlice } from "@/store/utilitiesSlice";
-import { AND_GATE, CLOCK, DISPLAY, NAND_GATE, NOR_GATE, NOT_GATE, OR_GATE, SWITCH, TRANSISTOR_SIZE, XOR_GATE } from "@/utils/constants";
+import { AND_GATE, CLOCK, DISPLAY, NAND_GATE, NOR_GATE, NOT_GATE, OR_GATE, REVERSE, SWITCH, TRANSISTOR_SIZE, WIRE, XOR_GATE } from "@/utils/constants";
 
 import { useFrame } from "@react-three/fiber";
 import AndGate from "../Gates/AndGate";
@@ -15,6 +15,7 @@ import NotGate from "../Gates/NotGate";
 import OrGate from "../Gates/OrGate";
 import SwitchGate from "../Gates/SwitchGate";
 import XorGate from "../Gates/XorGate";
+import { useUIStore } from "@/store/uiStore";
 
 const GATE_COMPONENTS = {
   [AND_GATE]: AndGate,
@@ -33,9 +34,7 @@ function ControlGatePlacement() {
   const ref = useRef()
 
   const gateInteractPosition = useUtilitySlice(state => state.gateInteractPosition)
-  const selectBuildGate = usePlayerSlice(state => state.selectBuildGate)
-  const isWireMode = usePlayerSlice((state) => state.isWireMode)
-  const isNotGate = usePlayerSlice((state) => state.isNotGate);
+  const selectBuildGate = useUIStore(state => state.selectBuildGate)
   const length = GATE_COMPONENTS[selectBuildGate]?.size_length ?? 1
 
   useFrame(state => {
@@ -45,7 +44,7 @@ function ControlGatePlacement() {
 
   return (
     <group ref={ref}>
-      {!isWireMode && !isNotGate &&
+      {selectBuildGate != WIRE && selectBuildGate != REVERSE &&
         <mesh position={[0, 0, z * (length - 1) / 2]} name="placement_reference">
           <boxGeometry args={[x - 1, y, z * length - 1]} />
           <meshNormalMaterial transparent opacity={0.2} depthWrite={false} />

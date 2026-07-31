@@ -48,11 +48,8 @@ function RenderObject() {
       {wires?.map((wire, j) => {
         const pin = gates[wire.srcGate]?.outputs?.[wire.srcPin]
         return (
-          <ConnectWire
-            key={j}
-            obj={wire}
-            status={pin.isNeg ? !pin.status : pin.status}
-          />
+          <ConnectWire key={j} obj={wire}
+            status={pin == null ? false : (pin.isNeg ? !pin.status : pin.status)} />
         )
       })}
     </>
