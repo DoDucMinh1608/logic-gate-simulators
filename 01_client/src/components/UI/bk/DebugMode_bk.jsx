@@ -73,9 +73,8 @@ function DebugMode() {
       {/* Panel hướng dẫn / Trigger bước tiếp theo khi ở chế độ Debug */}
       {isDebugMode && (
         <div
-          onClick={() => setExecuteNextStep(true)}
           className="flex items-center gap-2 px-3 py-1 bg-amber-500/10 border border-amber-500/30 rounded-lg text-amber-800 text-[11px] font-medium animate-pulse cursor-pointer hover:bg-amber-500/20 active:scale-95 transition-all shadow-md pointer-events-auto"
-        >
+          onClick={() => setExecuteNextStep(true)}>
           <svg viewBox="0 0 24 24" className="w-3.5 h-3.5 fill-current">
             <path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z" />
           </svg>
@@ -83,9 +82,9 @@ function DebugMode() {
             Nhấn
             <kbd className="bg-amber-500/20 px-1 border border-amber-500/30 rounded text-amber-950 font-bold mx-0.5">E</kbd>
             hoặc click để nhảy bước (Next State)</span>
-        </div>
+        </div >
       )}
-    </div>
+    </div >
   );
 }
 

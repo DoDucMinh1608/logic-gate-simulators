@@ -2,7 +2,7 @@ import { useFrame } from "@react-three/fiber";
 
 import { useModelsSlice } from "@/store/modelStore";
 import { useObjectsSlice } from "@/store/objectsSlice";
-import { usePlayerSlice } from "@/store/playerSlice";
+import { useUIStore } from "@/store/uiStore";
 
 function UpdateLogicGateState() {
   const getEvents = useObjectsSlice(s => s.getEvents)
@@ -10,9 +10,9 @@ function UpdateLogicGateState() {
   const addEvent = useObjectsSlice(s => s.addEvent)
   const updateTime = useObjectsSlice(s => s.updateTime)
 
-  const executeNextStep = usePlayerSlice(s => s.executeNextStep)
-  const setExecuteNextStep = usePlayerSlice(s => s.setExecuteNextStep)
-  const isDebugMode = usePlayerSlice(state => state.isDebugMode)
+  const executeNextStep = useUIStore(s => s.executeNextStep)
+  const setExecuteNextStep = useUIStore(s => s.setExecuteNextStep)
+  const isDebugMode = useUIStore(state => state.isDebugMode)
 
   const getModelById = useModelsSlice(s => s.getModelById)
 

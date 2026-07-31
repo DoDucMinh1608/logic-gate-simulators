@@ -2,7 +2,7 @@ import { usePlayerSlice } from "@/store/playerSlice";
 import { useUIStore } from "@/store/uiStore";
 import { AND_GATE, CLOCK, DISPLAY, NOT_GATE, OR_GATE, REVERSE, SWITCH, WIRE } from "@/utils/constants";
 
-import { Clock, GitCommit, Hammer, Pencil, ToggleLeft, Triangle, Tv } from 'lucide-react';
+import { Hammer, Pencil, Triangle } from 'lucide-react';
 import { useEffect, useState } from "react";
 
 // Build mode components list
@@ -134,21 +134,8 @@ function GateMenu() {
   }, [index, mode, activeTools, setSelectBuildGate, setSelectBuildPort]);
 
   return (
-    <div className="absolute bottom-0 z-10 w-4/9 left-2">
-      <div className="flex items-center gap-2 p-1 bg-slate-900/90 text-slate-300 rounded text-sm font-medium border border-slate-800 shadow-sm">
-        <span className="w-3 h-3 rounded-full bg-emerald-400 animate-pulse"></span>
-        {mode === 'build' ? (
-          <span>
-            <strong className="text-white">GUIDE:</strong>  Left-click to place, Right-click to remove. Use mouse scroll wheel over dock to cycle tools.
-          </span>
-        ) : (
-          <span>
-            <strong className="text-white">GUIDE:</strong> Use mouse scroll wheel over dock to cycle tools.
-          </span>
-        )}
-      </div>
-
-      <div className="grid grid-cols-[auto_1fr] my-1 gap-1">
+    <div className="absolute bottom-0 z-10 left-2">
+      <div className="grid grid-cols-[auto_1fr] gap-1">
         {/* Top Mode Toggle Bar */}
         <div className="grid grid-rows-2 items-center bg-slate-800/90 p-1 gap-2 rounded shadow-lg border border-slate-700">
           <button
@@ -181,7 +168,7 @@ function GateMenu() {
                 // onClick={() => setSelectedTool(tool.id)}
                 className={`relative group flex flex-col items-center justify-center size-18 rounded-lg border-2 transition-all duration-150 ${isActive
                   ? 'bg-blue-50/60 border-blue-500 shadow-lg shadow-blue-500/20'
-                  : 'bg-slate-800 border-slate-700 text-slate-300 hover:bg-slate-700 hover:border-slate-600'}`}>
+                  : 'bg-slate-900/80 border-slate-700 text-slate-300 hover:bg-slate-700 hover:border-slate-600'}`}>
                 <Icon className={`mb-1 w-7 h-7 ${isActive ? 'text-blue-600' : 'text-slate-300'} ${tool.rotate ? `rotate-${tool.rotate}` : ''}`} />
                 <span className={`text-[10px] font-bold tracking-wider ${isActive ? 'text-blue-600' : 'text-slate-400'}`}>
                   {tool.label}
@@ -197,6 +184,18 @@ function GateMenu() {
             );
           })}
         </div>
+      </div>
+      <div className="flex items-center gap-2 my-1 px-2 py-1 bg-slate-900/70 text-slate-300 rounded text-sm font-medium border border-slate-800 shadow-sm">
+        <span className="w-3 h-3 rounded-full bg-emerald-400 animate-pulse"></span>
+        {mode === 'build' ? (
+          <span>
+            <strong className="text-white">GUIDE:</strong>  Left-click to place, Right-click to remove. Use mouse scroll wheel over dock to cycle tools.
+          </span>
+        ) : (
+          <span>
+            <strong className="text-white">GUIDE:</strong> Use mouse scroll wheel over dock to cycle tools.
+          </span>
+        )}
       </div>
     </div>
   );
