@@ -1,7 +1,7 @@
 import { Pause, Play, SkipForward } from 'lucide-react';
 import { useEffect, useState } from 'react';
 
-import { useUIStore } from '@/store/uiStore';
+import { useUIStore } from '@/store/uiSlice';
 
 function DebugMode() {
   const setExecuteNextStep = useUIStore(state => state.setExecuteNextStep);

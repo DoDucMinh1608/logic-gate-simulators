@@ -1,5 +1,5 @@
 import { usePlayerSlice } from "@/store/playerSlice";
-import { useUIStore } from "@/store/uiStore";
+import { useUIStore } from "@/store/uiSlice";
 import { AND_GATE, CLOCK, DISPLAY, NAND_GATE, NOR_GATE, NOT_GATE, OR_GATE, SWITCH, WIRE, XOR_GATE } from "@/utils/constants";
 import { useEffect, useState } from "react";
 

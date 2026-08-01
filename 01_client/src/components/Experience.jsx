@@ -4,8 +4,8 @@ import { useEffect } from 'react'
 
 import onMouseDown from './Canvas/CanvasEvents/onMouseDown'
 import AndGate from './Canvas/Gates/AndGate'
-import NandGate from './Canvas/Gates/bk/NandGate'
-import NorGate from './Canvas/Gates/bk/NorGate'
+// import NandGate from './Canvas/Gates/bk/NandGate'
+// import NorGate from './Canvas/Gates/bk/NorGate'
 import ClockGate from './Canvas/Gates/ClockGate'
 import Display from './Canvas/Gates/Display'
 import NotGate from './Canvas/Gates/NotGate'
@@ -30,8 +30,8 @@ function Experience() {
     addModel(Display.gate_name, Display)
     addModel(SwitchGate.gate_name, SwitchGate)
     addModel(ClockGate.gate_name, ClockGate)
-    addModel(NandGate.gate_name, NandGate)
-    addModel(NorGate.gate_name, NorGate)
+    // addModel(NandGate.gate_name, NandGate)
+    // addModel(NorGate.gate_name, NorGate)ds
     addModel(XorGate.gate_name, XorGate)
     addModel(SwitchGate.gate_name, SwitchGate)
 

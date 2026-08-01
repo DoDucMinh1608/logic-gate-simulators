@@ -1,9 +1,9 @@
-import { usePlayerSlice } from "@/store/playerSlice";
-import { useUIStore } from "@/store/uiStore";
-import { AND_GATE, CLOCK, COPY_PASTE, DISPLAY, EXPORT_FILE, IMPORT_FILE, NOT_GATE, OR_GATE, REVERSE, SELECT, SWITCH, VIEW, WIRE } from "@/utils/constants";
-
 import { Hammer, Pencil, Triangle } from 'lucide-react';
 import { useEffect, useState } from "react";
+
+import { usePlayerSlice } from "@/store/playerSlice";
+import { useUIStore } from "@/store/uiSlice";
+import { AND_GATE, CLOCK, COPY_PASTE, DISPLAY, EXPORT_FILE, IMPORT_FILE, NOT_GATE, OR_GATE, REVERSE, SELECT, SWITCH, VIEW, WIRE } from "@/utils/constants";
 
 // Build mode components list
 const buildTools = [
@@ -121,13 +121,14 @@ const editTools = [
 ];
 
 function GateMenu() {
-  const [mode, setMode] = useState('edit'); // 'build' | 'edit'
-  const [index, setIndex] = useState(0);
-
+  const selectBuildGate = useUIStore((state) => state.selectBuildGate);
   const setSelectBuildPort = usePlayerSlice((state) => state.setSelectBuildPort);
   const setSelectBuildGate = useUIStore((state) => state.setSelectBuildGate);
 
+  const [mode, setMode] = useState('edit'); // 'build' | 'edit'
   const activeTools = mode === 'build' ? buildTools : editTools;
+
+  const [index, setIndex] = useState(activeTools?.findIndex(tool => tool?.id === selectBuildGate) || 0);
 
   // Global hotkey switch listener (Tab key toggles mode)
   useEffect(() => {
@@ -177,10 +178,9 @@ function GateMenu() {
 
   useEffect(() => {
     setSelectBuildPort(null);
-    console.log('activeTools[index]', activeTools[index])
     setSelectBuildGate(activeTools[index]?.id);
 
-  }, [index, mode, activeTools, setSelectBuildGate, setSelectBuildPort]);
+  }, [index, mode, activeTools, setSelectBuildGate]);
 
   return (
     <div className="absolute bottom-0 z-10 left-2">

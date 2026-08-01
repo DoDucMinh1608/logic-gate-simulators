@@ -1,6 +1,7 @@
-import { GATE_COLORS, PORT_COLORS } from "@/utils/colors"
-import { CLOCK, INVALID_PIN, OUT_Q, OUTPUT_PIN } from "@/utils/constants"
 import { Edges } from "@react-three/drei"
+
+import { GATE_COLORS } from "@/utils/colors"
+import { CLOCK, INVALID_PIN, OUT_Q, OUTPUT_PIN } from "@/utils/constants"
 import GateName from "./GateName"
 import NotIndicator from "./NotIndicator"
 

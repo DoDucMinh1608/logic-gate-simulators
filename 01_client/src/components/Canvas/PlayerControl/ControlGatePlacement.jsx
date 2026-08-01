@@ -7,23 +7,23 @@ import { AND_GATE, CLOCK, DISPLAY, NAND_GATE, NOR_GATE, NOT_GATE, OR_GATE, REVER
 
 import { useFrame } from "@react-three/fiber";
 import AndGate from "../Gates/AndGate";
-import NandGate from "../Gates/bk/NandGate";
-import NorGate from "../Gates/bk/NorGate";
+// import NandGate from "../Gates/bk/NandGate";
+// import NorGate from "../Gates/bk/NorGate";
 import ClockGate from "../Gates/ClockGate";
 import Display from "../Gates/Display";
 import NotGate from "../Gates/NotGate";
 import OrGate from "../Gates/OrGate";
 import SwitchGate from "../Gates/SwitchGate";
 import XorGate from "../Gates/XorGate";
-import { useUIStore } from "@/store/uiStore";
+import { useUIStore } from "@/store/uiSlice";
 import { useModelsSlice } from "@/store/modelStore";
 
 const GATE_COMPONENTS = {
   [AND_GATE]: AndGate,
   [OR_GATE]: OrGate,
   [NOT_GATE]: NotGate,
-  [NAND_GATE]: NandGate,
-  [NOR_GATE]: NorGate,
+  // [NAND_GATE]: NandGate,
+  // [NOR_GATE]: NorGate,
   [XOR_GATE]: XorGate,
   [CLOCK]: ClockGate,
   [SWITCH]: SwitchGate,
@@ -38,7 +38,8 @@ function ControlGatePlacement() {
   // console.log('getAllModelNames()', getAllModelNames())
   const gateInteractPosition = useUtilitySlice(state => state.gateInteractPosition)
   const selectBuildGate = useUIStore(state => state.selectBuildGate)
-  const length = GATE_COMPONENTS[selectBuildGate]?.size_length ?? 1
+  const gateModel = useModelsSlice(state => state.getModelById(selectBuildGate))
+  const length = gateModel?.size_length ?? 1
 
   const models = useMemo(() => {
     const models = getAllModelNames()

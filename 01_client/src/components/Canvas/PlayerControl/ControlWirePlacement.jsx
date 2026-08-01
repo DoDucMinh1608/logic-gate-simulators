@@ -5,7 +5,7 @@ import { usePlayerSlice } from "@/store/playerSlice";
 import { useUtilitySlice } from "@/store/utilitiesSlice";
 import { useFrame } from "@react-three/fiber";
 import { Vector3 } from "three";
-import { useUIStore } from "@/store/uiStore";
+import { useUIStore } from "@/store/uiSlice";
 import { WIRE } from "@/utils/constants";
 
 const [x, y, z] = [.5, .5, .5]

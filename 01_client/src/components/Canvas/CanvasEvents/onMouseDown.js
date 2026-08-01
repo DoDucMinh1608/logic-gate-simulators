@@ -4,10 +4,74 @@ import { useObjectsSlice } from "@/store/objectsSlice";
 import { usePlayerSlice } from "@/store/playerSlice";
 import { useUtilitySlice } from "@/store/utilitiesSlice";
 import { convertWorldCoorToGatePos, setSnapGridPosition } from "@/utils";
-import { INPUT_PIN, LEFT_CLICK, NOT_GATE, OUTPUT_PIN, REVERSE, RIGHT_CLICK, TRANSISTOR_SIZE, WIRE } from "@/utils/constants";
+import { EXPORT_FILE, IMPORT_FILE, INPUT_PIN, LEFT_CLICK, NOT_GATE, OUTPUT_PIN, REVERSE, RIGHT_CLICK, TRANSISTOR_SIZE, VIEW, WIRE } from "@/utils/constants";
 
 import { useModelsSlice } from "@/store/modelStore";
-import { useUIStore } from "@/store/uiStore";
+import { useUIStore } from "@/store/uiSlice";
+
+function exportFile() {
+  try {
+    // 1. Get current state snapshot from your stores
+    const circuitData = localStorage.getItem("gates") ? JSON.parse(localStorage.getItem("gates")) : {};
+
+    // 2. Convert data to a JSON string and create a Blob
+    const jsonString = JSON.stringify(circuitData);
+    const blob = new Blob([jsonString], { type: "application/json" });
+
+    // 3. Create a temporary download link
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = `circuit_design_${Date.now()}.json`;
+
+    // 4. Trigger download and cleanup
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+  } catch (error) {
+    console.error("Export failed:", error);
+  }
+  console.log("Circuit exported successfully!");
+  useUIStore.setState({ selectBuildGate: VIEW });
+}
+
+function importFile() {
+  // 1. Create a hidden file input element
+  const input = document.createElement("input");
+  input.type = "file";
+  input.accept = ".json,application/json";
+
+  input.onchange = (e) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+
+    reader.onload = (event) => {
+      try {
+        const content = event.target?.result;
+        if (typeof content !== "string") return;
+        const data = JSON.parse(content);
+
+        // 3. Load state into Zustand store (assuming setObjects or loadState action exists)
+        useObjectsSlice.setState({ GATES: data });
+
+        console.log("Circuit loaded successfully!");
+      } catch (error) {
+        console.error("Failed to parse circuit JSON file:", error);
+        alert("Failed to read JSON file. Make sure it is valid JSON.");
+      }
+    };
+
+    reader.readAsText(file);
+  };
+
+  // 2. Trigger file selector dialog
+  input.click();
+  console.log("Circuit imported successfully!");
+  useUIStore.setState({ selectBuildGate: VIEW });
+}
 
 function placeGate(button, gatePos) {
   const getModelById = useModelsSlice.getState().getModelById;
@@ -157,6 +221,12 @@ function onMouseDown(event) {
       vector = convertWorldCoorToGatePos(position.x, position.y, position.z)
       placeWire(event.button, [vector.x, vector.y, vector.z])
       break
+    case IMPORT_FILE:
+      importFile()
+      break
+    case EXPORT_FILE:
+      exportFile()
+      break
     default:
       setSnapGridPosition(gateInteractPosition, TRANSISTOR_SIZE, position)
       vector = convertWorldCoorToGatePos(position.x, position.y, position.z)
@@ -164,7 +234,6 @@ function onMouseDown(event) {
       break;
   }
   localStorage.setItem("gates", JSON.stringify(useObjectsSlice.getState().GATES));
-
 }
 
 export default onMouseDown;

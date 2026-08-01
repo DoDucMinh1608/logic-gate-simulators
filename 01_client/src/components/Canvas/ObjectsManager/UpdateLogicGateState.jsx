@@ -2,7 +2,7 @@ import { useFrame } from "@react-three/fiber";
 
 import { useModelsSlice } from "@/store/modelStore";
 import { useObjectsSlice } from "@/store/objectsSlice";
-import { useUIStore } from "@/store/uiStore";
+import { useUIStore } from "@/store/uiSlice";
 
 function UpdateLogicGateState() {
   const getEvents = useObjectsSlice(s => s.getEvents)

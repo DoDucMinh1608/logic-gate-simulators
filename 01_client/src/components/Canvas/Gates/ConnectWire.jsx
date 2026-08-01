@@ -49,7 +49,7 @@ import { useMemo, useState } from "react"
 import * as THREE from "three"
 
 import { useObjectsSlice } from "@/store/objectsSlice"
-import { useUIStore } from "@/store/uiStore"
+import { useUIStore } from "@/store/uiSlice"
 import { LEFT_CLICK, WIRE } from "@/utils/constants"
 
 function onConnectWireClick(obj) {
