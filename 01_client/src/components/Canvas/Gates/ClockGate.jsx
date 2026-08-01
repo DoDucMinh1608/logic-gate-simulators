@@ -19,8 +19,7 @@ function ClockGate({ name, outputs, ...props }) {
           color={GATE_COLORS}
           metalness={0.8}
           roughness={0.3}
-          envMapIntensity={1.5}
-        />
+          envMapIntensity={1.5} />
         <Edges threshold={15} color="#2e3440" lineWidth={2} />
       </mesh>
 
@@ -51,8 +50,7 @@ function ClockGate({ name, outputs, ...props }) {
         <Edges
           threshold={15}
           color={isActive ? "#ffe0a3" : "#4c566a"}
-          lineWidth={3}
-        />
+          lineWidth={3} />
       </mesh>
 
       {/* 4. CHÂN PIN ĐẦU RA (OUT_Q) - Tự động đổi màu đồng bộ với lõi xung */}
