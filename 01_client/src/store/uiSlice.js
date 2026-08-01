@@ -12,6 +12,7 @@ export const useUIStore = create((set, get) => ({
         set(s => ({ isNotGate: value }))
     },
     setDebugMode(mode) {
+        console.log('setDebugMode called with mode:', mode);
         set(s => ({ isDebugMode: mode }))
     },
     setExecuteNextStep(value) {

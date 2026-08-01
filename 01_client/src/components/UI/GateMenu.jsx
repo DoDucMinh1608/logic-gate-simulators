@@ -130,6 +130,13 @@ function GateMenu() {
 
   const [index, setIndex] = useState(activeTools?.findIndex(tool => tool?.id === selectBuildGate) || 0);
 
+  useEffect(() => {
+    // Update index when selectBuildGate changes externally
+    const newIndex = activeTools?.findIndex(tool => tool?.id === selectBuildGate);
+    if (newIndex !== -1 && newIndex !== index) {
+      setIndex(newIndex);
+    }
+  }, [selectBuildGate]);
   // Global hotkey switch listener (Tab key toggles mode)
   useEffect(() => {
     const handleKeyDown = (e) => {

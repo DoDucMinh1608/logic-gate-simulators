@@ -33,7 +33,6 @@ function exportFile() {
     console.error("Export failed:", error);
   }
   console.log("Circuit exported successfully!");
-  useUIStore.setState({ selectBuildGate: VIEW });
 }
 
 function importFile() {
@@ -70,7 +69,6 @@ function importFile() {
   // 2. Trigger file selector dialog
   input.click();
   console.log("Circuit imported successfully!");
-  useUIStore.setState({ selectBuildGate: VIEW });
 }
 
 function placeGate(button, gatePos) {
@@ -223,9 +221,11 @@ function onMouseDown(event) {
       break
     case IMPORT_FILE:
       importFile()
+      useUIStore.setState({ selectBuildGate: VIEW });
       break
     case EXPORT_FILE:
       exportFile()
+      useUIStore.setState({ selectBuildGate: VIEW });
       break
     default:
       setSnapGridPosition(gateInteractPosition, TRANSISTOR_SIZE, position)

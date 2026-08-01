@@ -5,7 +5,6 @@ import { create } from "zustand"
 export const usePlayerSlice = create((set, get) => ({
   custom: {},
   camera: { position: new Vector3(), direction: new Vector3() },
-
   selectPort: null,
   selectBuildPort: null,
   mouseLock: true,

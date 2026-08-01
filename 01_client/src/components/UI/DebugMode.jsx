@@ -14,10 +14,11 @@ function DebugMode() {
   useEffect(() => {
     let timeOut
     const handleKeyDown = (event) => {
+      const isDebugMode = useUIStore.getState().isDebugMode;
       if (event.code == "KeyQ") {
-        setDebugMode(!useUIStore.getState().isDebugMode);
+        setDebugMode(!isDebugMode);
         setExecuteNextStep(false);
-      } else if (event.code == "KeyE") {
+      } else if (event.code == "KeyE" && isDebugMode) {
         if (isNextStep) clearTimeout(timeOut);
         setIsNextStep(true);
         setExecuteNextStep(true);
@@ -29,14 +30,16 @@ function DebugMode() {
     };
 
     window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown)
+    };
   }, [setExecuteNextStep, setDebugMode]);
 
   return (
     <div className=" absolute z-10 grid gap-1 font-sans select-none left-1/2 -translate-x-1/2 top-1">
 
       {/* YouTube-style Control Bar */}
-      <div className="inline-flex items-center justify-around gap-1 bg-[#212121] rounded shadow-2xl border-neutral-800">
+      <div className="inline-flex items-center m-auto justify-around gap-1 bg-[#212121] rounded shadow-2xl border-neutral-800 w-40">
 
         {/* Play / Pause Button */}
         <button className="relative group p-2.5 rounded-lg text-white hover:bg-white/10 transition-colors duration-150 active:scale-95">
@@ -55,11 +58,14 @@ function DebugMode() {
 
         {/* Next Step / Forward Button */}
         <button disabled={isDebugMode}
-          className={`relative group p-2.5 rounded-lg transition-all duration-150 ${isNextStep
-            ? 'text-white hover:bg-white/10 active:scale-95 cursor-pointer'
-            : 'text-neutral-600 cursor-not-allowed opacity-40'
-            }`}
-          aria-label="Next Step">
+          className={[
+            `relative group p-2.5 rounded-lg transition-all duration-150`,
+            isDebugMode ? (
+              isNextStep
+                ? 'text-white hover:bg-white/50 active:scale-95 cursor-pointer'
+                : 'text-gray-400 hover:bg-white/10 active:scale-95 cursor-pointer'
+            ) : 'text-neutral-600 cursor-not-allowed opacity-40'
+          ].join(' ')} aria-label="Next Step">
           <SkipForward className="w-5 h-5 fill-current" />
 
           {/* YouTube Tooltip */}
@@ -70,13 +76,12 @@ function DebugMode() {
         </button>
 
         {/* Mode Label */}
-        <div className="px-2.5 py-1 text-[11px] font-bold tracking-wider rounded-md flex items-center gap-1.5">
+        {/* <div className="px-2.5 py-1 w-25 text-[11px] font-bold tracking-wider rounded-md flex items-center gap-1.5">
           <span className={`w-2 h-2 rounded-full ${!isDebugMode ? 'bg-emerald-500 animate-pulse' : 'bg-amber-500'}`} />
           <span className={!isDebugMode ? 'text-neutral-300' : 'text-amber-400'}>
             {!isDebugMode ? 'RUNNING' : 'DEBUG'}
           </span>
-        </div>
-
+        </div> */}
       </div>
       {isDebugMode && (
         <div
