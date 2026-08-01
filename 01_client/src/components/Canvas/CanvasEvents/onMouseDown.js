@@ -4,34 +4,13 @@ import { useObjectsSlice } from "@/store/objectsSlice";
 import { usePlayerSlice } from "@/store/playerSlice";
 import { useUtilitySlice } from "@/store/utilitiesSlice";
 import { convertWorldCoorToGatePos, setSnapGridPosition } from "@/utils";
-import { AND_GATE, CLOCK, DISPLAY, INPUT_PIN, LEFT_CLICK, NAND_GATE, NOR_GATE, NOT_GATE, OR_GATE, OUTPUT_PIN, REVERSE, RIGHT_CLICK, SWITCH, TRANSISTOR_SIZE, WIRE, XOR_GATE } from "@/utils/constants";
-
-import AndGate from "../Gates/AndGate";
-import NandGate from "../Gates/bk/NandGate";
-import NorGate from "../Gates/bk/NorGate";
-import NotGate from "../Gates/NotGate";
-import OrGate from "../Gates/OrGate";
+import { INPUT_PIN, LEFT_CLICK, NOT_GATE, OUTPUT_PIN, REVERSE, RIGHT_CLICK, TRANSISTOR_SIZE, WIRE } from "@/utils/constants";
 
 import { useModelsSlice } from "@/store/modelStore";
 import { useUIStore } from "@/store/uiStore";
-import ClockGate from "../Gates/ClockGate";
-import Display from "../Gates/Display";
-import SwitchGate from "../Gates/SwitchGate";
-import XorGate from "../Gates/XorGate";
-
-const GATE_COMPONENTS = {
-  [AND_GATE]: AndGate,
-  [OR_GATE]: OrGate,
-  [NOT_GATE]: NotGate,
-  [NAND_GATE]: NandGate,
-  [NOR_GATE]: NorGate,
-  [XOR_GATE]: XorGate,
-  [CLOCK]: ClockGate,
-  [SWITCH]: SwitchGate,
-  [DISPLAY]: Display
-};
 
 function placeGate(button, gatePos) {
+  const getModelById = useModelsSlice.getState().getModelById;
   const addGate = useObjectsSlice.getState().addGate;
   const getGateByPosition = useObjectsSlice.getState().getGateByPosition;
   const removeGate = useObjectsSlice.getState().removeGate
@@ -39,7 +18,11 @@ function placeGate(button, gatePos) {
   const setSelectPort = usePlayerSlice.getState().setSelectPort
   const setSelectBuildPort = usePlayerSlice.getState().setSelectBuildPort
 
-  const model = GATE_COMPONENTS[selectBuildGate]
+  const model = getModelById(selectBuildGate)
+  if (model == null) {
+    // console.warn(`Model for gate ${selectBuildGate} not found.`);
+    return;
+  }
   const [x, y, z] = gatePos
 
   let existingGate

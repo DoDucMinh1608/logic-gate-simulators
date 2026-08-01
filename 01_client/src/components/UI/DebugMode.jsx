@@ -1,32 +1,31 @@
-import { usePlayerSlice } from '@/store/playerSlice';
-import { useUIStore } from '@/store/uiStore';
-import { Bug, Pause, Play, SkipForward } from 'lucide-react';
+import { Pause, Play, SkipForward } from 'lucide-react';
 import { useEffect, useState } from 'react';
+
+import { useUIStore } from '@/store/uiStore';
 
 function DebugMode() {
   const setExecuteNextStep = useUIStore(state => state.setExecuteNextStep);
   const setDebugMode = useUIStore(state => state.setDebugMode);
   const isDebugMode = useUIStore(state => state.isDebugMode);
 
+  const [isNextStep, setIsNextStep] = useState(false);
+
   // Keybindings: 'k' or 'Space' for Play/Pause, 'l' or 'RightArrow' for Step Forward (YouTube defaults)
   useEffect(() => {
+    let timeOut
     const handleKeyDown = (event) => {
-      // if (['INPUT', 'TEXTAREA'].includes(document.activeElement?.tagName)) return;
       if (event.code == "KeyQ") {
         setDebugMode(!useUIStore.getState().isDebugMode);
         setExecuteNextStep(false);
       } else if (event.code == "KeyE") {
-        console.log('test')
+        if (isNextStep) clearTimeout(timeOut);
+        setIsNextStep(true);
         setExecuteNextStep(true);
-      }
 
-      // if (e.code === 'Space' || e.key === 'k') {
-      //   e.preventDefault();
-      //   handleTogglePlay();
-      // } else if ((e.key === 'l' || e.key === 'ArrowRight') && !isPlaying) {
-      //   e.preventDefault();
-      //   handleStepForward();
-      // }
+        timeOut = setTimeout(() => {
+          setIsNextStep(false);
+        }, 100);
+      }
     };
 
     window.addEventListener('keydown', handleKeyDown);
@@ -56,12 +55,11 @@ function DebugMode() {
 
         {/* Next Step / Forward Button */}
         <button disabled={isDebugMode}
-          className={`relative group p-2.5 rounded-lg transition-all duration-150 ${!1
+          className={`relative group p-2.5 rounded-lg transition-all duration-150 ${isNextStep
             ? 'text-white hover:bg-white/10 active:scale-95 cursor-pointer'
             : 'text-neutral-600 cursor-not-allowed opacity-40'
             }`}
-          aria-label="Next Step"
-        >
+          aria-label="Next Step">
           <SkipForward className="w-5 h-5 fill-current" />
 
           {/* YouTube Tooltip */}
@@ -70,7 +68,6 @@ function DebugMode() {
             {!isDebugMode && <span className="text-neutral-400 font-mono text-[10px]">(l)</span>}
           </div>
         </button>
-
 
         {/* Mode Label */}
         <div className="px-2.5 py-1 text-[11px] font-bold tracking-wider rounded-md flex items-center gap-1.5">
@@ -94,7 +91,6 @@ function DebugMode() {
             to advance to next state</span>
         </div >
       )}
-
     </div >
   );
 }

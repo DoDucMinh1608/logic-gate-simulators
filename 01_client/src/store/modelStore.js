@@ -2,6 +2,10 @@ import { create } from "zustand";
 
 export const useModelsSlice = create((set, get) => ({
   MODELS: {},
+  getAllModelNames() {
+    const models = get().MODELS;
+    return Object.keys(models);
+  },
   addModel(modelId, modelData) {
     set(state => ({
       MODELS: {

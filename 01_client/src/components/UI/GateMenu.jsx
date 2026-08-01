@@ -1,12 +1,20 @@
 import { usePlayerSlice } from "@/store/playerSlice";
 import { useUIStore } from "@/store/uiStore";
-import { AND_GATE, CLOCK, DISPLAY, NOT_GATE, OR_GATE, REVERSE, SWITCH, WIRE } from "@/utils/constants";
+import { AND_GATE, CLOCK, COPY_PASTE, DISPLAY, EXPORT_FILE, IMPORT_FILE, NOT_GATE, OR_GATE, REVERSE, SELECT, SWITCH, VIEW, WIRE } from "@/utils/constants";
 
 import { Hammer, Pencil, Triangle } from 'lucide-react';
 import { useEffect, useState } from "react";
 
 // Build mode components list
 const buildTools = [
+  {
+    id: WIRE, label: 'WIRE', icon: () => (
+      <svg viewBox="0 0 24 24" className="w-8 h-8 stroke-current fill-none" strokeWidth="2" strokeLinecap="round">
+        <path d="M2 12h6l4-8 4 16 4-8h2" />
+      </svg>
+    )
+  },
+  { id: REVERSE, label: 'REVERSE', icon: Triangle, rotate: 90 },
   {
     id: CLOCK, label: "CLOCK", icon: () => (
       <svg viewBox="0 0 24 24" className="w-8 h-8 stroke-current fill-none" strokeWidth="2" strokeLinecap="round">
@@ -18,7 +26,7 @@ const buildTools = [
   {
     id: SWITCH, label: 'SWITCH', icon: () => (
       <svg viewBox="0 0 24 24" className="w-8 h-8 stroke-current fill-none" strokeWidth="2" strokeLinecap="round">
-        <circle cx="5" cy="12" r="2" className="fill-current" />
+        <circl e cx="5" cy="12" r="2" className="fill-current" />
         <circle cx="19" cy="12" r="2" className="fill-current" />
         <line x1="6.5" y1="11" x2="16.5" y2="5" />
       </svg>
@@ -61,17 +69,59 @@ const buildTools = [
 // Edit mode tools list
 const editTools = [
   {
-    id: WIRE, label: 'WIRE', icon: () => (
-      <svg viewBox="0 0 24 24" className="w-8 h-8 stroke-current fill-none" strokeWidth="2" strokeLinecap="round">
-        <path d="M2 12h6l4-8 4 16 4-8h2" />
+    id: VIEW, label: 'VIEW',
+    icon: () => (
+      <svg viewBox="0 0 24 24" className="w-8 h-8 stroke-current fill-none" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z" />
+        <circle cx="12" cy="12" r="3" />
       </svg>
     )
   },
-  { id: REVERSE, label: 'REVERSE', icon: Triangle, rotate: 90 }
+  {
+    id: SELECT,
+    label: 'SELECT',
+    icon: () => (
+      <svg viewBox="0 0 24 24" className="w-8 h-8 stroke-current fill-none" strokeWidth="2" strokeDasharray="3 3">
+        <rect x="3" y="3" width="18" height="18" rx="2" />
+      </svg>
+    )
+  },
+  {
+    id: COPY_PASTE,
+    label: 'COPY/PASTE',
+    icon: () => (
+      <svg viewBox="0 0 24 24" className="w-8 h-8 stroke-current fill-none" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <rect x="8" y="8" width="12" height="12" rx="2" />
+        <path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2" />
+      </svg>
+    )
+  },
+  {
+    id: IMPORT_FILE,
+    label: 'IMPORT',
+    icon: () => (
+      <svg viewBox="0 0 24 24" className="w-8 h-8 stroke-current fill-none" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+        <polyline points="7 10 12 15 17 10" />
+        <line x1="12" y1="15" x2="12" y2="3" />
+      </svg>
+    )
+  },
+  {
+    id: EXPORT_FILE,
+    label: 'EXPORT',
+    icon: () => (
+      <svg viewBox="0 0 24 24" className="w-8 h-8 stroke-current fill-none" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+        <polyline points="17 8 12 3 7 8" />
+        <line x1="12" y1="3" x2="12" y2="15" />
+      </svg>
+    )
+  },
 ];
 
 function GateMenu() {
-  const [mode, setMode] = useState('build'); // 'build' | 'edit'
+  const [mode, setMode] = useState('edit'); // 'build' | 'edit'
   const [index, setIndex] = useState(0);
 
   const setSelectBuildPort = usePlayerSlice((state) => state.setSelectBuildPort);
@@ -127,25 +177,16 @@ function GateMenu() {
 
   useEffect(() => {
     setSelectBuildPort(null);
+    console.log('activeTools[index]', activeTools[index])
+    setSelectBuildGate(activeTools[index]?.id);
 
-    if (activeTools[index]) {
-      setSelectBuildGate(activeTools[index].id);
-    }
   }, [index, mode, activeTools, setSelectBuildGate, setSelectBuildPort]);
 
   return (
     <div className="absolute bottom-0 z-10 left-2">
-      <div className="grid grid-cols-[auto_1fr] gap-1">
+      <div className="grid grid-cols-[auto_1fr] gap-1 h-18">
         {/* Top Mode Toggle Bar */}
         <div className="grid grid-rows-2 items-center bg-slate-800/90 p-1 gap-2 rounded shadow-lg border border-slate-700">
-          <button
-            onClick={() => setMode('build')}
-            className={`flex items-center gap-2 px-2 py-1 rounded font-bold text-sm transition-all duration-200 ${mode === 'build'
-              ? 'bg-white text-slate-900 shadow-md scale-105'
-              : 'text-slate-300 hover:text-white hover:bg-slate-700/50'
-              }`}>
-            <Hammer className="w-4 h-4" />
-          </button>
           <button
             onClick={() => setMode('edit')}
             className={`flex items-center gap-2 px-2 py-1 rounded font-bold text-sm transition-all duration-200 ${mode === 'edit'
@@ -153,6 +194,14 @@ function GateMenu() {
               : 'text-slate-300 hover:text-white hover:bg-slate-700/50'
               }`}>
             <Pencil className="w-4 h-4" />
+          </button>
+          <button
+            onClick={() => setMode('build')}
+            className={`flex items-center gap-2 px-2 py-1 rounded font-bold text-sm transition-all duration-200 ${mode === 'build'
+              ? 'bg-white text-slate-900 shadow-md scale-105'
+              : 'text-slate-300 hover:text-white hover:bg-slate-700/50'
+              }`}>
+            <Hammer className="w-4 h-4" />
           </button>
         </div>
 

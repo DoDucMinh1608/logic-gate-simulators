@@ -11,6 +11,12 @@ export const INPUT_PIN = 'input_pin'
 export const OUTPUT_PIN = 'output_pin'
 export const INVALID_PIN = 'invalid_pin'
 
+export const VIEW = 'VIEW'
+export const SELECT = 'SELECT'
+export const COPY_PASTE = 'COPY_PASTE'
+export const IMPORT_FILE = 'IMPORT_FILE'
+export const EXPORT_FILE = 'EXPORT_FILE'
+
 export const WIRE = 'WIRE'
 export const REVERSE = 'REVERSE'
 export const AND_GATE = 'AND'

@@ -552,9 +552,10 @@ export const useObjectsSlice = create((set, get) => ({
 
     const event = { gateId: toGate.id, time: get().TIME, gateState: get().getStateByGateId(toGate.id) }
 
-    fromGate.outputs[obj.srcPin].destGate = fromGate.outputs[obj.srcPin].destGate
-      .filter(i => !(i.gateId === obj.selfGate && i.pin === obj.selfPin))
-
+    if (fromGate.outputs) {
+      fromGate.outputs[obj.srcPin].destGate = fromGate.outputs[obj.srcPin].destGate
+        .filter(i => !(i.gateId === obj.selfGate && i.pin === obj.selfPin))
+    }
     /* 
       EXPLANATION: Completely disconnect the downstream target. 
       `srcGate` and `srcPin` are set back to blank strings since no electricity source feeds this pin now.
