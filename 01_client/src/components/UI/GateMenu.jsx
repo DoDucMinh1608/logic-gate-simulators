@@ -139,6 +139,8 @@ function GateMenu() {
   }, [selectBuildGate]);
   // Global hotkey switch listener (Tab key toggles mode)
   useEffect(() => {
+    setIndex(0)
+
     const handleKeyDown = (e) => {
       if (e.key === 'Tab') {
         e.preventDefault();

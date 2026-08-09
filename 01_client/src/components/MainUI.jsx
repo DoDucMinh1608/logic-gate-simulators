@@ -1,7 +1,6 @@
-import CenterCursor from "./UI/CenterCursor"
-import DebugMode from "./UI/DebugMode"
-import GateMenu from "./UI/GateMenu"
-import Minimap from "./UI/Minimap"
+import CenterCursor from "./UI/CenterCursor";
+import DebugMode from "./UI/DebugMode";
+import GateMenu from "./UI/GateMenu";
 
 function MainUI() {
   const handlePanTo = (worldX, worldZ) => {

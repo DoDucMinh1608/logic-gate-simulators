@@ -1,4 +1,5 @@
-import React, { useRef, useEffect } from 'react';
+import { useEffect, useRef } from 'react';
+
 import { useObjectsSlice } from "@/store/objectsSlice";
 import { usePlayerSlice } from "@/store/playerSlice";
 
@@ -166,8 +167,7 @@ export default function Minimap({ zoomRadius = 25, onPanTo }) {
         width={200}
         height={200}
         onClick={handleCanvasClick}
-        className="rounded-lg cursor-pointer bg-slate-950 border border-slate-800 hover:border-slate-600 transition-colors"
-      />
+        className="rounded-lg cursor-pointer bg-slate-950 border border-slate-800 hover:border-slate-600 transition-colors" />
     </div>
   );
 }
